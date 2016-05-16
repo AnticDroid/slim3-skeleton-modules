@@ -3,7 +3,14 @@
 
 $modules = new \MartynBiz\Slim3Modules\Loader($app);
 
-// homepage
-$app->group('/', function () use ($app) {
-    $modules->load('home');
-});
+// homepages (index, about, etc)
+$modules->load('home');
+
+// // authentication (session, signup, etc)
+// $modules->load('auth');
+//
+// // articles
+// $modules->load('articles');
+//
+// // articles
+// $modules->load('admin');
