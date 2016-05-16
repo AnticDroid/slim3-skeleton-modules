@@ -17,22 +17,22 @@ if (PHP_SAPI == 'cli-server') {
     }
 }
 
-require APPLICATION_PATH . '/../../vendor/autoload.php';
+require APPLICATION_PATH . '/../vendor/autoload.php';
 
 $settings = require APPLICATION_PATH . '/config/global.php';
 
-// ================
-// Session
-
-// server should keep session data for AT LEAST 1 hour
-ini_set('session.gc_maxlifetime', 3600);
-
-// each client should remember their session id for EXACTLY 1 hour
-session_set_cookie_params(3600);
-
-// set session settings before session_start
-ini_set('session.cookie_domain', @$settings['settings']['session']['cookie_domain']);
-session_start();
+// // ================
+// // Session
+//
+// // server should keep session data for AT LEAST 1 hour
+// ini_set('session.gc_maxlifetime', 3600);
+//
+// // each client should remember their session id for EXACTLY 1 hour
+// session_set_cookie_params(3600);
+//
+// // set session settings before session_start
+// ini_set('session.cookie_domain', @$settings['settings']['session']['cookie_domain']);
+// session_start();
 
 // ================
 // Eloquent
@@ -49,9 +49,9 @@ $capsule->bootEloquent();
 
 // Instantiate the app
 $app = new Slim\App($settings);
+$container = $app->getContainer();
 
-
-// Set up dependencies
+// Register dependencies
 require APPLICATION_PATH . '/dependencies.php';
 
 // Register middleware
@@ -60,8 +60,12 @@ require APPLICATION_PATH . '/middleware.php';
 // Register routes
 require APPLICATION_PATH . '/routes.php';
 
-// Helper functions
-require APPLICATION_PATH . '/helpers.php';
+// if you want layouts outside the modules, this will add a new
+// view directory for our layouts
+$engine = $container['renderer']->getEngine();
+if (isset($settings['settings']['renderer']['layout_path'])) {
+    $engine->addLocation($settings['settings']['renderer']['layout_path']);
+}
 
 // Run app
 $app->run();

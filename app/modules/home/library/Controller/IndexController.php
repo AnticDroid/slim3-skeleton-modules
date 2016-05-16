@@ -1,9 +1,9 @@
 <?php
-namespace App\Controller;
+namespace App\Modules\Home\Controller;
 
 use MartynBiz\Slim3Controller\Controller;
 
-abstract class IndexController extends Controller
+class IndexController extends Controller
 {
     public function index()
     {

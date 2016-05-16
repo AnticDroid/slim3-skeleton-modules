@@ -1,5 +1,5 @@
 <?php
-namespace App\Auth\Storage;
+namespace App\Modules\Auth\Storage;
 
 /**
  * This ArrayAccess implementation is designed to allow session variables to be

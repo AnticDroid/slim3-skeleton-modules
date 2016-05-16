@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
     <head>
-        @section('title')<title>JapanTravel</title>@show
+        <?php $__env->startSection('title'); ?><title>JapanTravel</title><?php echo $__env->yieldSection(); ?>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
-        @section('head')
-            @include('partials.head')
+        <?php $__env->startSection('head'); ?>
+            <meta name="viewport" content="width=device-width,initial-scale=1">
+            <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+            <link href='https://fonts.googleapis.com/css?family=Mr+Dafoe' rel='stylesheet' type='text/css'>
+            <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
 
             <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic,700italic" media="screen" rel="stylesheet" type="text/css" >
             <link rel="stylesheet" type="text/css" href="/css/portal.css">
-        @show
+        <?php echo $__env->yieldSection(); ?>
     </head>
 
     <body>
@@ -29,7 +32,7 @@
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
-                            <span class="sr-only">{{ translate('toggle_navigation') }}</span>
+                            <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -37,26 +40,26 @@
                     </div>
                     <div class="collapse navbar-collapse" id="navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            @if (isset($current_user))
+                            <?php if(isset($current_user)): ?>
                                 <form id="deleteSession" method="post" action="/session">
                                     <input type="hidden" name="_METHOD" value="DELETE">
                                     <ul class="nav navbar-nav navbar-right">
                                         <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ $current_user->name }} <span class="caret"></span></a>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo e($current_user->name); ?> <span class="caret"></span></a>
                                             <ul class="dropdown-menu">
-                                                <li><a href="#" onclick="$('form#deleteSession').submit(); return false;">{{ translate('logout_button') }}</a></li>
+                                                <li><a href="#" onclick="$('form#deleteSession').submit(); return false;">Logout</a></li>
                                             </ul>
                                         </li>
                                     </ul>
                                 </form>
-                            @else
+                            <?php else: ?>
                                 <li class="dropdown">
-                                    <a href="/accounts">{{ translate('register_button') }}</a></li>
+                                    <a href="/accounts">Register</a></li>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="/session">{{ translate('login_button') }}</a></li>
+                                    <a href="/session">Login</a></li>
                                 </li>
-                            @endif
+                            <?php endif; ?>
                         </ul>
                     </div>
                 </div>
@@ -64,33 +67,17 @@
         </header>
 
         <div class="container">
-            @if (isset($flash_message['success']))
-                <div class="alert alert-success">
-                    {{ $flash_message['success'] }}
-                </div>
-            @endif
-
-            @if (isset($flash_message['errors']))
-                <div class="alert alert-danger alert-important">
-                    <ul>
-                        @foreach ($flash_message['errors'] as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            @yield('content')
+            <?php echo $__env->yieldContent('content'); ?>
         </div>
 
         <footer>
             ...
         </footer>
 
-        @section('scripts')
+        <?php $__env->startSection('scripts'); ?>
             <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
             <script src="/js/app.js" type="text/javascript"></script>
-        @show
+        <?php echo $__env->yieldSection(); ?>
     </body>
 </html>

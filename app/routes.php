@@ -1,14 +1,13 @@
 <?php
-// Routes
 
-$modules = new \MartynBiz\Slim3Modules\Loader($app);
+$modules = new \App\Loader($app); //\MartynBiz\Slim3Modules\Loader($app);
 
 // homepages (index, about, etc)
 $modules->load('home');
 
-// // authentication (session, signup, etc)
-// $modules->load('auth');
-//
+// authentication (session, signup, etc)
+$modules->load('auth');
+
 // // articles
 // $modules->load('articles');
 //

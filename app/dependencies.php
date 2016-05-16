@@ -2,8 +2,6 @@
 
 $container = $app->getContainer();
 
-// have seperated renderer and view so that we can use renderer also for emails
-
 // view renderer. the simple task of compiling a template with data
 $container['renderer'] = function ($c) {
     $settings = $c->get('settings')['renderer'];
@@ -44,8 +42,8 @@ $container['response'] = function ($c) {
 
 $container['auth'] = function ($c) {
     $settings = $c->get('settings')['auth'];
-    $authAdapter = new \App\Auth\Adapter\Eloquent( $c['model.account'] );
-    return new \App\Auth\Auth($authAdapter, $settings);
+    $authAdapter = new \App\Modules\Auth\Adapter\Eloquent( $c['model.account'] );
+    return new \App\Modules\Auth\Auth($authAdapter, $settings);
 };
 
 // locale - required by a few services, so easier to put in container
@@ -114,24 +112,4 @@ $container['facebook'] = function ($c) {
         'app_secret' => $settings['secret'],
         'default_graph_version' => $settings['version'],
      ]);
-};
-
-
-
-
-// Models
-$container['model.account'] = function ($c) {
-    return new \App\Model\Account();
-};
-
-$container['model.meta'] = function ($c) {
-    return new \App\Model\Meta();
-};
-
-$container['model.auth_token'] = function ($c) {
-    return new \App\Model\AuthToken();
-};
-
-$container['model.recovery_token'] = function ($c) {
-    return new \App\Model\RecoveryToken();
 };

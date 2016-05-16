@@ -1,8 +1,8 @@
 <?php
-namespace App\Model;
+namespace App\Modules\Auth\Model;
 
-use App\Model\Meta;
-use App\Model\AuthToken;
+use App\Modules\Auth\Model\Meta;
+use App\Modules\Auth\Model\AuthToken;
 
 class Account extends Base
 {

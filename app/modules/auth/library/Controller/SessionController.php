@@ -1,11 +1,11 @@
 <?php
-namespace App\Controller;
+namespace App\Modules\Auth\Controller;
 
 use Facebook\Exceptions\FacebookResponseException;
 use Facebook\Exceptions\FacebookSDKException;
 
-use App\Model\Account;
-use App\Exception\InvalidAuthToken as InvalidAuthTokenException;
+use App\Modules\Auth\Model\Account;
+use App\Modules\Auth\Exception\InvalidAuthToken as InvalidAuthTokenException;
 
 class SessionController extends BaseController
 {

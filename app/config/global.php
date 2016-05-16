@@ -12,6 +12,9 @@ $settings = [
             // this is the directory where view scripts are stored
             'template_path' => APPLICATION_PATH . '/views/',
 
+            // this is an additional path for e.g. app layouts
+            'layout_path' => APPLICATION_PATH . '/views/',
+
             // when using blade templates, we have a cache dir. for php templates
             // this probably isn't used.
             'cache_path' => APPLICATION_PATH . '/../data/cache/blade',

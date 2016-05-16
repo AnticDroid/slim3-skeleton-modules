@@ -1,26 +1,29 @@
 <?php
 
-// /auth/session
-$app->group('/session', function () use ($app) {
+$app->group('/auth', function () use ($app) {
 
-    $controller = new App\Controller\SessionController($app);
+    // /auth/session
+    $app->group('/session', function () use ($app) {
 
-    $app->get('', $controller('index'))->setName('session_index');
-    $app->post('', $controller('post'))->setName('session_post');
-    $app->delete('', $controller('delete'))->setName('session_delete');
+        $controller = new App\Modules\Auth\Controller\SessionController($app);
 
-    $app->post('/facebook', $controller('facebook'))->setName('session_facebook');
-    $app->get('/facebook/callback', $controller('facebookCallback'))->setName('session_facebook_callback');
-});
+        $app->get('', $controller('index'))->setName('session_index');
+        $app->post('', $controller('post'))->setName('session_post');
+        $app->delete('', $controller('delete'))->setName('session_delete');
 
-// /auth/users 
-$app->group('/users', function () use ($app) {
+        $app->post('/facebook', $controller('facebook'))->setName('session_facebook');
+        $app->get('/facebook/callback', $controller('facebookCallback'))->setName('session_facebook_callback');
+    });
 
-    $controller = new App\Controller\AccountsController($app);
+    // /auth/users
+    $app->group('/users', function () use ($app) {
 
-    $app->get('', $controller('create'))->setName('accounts_create');
-    $app->post('', $controller('post'))->setName('accounts_post');
+        $controller = new App\Modules\Auth\Controller\UsersController($app);
 
-    $app->get('/resetpassword', $controller('resetpassword'))->setName('accounts_reset_password');
-    $app->post('/resetpassword', $controller('resetpassword'))->setName('accounts_reset_password_post');
+        $app->get('', $controller('create'))->setName('accounts_create');
+        $app->post('', $controller('post'))->setName('accounts_post');
+
+        $app->get('/resetpassword', $controller('resetpassword'))->setName('accounts_reset_password');
+        $app->post('/resetpassword', $controller('resetpassword'))->setName('accounts_reset_password_post');
+    });
 });

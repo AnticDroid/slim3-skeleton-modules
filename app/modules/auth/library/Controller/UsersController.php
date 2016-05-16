@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller;
+namespace App\Modules\Auth\Controller;
 
 use App\Modules\Auth\Model\User;
 use App\Modules\Auth\Model\RecoveryToken;

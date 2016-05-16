@@ -1,10 +1,10 @@
 <?php
-namespace App\Auth\Adapter;
+namespace App\Modules\Auth\Adapter;
 
 // use Zend\Authentication\Adapter\AdapterInterface;
 // use Zend\Authentication\Result;
 
-use App\Model\Account;
+use App\Modules\Auth\Model\Account;
 
 class Eloquent implements AdapterInterface
 {

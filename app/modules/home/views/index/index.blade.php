@@ -1,5 +1,5 @@
 @extends('layouts.portal')
 
 @section('content')
-    {!! translate('intro') !!}
+    Hello modules!
 @stop

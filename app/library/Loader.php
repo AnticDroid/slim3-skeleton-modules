@@ -1,4 +1,5 @@
 <?php
+namespace App;
 
 /**
  * This will load modules
@@ -25,9 +26,10 @@ class Loader
         $modulePath = realpath(APPLICATION_PATH . '/modules/' . $name);
 
         // register an autoloader for the module's library
-        
+
 
         // include the required module.php path of that module
+        $app = $this->app;
         require $modulePath . '/module.php';
     }
 }

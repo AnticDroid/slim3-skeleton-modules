@@ -1,5 +1,5 @@
 <?php
-namespace App\Auth\Adapter;
+namespace App\Modules\Auth\Adapter;
 
 interface AdapterInterface //implements AdapterInterface
 {

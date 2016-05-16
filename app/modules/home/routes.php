@@ -1,5 +1,7 @@
 <?php
 
-$controller = new App\Controller\IndexController($app);
-
-$app->get('', $controller('index'))->setName('index_index');
+$app->group('/', function () use ($app) {
+    $controller = new App\Modules\Home\Controller\IndexController($app);
+    
+    $app->get('', $controller('index'))->setName('index_index');
+});

@@ -1,8 +1,8 @@
 <?php
-namespace App\Auth;
+namespace App\Modules\Auth;
 
-use App\Auth\Adapter\AdapterInterface;
-use App\Model\Account;
+use App\Modules\Auth\Adapter\AdapterInterface;
+use App\Modules\Auth\Model\Account;
 
 /**
  * This handles authentication queries such as comparing username/password,
