@@ -1,0 +1,49 @@
+{
+    "name": "metroworks/sso",
+    "description": "SSO authentication for apps sharing the same domain",
+    "homepage": "http://accounts.japantravel.com",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+	    {
+            "url": "https://github.com/martynbiz/php-translate-tool.git",
+            "type": "git"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "slim/slim": "~3.0",
+        "slim/csrf": "^0.6.0",
+        "martynbiz/slim3-controller": "dev-master",
+        "martynbiz/slim3-view": "dev-master",
+        "martynbiz/php-flash-message": "dev-master",
+        "martynbiz/php-validator": "dev-master",
+        "illuminate/database": "^5.2",
+        "illuminate/events": "^5.2",
+        "illuminate/view": "^5.2",
+        "zendframework/zend-i18n": "^2.6",
+        "zendframework/zend-servicemanager": "^2.0",
+        "zendframework/zend-stdlib": "^2.7",
+        "zendframework/zend-mail": "^2.5",
+        "robmorgan/phinx": "^0.5.1",
+        "pear/text_password": "^1.2",
+        "facebook/php-sdk-v4": "^5.1",
+        "monolog/monolog": "^1.17"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.8.*",
+        "raveren/kint": "^1.0",
+        "martynbiz/php-translate-tool": "dev-master"
+    },
+    "config": {
+        "vendor-dir": "../vendor"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/library/"
+        },
+        "classmap": [
+            "tests"
+        ]
+    }
+}

@@ -1,0 +1,13 @@
+/vendor/
+/logs/*
+!/logs/README.md
+
+/bower_components
+/node_modules
+
+app/config/local.php
+
+/public/photos
+
+phinx.yml
+scripts/sync.conf
