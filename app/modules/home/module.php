@@ -8,8 +8,7 @@ $container = $app->getContainer();
 
 // merge config of this with app
 $moduleSettings = require 'config/global.php';
-$appSettings = $container['settings'];
-$appSettings->__construct($moduleSettings);
+$container['settings']->__construct($moduleSettings);
 
 require 'dependencies.php';
 require 'middleware.php';

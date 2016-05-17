@@ -13,31 +13,22 @@ abstract class BaseController extends Controller
     protected $currentUser;
 
     /**
-     * Render the view from within the controller
+     * Render the html and attach to the response
      * @param string $file Name of the template/ view to render
-     * @param array $args Additional varables to pass to the view
+     * @param array $args Additional variables to pass to the view
      * @param Response?
      */
-    protected function render($file, $args=array(), $status=200)
+    public function render($file, $args=array())
     {
-        $settings = $this->get('settings');
+        $container = $this->app->getContainer();
 
-        // so we can view the attributes when we log in (useful for debugging)
-        $attributes = $this->get('auth')->getAttributes();
-        $args['attributes'] = $attributes;
+        // generate the html
+        $html = $container['renderer']->render($file, $args);
 
-        // set the current user
-        if($this->get('auth')->isAuthenticated()) {
-            $args['current_user'] = $this->get('model.account')->where('email', $attributes['email'])->first();
-        }
+        // put the html in the response object
+        $this->response->getBody()->write($html);
 
-        // flash messages are us to show error messages and success
-        $args['flash_message'] = $this->get('flash')->flushMessages();
-
-        // // flash messages are us to show error messages and success
-        // $args['translator'] = $this->get('i18n');
-
-        return $this->get('view')->render($this->response, $file, $args);
+        return $this->response;
     }
 
     // /**

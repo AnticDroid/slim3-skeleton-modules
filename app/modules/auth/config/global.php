@@ -9,7 +9,7 @@ $settings = [
     'renderer' => [
 
         // this is the directory where view scripts are stored
-        'template_path' => APPLICATION_PATH . '/modules/home/views',
+        'template_path' => APPLICATION_PATH . '/modules/auth/views',
     ],
 ];
 

@@ -62,10 +62,7 @@ require APPLICATION_PATH . '/routes.php';
 
 // if you want layouts outside the modules, this will add a new
 // view directory for our layouts
-$engine = $container['renderer']->getEngine();
-if (isset($settings['settings']['renderer']['layout_path'])) {
-    $engine->addLocation($settings['settings']['renderer']['layout_path']);
-}
+$container['renderer']->addFolder('shared', APPLICATION_PATH . '/views/', true);
 
 // Run app
 $app->run();

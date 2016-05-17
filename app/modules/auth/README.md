@@ -5,9 +5,7 @@ During bootstrap (e.g. App's routes.php file)
 ```
 $modules = new \MartynBiz\Slim3Modules\Loader($app);
 
-$app->group('/auth', function () use ($modules) {
-    $modules->load('auth');
-}
+$modules->load('auth');
 ```
 
 composer.json
@@ -20,8 +18,7 @@ Ensure the following to your composer file:
     .
     .
     "martynbiz/slim3-controller": "dev-master",
-    "martynbiz/slim3-view": "dev-master",
-    "illuminate/view": "^5.2",
+    "league/plates": "^3.1",
     "robmorgan/phinx": "^0.5.1"
 },
 "autoload": {
@@ -39,3 +36,14 @@ Migrations
 ```
 $ cp -r app/modules/auth/db/* db/
 $ vendor/bin/phinx migrate
+
+Layouts
+
+The following is required to share layouts with other modules:
+
+```
+.
+.
+.
+$container['renderer']->addFolder('shared', APPLICATION_PATH . '/views/', true);
+```

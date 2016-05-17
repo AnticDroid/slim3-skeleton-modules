@@ -2,22 +2,19 @@
 
 $container = $app->getContainer();
 
-// view renderer. the simple task of compiling a template with data
-$container['renderer'] = function ($c) {
-    $settings = $c->get('settings')['renderer'];
-    $renderer = new \Windwalker\Renderer\BladeRenderer(array(
-        $settings['template_path'],
-    ), array(
-        'cache_path' => $settings['cache_path'],
-    ));
-
-    return $renderer;
-};
-
-// bind the compiled template with the response object
-$container['view'] = function ($c) {
-    return new \MartynBiz\Slim3View\Renderer($c['renderer']);
-};
+// // view renderer. the simple task of compiling a template with data
+// // TODO move to modules
+// $container['renderer'] = function ($c) {
+//     $settings = $c->get('settings')['renderer'];
+//
+//     // instantiate the Plates template engine
+//     $template = new League\Plates\Engine($settings['template_path']);
+//
+//     // Sets the default file extension to ".phtml" after engine instantiation
+//     $template->setFileExtension('phtml');
+//
+//     return $template;
+// };
 
 // monolog
 $container['logger'] = function ($c) {

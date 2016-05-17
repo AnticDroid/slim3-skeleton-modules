@@ -18,30 +18,25 @@ Ensure the following to your composer file:
     .
     .
     "martynbiz/slim3-controller": "dev-master",
-    "martynbiz/slim3-view": "dev-master",
-    "illuminate/view": "^5.2"
+    "league/plates": "^3.1"
 },
 "autoload": {
     "psr-4": {
         .
         .
         .
-        "App\\Modules\\Auth\\": "app/modules/home/library/"
+        "App\\Modules\\Home\\": "app/modules/home/library/"
     }
 }
 ```
 
 Layouts
 
-Defined outside the module, e.g. index.php
+The following is required to share layouts with other modules:
 
 ```
 .
 .
 .
-$container = $app->getContainer();
-$engine = $container['renderer']->getEngine();
-if (isset($settings['settings']['renderer']['layout_path'])) {
-    $engine->addLocation($settings['settings']['renderer']['layout_path']);
-}
+$container['renderer']->addFolder('shared', APPLICATION_PATH . '/views/', true);
 ```
