@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "04df16fd93535e03998187ff21c6cb9e",
-    "content-hash": "362e81e8e8964d9bbd7081e85793a4d8",
+    "hash": "cf2031317b258a380ae1aceb65eac3aa",
+    "content-hash": "4c8428b796693b7411ad6a15cbad7da6",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -237,6 +237,52 @@
             "time": "2016-04-14 15:53:46"
         },
         {
+            "name": "martynbiz/php-validator",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/martynbiz/php-validator.git",
+                "reference": "7b98524e840c0f4509b280ebf2eae6fa77b76476"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/martynbiz/php-validator/zipball/7b98524e840c0f4509b280ebf2eae6fa77b76476",
+                "reference": "7b98524e840c0f4509b280ebf2eae6fa77b76476",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.8.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "MartynBiz": "library"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Martyn Bissett",
+                    "email": "martynbissett@yahoo.co.uk",
+                    "homepage": "http://ma.rtyn.biz",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Basic validation for PHP forms",
+            "homepage": "http://github.com/martynbiz/php-validator",
+            "keywords": [
+                "form",
+                "validation"
+            ],
+            "time": "2016-02-08 08:11:25"
+        },
+        {
             "name": "martynbiz/slim3-controller",
             "version": "dev-master",
             "source": {
@@ -286,6 +332,55 @@
                 "slim3"
             ],
             "time": "2016-04-19 10:42:32"
+        },
+        {
+            "name": "martynbiz/slim3-module",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/martynbiz/slim3-module.git",
+                "reference": "63a1432a4fc037b3dc49a20c9973339e447a256b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/martynbiz/slim3-module/zipball/63a1432a4fc037b3dc49a20c9973339e447a256b",
+                "reference": "63a1432a4fc037b3dc49a20c9973339e447a256b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.8.*",
+                "slim/slim": "~3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MartynBiz\\Slim3Module\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Martyn Bissett",
+                    "email": "martynbissett@yahoo.co.uk",
+                    "homepage": "http://martyn.biz",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple class for loading modules in a Slim 3 project",
+            "homepage": "http://github.com/martynbiz/slim3-module",
+            "keywords": [
+                "modules",
+                "mvc",
+                "slim",
+                "slim3"
+            ],
+            "time": "2016-05-18 23:12:57"
         },
         {
             "name": "monolog/monolog",
@@ -1964,8 +2059,10 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "martynbiz/slim3-module": 20,
         "martynbiz/slim3-controller": 20,
         "martynbiz/php-mongo": 20,
+        "martynbiz/php-validator": 20,
         "martynbiz/php-flash-message": 20
     },
     "prefer-stable": true,

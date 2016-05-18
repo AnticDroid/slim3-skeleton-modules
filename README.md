@@ -7,7 +7,6 @@ layout
 bring auth module to life
 - remember me
 articles module
-admin - modules within admin?
 
 cache busting
 

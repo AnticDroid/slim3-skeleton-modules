@@ -1,6 +1,6 @@
 <?php
 
-$module = new \App\Module($app); //\MartynBiz\Slim3Modules\Loader($app);
+$module = new \MartynBiz\Slim3Module\Module($app); //\MartynBiz\Slim3Modules\Loader($app);
 
 // homepages (index, about, etc)
 $module->load('home');
