@@ -30,6 +30,25 @@ Ensure the following to your composer file:
 }
 ```
 
+Dependencies
+
+Add the following to the app's dependencies:
+
+```php
+// view renderer. the simple task of compiling a template with data
+$container['renderer'] = function ($c) {
+    $settings = $c->get('settings')['renderer'];
+
+    // instantiate the Plates template engine
+    $template = new League\Plates\Engine($settings['template_path']);
+
+    // Sets the default file extension to ".phtml" after engine instantiation
+    $template->setFileExtension('phtml');
+
+    return $template;
+};
+```
+
 Layouts
 
 The following is required to share layouts with other modules:
@@ -40,3 +59,5 @@ The following is required to share layouts with other modules:
 .
 $container['renderer']->addFolder('shared', APPLICATION_PATH . '/views/', true);
 ```
+
+TODO add layout to the app's shared dir

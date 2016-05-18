@@ -7,7 +7,7 @@ class IndexController extends Controller
 {
     public function index()
     {
-        return $this->render('index/index');
+        return $this->render('home::index/index');
     }
 
     /**
