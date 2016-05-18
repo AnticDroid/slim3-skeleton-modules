@@ -34,15 +34,15 @@ $settings = require APPLICATION_PATH . '/config/global.php';
 // ini_set('session.cookie_domain', @$settings['settings']['session']['cookie_domain']);
 // session_start();
 
-// ================
-// Eloquent
-
-// initiate database connection
-// setup eloquent for the job
-$capsule = new \Illuminate\Database\Capsule\Manager;
-$capsule->addConnection($settings['settings']['eloquent']);
-$capsule->setEventDispatcher( new \Illuminate\Events\Dispatcher( new \Illuminate\Container\Container ));
-$capsule->bootEloquent();
+// // ================
+// // Eloquent
+//
+// // initiate database connection
+// // setup eloquent for the job
+// $capsule = new \Illuminate\Database\Capsule\Manager;
+// $capsule->addConnection($settings['settings']['eloquent']);
+// $capsule->setEventDispatcher( new \Illuminate\Events\Dispatcher( new \Illuminate\Container\Container ));
+// $capsule->bootEloquent();
 
 // ================
 // App
@@ -50,6 +50,8 @@ $capsule->bootEloquent();
 // Instantiate the app
 $app = new Slim\App($settings);
 $container = $app->getContainer();
+
+MartynBiz\Mongo\Connection::getInstance()->init($settings['settings']['mongo']);
 
 // Register dependencies
 require APPLICATION_PATH . '/dependencies.php';

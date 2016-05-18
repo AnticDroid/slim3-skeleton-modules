@@ -19,12 +19,18 @@ $settings = [
             'path' => APPLICATION_PATH . '/../data/logs/app.log',
         ],
 
-        'eloquent' => [
-            'driver' => 'mysql',
-    		'host' => 'localhost',
-            'charset' => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix' => '',
+        // 'eloquent' => [
+        //     'driver' => 'mysql',
+    	// 	'host' => 'localhost',
+        //     'charset' => 'utf8',
+        //     'collation' => 'utf8_unicode_ci',
+        //     'prefix' => '',
+        // ],
+
+        'mongo' => [
+            'db' => 'wordup',
+            // 'username' => 'myuser',
+            // 'password' => 'mypass',
         ],
 
         'session' => [

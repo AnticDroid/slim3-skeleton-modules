@@ -15,15 +15,21 @@ abstract class BaseController extends Controller
     /**
      * Render the html and attach to the response
      * @param string $file Name of the template/ view to render
-     * @param array $args Additional variables to pass to the view
+     * @param array $data Additional variables to pass to the view
      * @param Response?
      */
-    public function render($file, $args=array())
+    public function render($file, $data=array())
     {
         $container = $this->app->getContainer();
 
+        // add some additional view vars
+        $data = array_merge($data, array(
+            'messages' => $this->get('flash')->flushMessages(),
+            'currentUser' => null,
+        ));
+
         // generate the html
-        $html = $container['renderer']->render($file, $args);
+        $html = $container['renderer']->render($file, $data);
 
         // put the html in the response object
         $this->response->getBody()->write($html);

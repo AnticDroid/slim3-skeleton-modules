@@ -1,11 +1,14 @@
-<?php $this->layout('shared::layouts/main', ['title' => 'Login']) ?>
+<?php $this->layout('shared::layouts/main', [
+    'title' => 'Login',
+    'messages' => $messages,
+]); ?>
 
 <?php $this->start('body') ?>
     <div class="col-sm-6 col-sm-offset-3 sso-login">
         <div class="row">
         	<div class="col-xs-12">
                 <div class="well">
-                    <form method="post" action="/session">
+                    <form method="post" action="/auth">
                         <div class="form-group">
                             <span class="sr-only">Username</span>
                             <input type="text" class="form-control" name="email" placeholder="Username" value="<?=$this->e($username)?>">
@@ -13,7 +16,7 @@
 
                         <div class="form-group">
                             <span class="sr-only">Password</span>
-                            <input type="text" class="form-control" name="password" placeholder="Password" value="<?=$this->e($password)?>">
+                            <input type="password" class="form-control" name="password" placeholder="Password" value="<?=$this->e($password)?>">
                             <a href="/accounts/resetpassword" class="forgot_password">Forgot password?</a>
                         </div>
 

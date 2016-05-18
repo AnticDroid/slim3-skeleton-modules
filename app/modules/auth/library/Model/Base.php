@@ -1,9 +1,26 @@
 <?php
+
 namespace App\Modules\Auth\Model;
 
-class Base extends \Illuminate\Database\Eloquent\Model
+use MartynBiz\Mongo\Mongo;
+
+/**
+ *
+ */
+class Base extends Mongo
 {
-    const CREATED_AT = 'dt_create';
-    const UPDATED_AT = 'dt_update';
-    const DELETED_AT = 'dt_delete';
+    public function getCreatedAt($value)
+    {
+        return date('d/m/Y h:i', $value->sec);
+    }
+
+    public function getUpdatedAt($value)
+    {
+        return date('d/m/Y h:i', $value->sec);
+    }
+
+    public function getDeletedAt($value)
+    {
+        return date('d/m/Y h:i', $value->sec);
+    }
 }
