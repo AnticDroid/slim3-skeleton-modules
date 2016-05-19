@@ -10,9 +10,18 @@ $container = $app->getContainer();
 $moduleSettings = require 'config/module.php';
 $container['settings']->__construct($moduleSettings);
 
-require 'dependencies.php';
-require 'routes.php';
+// routes
+$app->group('/auth/register', function () use ($app) {
+
+    $controller = new App\Modules\AuthRegister\Controller\UsersController($app);
+
+    $app->get('', $controller('create'))->setName('auth_users_create');
+    $app->post('', $controller('post'))->setName('auth_users_post');
+
+    $app->get('/resetpassword', $controller('resetpassword'))->setName('auth_users_reset_password');
+    $app->post('/resetpassword', $controller('resetpassword'))->setName('auth_users_reset_password_post');
+});
 
 // add home module's views dir
-$templatePath = $settings['modules']['auth']['renderer']['template_path'];
-$container['renderer']->addFolder('auth', $templatePath, true);
+$templatePath = $settings['modules']['auth_register']['renderer']['template_path'];
+$container['renderer']->addFolder('auth_register', $templatePath, true);

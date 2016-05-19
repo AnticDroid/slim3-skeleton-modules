@@ -10,7 +10,7 @@ to sign up, or auth_admin, to create users.
 During bootstrap (e.g. App's routes.php file)
 
 ```
-$modules = new \MartynBiz\Slim3Modules\Loader($app);
+$modules = new \MartynBiz\Slim3Module\Loader($app);
 
 $modules->load('auth');
 ```

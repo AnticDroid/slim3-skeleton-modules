@@ -2,11 +2,11 @@ php -S localhost:8000 -t public/
 
 TODO
 
-put module loader in packagist
-layout
-bring auth module to life
-- remember me
-articles module
+* auth_register
+* auth_admin
+* articles
+* articles_admin
+* home
 
 cache busting
 

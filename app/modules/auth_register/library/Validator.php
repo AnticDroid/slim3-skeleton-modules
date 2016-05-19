@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace App\Modules\AuthRegister;
 
 use App\Model\Account;
 

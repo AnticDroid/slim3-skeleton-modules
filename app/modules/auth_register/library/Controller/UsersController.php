@@ -1,19 +1,22 @@
 <?php
-namespace App\Modules\Auth\Controller;
+namespace App\Modules\AuthRegister\Controller;
 
 use App\Modules\Auth\Model\User;
 use App\Modules\Auth\Model\RecoveryToken;
-use App\Modules\Auth\Validator;
 use App\Modules\Auth\Exception\InvalidRecoveryToken;
 use App\Modules\Auth\Exception\UserNotFound;
 
-class UsersController extends BaseController
+use App\Modules\AuthRegister\Validator;
+
+use MartynBiz\Slim3Controller\Controller;
+
+class UsersController extends Controller
 {
     public function create()
     {
         $params = array_merge($this->getQueryParams(), $this->getPost());
 
-        return $this->render('accounts.create', array(
+        return $this->render('auth_register::users/create', array(
             'params' => $params,
         ));
     }
@@ -310,5 +313,24 @@ class UsersController extends BaseController
                 break;
 
         }
+    }
+
+    /**
+     * Render the html and attach to the response
+     * @param string $file Name of the template/ view to render
+     * @param array $args Additional variables to pass to the view
+     * @param Response?
+     */
+    public function render($file, $args=array())
+    {
+        $container = $this->app->getContainer();
+
+        // generate the html
+        $html = $container['renderer']->render($file, $args);
+
+        // put the html in the response object
+        $this->response->getBody()->write($html);
+
+        return $this->response;
     }
 }

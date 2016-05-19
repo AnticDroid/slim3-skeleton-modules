@@ -5,5 +5,6 @@ $module = new \MartynBiz\Slim3Module\Module($app); //\MartynBiz\Slim3Modules\Loa
 // homepages (index, about, etc)
 $module->load('home');
 
-// authentication (session, signup, etc)
+// authentication (login/logout, signup, etc)
 $module->load('auth');
+$module->load('auth_register');
