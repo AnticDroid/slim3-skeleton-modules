@@ -63,7 +63,7 @@ $container['auth'] = function ($c) {
 //
 //     return $translator;
 // };
-//
+
 // // mail
 // $container['mail_manager'] = function ($c) {
 //     $settings = $c->get('settings')['mail'];

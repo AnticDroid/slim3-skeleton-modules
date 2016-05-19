@@ -19,6 +19,10 @@ $settings = [
             'path' => APPLICATION_PATH . '/../data/logs/app.log',
         ],
 
+        // this is the domain of the applications that are sharing the session
+        // a valid returnTo url is one that contains this string
+        'valid_return_to' => '/localhost$/',
+
         // 'eloquent' => [
         //     'driver' => 'mysql',
     	// 	'host' => 'localhost',
@@ -64,29 +68,29 @@ $settings = [
             ],
         ],
 
-        'i18n' => [
+        // 'i18n' => [
+        //
+        //     // when the target locale is missing a translation/ template this the
+        //     // fallback locale to use (probably "en")
+        //     'default_locale' => 'en',
+        //
+        //     // this is the type of the translation files using by zend-i18n
+        //     'type' => 'phparray',
+        //
+        //     // where the translation files are stored
+        //     'file_path' => APPLICATION_PATH . '/i18n/',
+        // ],
 
-            // when the target locale is missing a translation/ template this the
-            // fallback locale to use (probably "en")
-            'default_locale' => 'en',
+        // 'mail' => [
+        //
+        //     // directory where suppressed email files are written to in non-prod env
+        //     'file_path' => APPLICATION_PATH . '/../data/mail/',
+        // ],
 
-            // this is the type of the translation files using by zend-i18n
-            'type' => 'phparray',
-
-            // where the translation files are stored
-            'file_path' => APPLICATION_PATH . '/i18n/',
-        ],
-
-        'mail' => [
-
-            // directory where suppressed email files are written to in non-prod env
-            'file_path' => APPLICATION_PATH . '/../data/mail/',
-        ],
-
-        // remember me cookie settings
-        'recovery_token' => [
-            'expire' => strtotime("+1 hour", time()), // time in seconds from now, e.g. 1440 = 1h from now
-        ],
+        // // remember me cookie settings
+        // 'recovery_token' => [
+        //     'expire' => strtotime("+1 hour", time()), // time in seconds from now, e.g. 1440 = 1h from now
+        // ],
     ],
 ];
 

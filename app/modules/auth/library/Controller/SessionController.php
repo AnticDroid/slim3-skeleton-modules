@@ -10,6 +10,11 @@ use App\Modules\Auth\Exception\InvalidAuthToken as InvalidAuthTokenException;
 class SessionController extends BaseController
 {
     /**
+     * @var User
+     */
+    protected $currentUser;
+
+    /**
      * Index will serve as a landing page for both GET login and logout
      * GET /session
      */
@@ -379,4 +384,13 @@ class SessionController extends BaseController
     //     isset($params['returnTo']) or $params['returnTo'] = $settings->get('defaultLoginRedirect', '/session');
     //     return $this->returnTo($params['returnTo']);
     // }
+
+    /**
+     * Get the current sign in user account
+     */
+    protected function getSessionAccount()
+    {
+        $attributes = $this->get('auth')->getAttributes();
+        return $this->get('model.account')->findByEmail($attributes['email']);
+    }
 }

@@ -8,11 +8,6 @@ use App\Modules\Auth\Model\Account;
 abstract class BaseController extends Controller
 {
     /**
-     * @var User
-     */
-    protected $currentUser;
-
-    /**
      * Render the html and attach to the response
      * @param string $file Name of the template/ view to render
      * @param array $data Additional variables to pass to the view
@@ -55,13 +50,4 @@ abstract class BaseController extends Controller
     //
     //     return parent::redirect($returnTo);
     // }
-
-    /**
-     * Get the current sign in user account
-     */
-    protected function getSessionAccount()
-    {
-        $attributes = $this->get('auth')->getAttributes();
-        return $this->get('model.account')->findByEmail($attributes['email']);
-    }
 }

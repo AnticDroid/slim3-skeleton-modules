@@ -8,25 +8,25 @@
     <div class="row">
     	<div class="col-xs-12">
             <div class="well">
-                <form method="post" action="/accounts">
+                <form method="post" action="/auth/register">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="first_name" class="sr-only">First name</label>
-                                <input type="text" class="form-control" name="first_name" placeholder="First name" value="<?=$this->e($first_name)?>">
+                                <input type="text" class="form-control" name="first_name" placeholder="First name" value="<?=$this->e($params['first_name'])?>">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="last_name" class="sr-only">Last name</label>
-                                <input type="text" class="form-control" name="last_name" placeholder="Last name" value="<?=$this->e($last_name)?>">
+                                <input type="text" class="form-control" name="last_name" placeholder="Last name" value="<?=$this->e($params['last_name'])?>">
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="email" class="sr-only">Email</label>
-                        <input type="text" class="form-control" name="email" placeholder="Email" value="<?=$this->e($email)?>">
+                        <input type="text" class="form-control" name="email" placeholder="Email" value="<?=$this->e($params['email'])?>">
                     </div>
 
                     <div class="form-group">

@@ -69,4 +69,6 @@ $container['auth'] = function ($c) {
 $container['flash'] = function ($c) {
     return new \MartynBiz\FlashMessage\Flash();
 };
+
+$container['mail_manager'] = ...
 ```
