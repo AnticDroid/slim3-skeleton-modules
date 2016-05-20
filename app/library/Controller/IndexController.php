@@ -1,5 +1,5 @@
 <?php
-namespace App\Modules\Home\Controller;
+namespace App\Controller;
 
 use MartynBiz\Slim3Controller\Controller;
 
@@ -7,7 +7,21 @@ class IndexController extends Controller
 {
     public function index()
     {
-        return $this->render('home::index/index');
+        return $this->render('index/index');
+    }
+
+    public function portfolio()
+    {
+        return $this->render('index/portfolio');
+    }
+
+    public function contact()
+    {
+        if ($this->request->isPost()) {
+
+        }
+
+        return $this->render('index/contact');
     }
 
     /**

@@ -172,6 +172,16 @@ class User extends Base
         return $this->isOwnerOf($resource);
     }
 
+    /**
+     * Encrypt password upon setting
+     */
+    public function setPassword($value)
+    {
+        return password_hash($value, PASSWORD_BCRYPT, array(
+            'cost' => 12,
+        ));
+    }
+
     // /**
     //  * Return true if user can view a given resource
     //  * @param Article $article

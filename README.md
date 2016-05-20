@@ -2,13 +2,20 @@ php -S localhost:8000 -t public/
 
 TODO
 
+* auth
+  * setPassword (check mongo custom setter and getters)
 * auth_register
-* auth_admin
+  * welcome emails
 * articles
-* articles_admin
-* home
+* admin?
+* home - contact form, portfolio
+* module tests
 
-cache busting
+* git plan
+  - cp -rn app/module/views/* app/views (will make a copy of views and layouts)
+  -
+
+* cache busting
 
 
 further modules:

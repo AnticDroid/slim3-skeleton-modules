@@ -25,7 +25,8 @@ $container['response'] = function ($c) {
 
 // view renderer. the simple task of compiling a template with data
 $container['renderer'] = function ($c) {
-    $template = new League\Plates\Engine();
+    $settings = $c->get('settings')['renderer'];
+    $template = new League\Plates\Engine($settings['template_path']);
     $template->setFileExtension('phtml');
     return $template;
 };

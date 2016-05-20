@@ -2,9 +2,18 @@
 
 $module = new \MartynBiz\Slim3Module\Module($app); //\MartynBiz\Slim3Modules\Loader($app);
 
-// homepages (index, about, etc)
-$module->load('home');
+// module routes
+$app->group('', function () use ($app) {
 
-// authentication (login/logout, signup, etc)
+    $controller = new App\Controller\IndexController($app);
+
+    $app->get('/', $controller('index'))->setName('home_index');
+    $app->get('/portfolio', $controller('portfolio'))->setName('home_portfolio');
+
+    $app->get('/contact', $controller('contact'))->setName('home_contact');
+    $app->post('/contact', $controller('contact'))->setName('home_contact');
+});
+
 $module->load('auth');
 $module->load('auth_register');
+// $module->load('articles');

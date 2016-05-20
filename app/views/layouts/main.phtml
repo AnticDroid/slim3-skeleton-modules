@@ -59,10 +59,12 @@
             <?php endif; ?>
 
             <?php if (isset($messages['errors'])): ?>
-                <div class="alert alert-danger">
-                    <?php foreach ($messages['errors'] as $error): ?>
-                        <?=$this->e($error); ?>
-                    <?php endforeach; ?>
+                <div class="alert alert-danger alert-important">
+                    <ul>
+                        <?php foreach ($messages['errors'] as $error): ?>
+                            <li><?=$this->e($error); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
                 </div>
             <?php endif; ?>
 
