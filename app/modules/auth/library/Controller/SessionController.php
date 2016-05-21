@@ -159,10 +159,6 @@ class SessionController extends BaseController
         if ($this->get('auth')->authenticate($params['email'], $params['password'])) {
 
             // as authentication has passed, get the user by email OR username
-            // $account = $this->get('model.account')
-            //     ->where('email', $params['email'])
-            //     ->orWhere('username', $params['email'])
-            //     ->first();
             $user = $this->get('model.user')->findOne(array('$or' => array(
                 array('email' => $params['email']),
                 array('username' => $params['email'])
@@ -178,9 +174,7 @@ class SessionController extends BaseController
 
             // set attributes. valid_attributes will only set the fields we
             // want to be avialable (e.g. not password)
-            $this->get('auth')->setAttributes( array_merge($user->toArray(), array(
-                'backend' => Account::BACKEND_JAPANTRAVEL,
-            )) );
+            $this->get('auth')->setAttributes( $user->toArray() );
 
             // redirect back to returnTo, or /session (logout page - default) if not provided
             isset($params['returnTo']) or $params['returnTo'] = '/';

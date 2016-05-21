@@ -2,7 +2,7 @@
 namespace App\Modules\Auth;
 
 use App\Modules\Auth\Adapter\AdapterInterface;
-use App\Modules\Auth\Model\Account;
+use App\Modules\Auth\Model\User;
 
 /**
  * This handles authentication queries such as comparing username/password,
@@ -25,6 +25,11 @@ class Auth
      * @var array
      */
     protected $settings = array();
+
+    /**
+     * @var User
+     */
+    protected $currentUser;
 
     /**
      * We need to pass in the auth library that we're using
@@ -134,10 +139,10 @@ class Auth
     /**
      * Will create/update remember me token for this $account, and store the
      * hashed token in the database
-     * @param App\Model\Account $account
+     * @param App\Model\User $account
      * @return void
      */
-    public function remember(Account $account)
+    public function remember(User $account)
     {
         // we just need a unique id for selector
         $selector = uniqid();
@@ -179,10 +184,10 @@ class Auth
 
     /**
      * Will destroy remember me token for this $account, and delete the token in the db
-     * @param App\Model\Account $account
+     * @param App\Model\User $account
      * @return void
      */
-    public function forget(Account $account)
+    public function forget(User $account)
     {
         // look for remember_me entry in database for this account, delete it
         $authToken = $account->auth_token;
@@ -212,4 +217,26 @@ class Auth
         }
     }
 
+    /**
+     * This is the identity (e.g. username) stored for this user
+     * @return string
+     */
+    public function getCurrentUser()
+    {
+        if (! $this->currentUser) {
+            // get the identity (email) from the auth service
+            // return null if not set
+            $identity = $this->getIdentity();
+            if (! $identity) {
+                return null;
+            }
+
+            // lookup the user by identity
+            $this->currentUser = $this->userModel->findOne(array(
+                'email' => $identity,
+            ));
+        }
+
+        return $this->currentUser;
+    }
 }

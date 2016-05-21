@@ -34,6 +34,12 @@ class IndexController extends Controller
     {
         $container = $this->app->getContainer();
 
+        // add some additional view vars
+        $data = array_merge($data, array(
+            'messages' => $this->get('flash')->flushMessages(),
+            'currentUser' => $this->get('auth')->getCurrentUser(),
+        ));
+
         // generate the html
         $html = $container['renderer']->render($file, $args);
 

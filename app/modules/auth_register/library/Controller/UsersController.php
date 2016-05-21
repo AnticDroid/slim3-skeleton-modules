@@ -66,7 +66,7 @@ class UsersController extends Controller
         }
 
         // if valid, create account
-        if ($validator->isValid() and $user = $this->get('model.user')->create( $params )) {
+        if ($validator->isValid() and $user = $this->get('model.user')->create($params)) {
 
             // set session attributes w/ backend (method of signin)
             $this->get('auth')->setAttributes($user->toArray());
@@ -77,14 +77,9 @@ class UsersController extends Controller
             // redirect
             isset($params['returnTo']) or $params['returnTo'] = '/';
             return $this->returnTo($params['returnTo']);
-
-        } elseif(! $validator->isValid()) {
-            $errors = $validator->getErrors();
-        } else {
-            $errors = $user->errors();
         }
 
-        $this->get('flash')->addMessage('errors', $errors);
+        $this->get('flash')->addMessage('errors', $validator->getErrors());
         return $this->forward('create');
     }
 
