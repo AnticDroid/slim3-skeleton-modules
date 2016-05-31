@@ -1,5 +1,5 @@
 <?php
-namespace App\Exception;
+namespace Auth\Exception;
 
 class UserNotFound extends \Exception
 {

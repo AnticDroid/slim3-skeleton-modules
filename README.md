@@ -3,19 +3,20 @@ php -S localhost:8000 -t public/
 TODO
 
 * auth
-  * move auth_* stuff to auth
-* auth_register
+  * move auth_register stuff to auth
   * welcome emails
 * articles
 * admin?
 * home - contact form, portfolio
 * module tests
+* router passed to templates 
 
 * git plan
   - cp -rn app/module/views/* app/views (will make a copy of views and layouts)
   -
 
-* cache busting
+* cache busting (plates)
+* vendor modules
 
 
 further modules:

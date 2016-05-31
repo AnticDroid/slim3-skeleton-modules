@@ -1,5 +1,5 @@
 <?php
-namespace App\Exception;
+namespace Auth\Exception;
 
 class InvalidRecoveryToken extends \Exception
 {

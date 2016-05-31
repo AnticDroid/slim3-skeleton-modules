@@ -30,18 +30,18 @@ class IndexController extends Controller
      * @param array $args Additional variables to pass to the view
      * @param Response?
      */
-    public function render($file, $data=array())
+    public function render($file, $args=array())
     {
         $container = $this->app->getContainer();
 
-        // add some additional view vars
-        $data = array_merge($data, array(
+        // this will ensure that $data is available to all templates
+        $container['renderer']->addData(array(
             'messages' => $this->get('flash')->flushMessages(),
             'currentUser' => $this->get('auth')->getCurrentUser(),
         ));
 
         // generate the html
-        $html = $container['renderer']->render($file, $data);
+        $html = $container['renderer']->render($file, $args);
 
         // put the html in the response object
         $this->response->getBody()->write($html);

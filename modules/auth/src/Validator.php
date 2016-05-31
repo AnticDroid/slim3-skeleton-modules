@@ -11,16 +11,18 @@ class Validator extends \MartynBiz\Validator
     /**
      * Check with our account model that the email is valid
      * @param string $message Custom message when validation fails
-     * @param Account $model This will be used to query the db
+     * @param User $model This will be used to query the db
      * @return Validator
      */
-    public function isUniqueEmail($message, Account $model)
+    public function isUniqueEmail($message, User $model)
     {
         //check whether this email exists in the db
-        $account = $model->where('email', '=', $this->value)->first();
+        $user = $model->findOne( array(
+            'email' => $this->value,
+        ) );
 
         // log error
-        if ($account) {
+        if ($user) {
             $this->logError($this->key, $message);
         }
 

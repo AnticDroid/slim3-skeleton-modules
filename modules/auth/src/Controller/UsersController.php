@@ -1,11 +1,14 @@
 <?php
-namespace App\Modules\Auth\Controller;
+namespace Auth\Controller;
 
-use App\Modules\Auth\Model\User;
-use App\Modules\Auth\Model\RecoveryToken;
-use App\Modules\Auth\Validator;
-use App\Modules\Auth\Exception\InvalidRecoveryToken;
-use App\Modules\Auth\Exception\UserNotFound;
+use Auth\Model\User;
+// use Auth\Model\RecoveryToken;
+// use Auth\Exception\InvalidRecoveryToken;
+// use Auth\Exception\UserNotFound;
+
+use Auth\Validator;
+
+use MartynBiz\Slim3Controller\Controller;
 
 class UsersController extends BaseController
 {
@@ -13,7 +16,7 @@ class UsersController extends BaseController
     {
         $params = array_merge($this->getQueryParams(), $this->getPost());
 
-        return $this->render('accounts.create', array(
+        return $this->render('auth::users/create', array(
             'params' => $params,
         ));
     }
@@ -27,24 +30,23 @@ class UsersController extends BaseController
 
         // our simple custom validator for the form
         $validator = new Validator($params);
-        $i18n = $this->get('i18n');
 
         // first_name
         $validator->check('first_name')
-            ->isNotEmpty( $i18n->translate('first_name_missing') );
+            ->isNotEmpty('First name missing');
 
         // last_name
         $validator->check('last_name')
-            ->isNotEmpty( $i18n->translate('last_name_missing') );
+            ->isNotEmpty('Last name missing');
 
         // email
         $validator->check('email')
-            ->isNotEmpty( $i18n->translate('email_missing') )
-            ->isEmail( $i18n->translate('email_invalid') )
-            ->isUniqueEmail( $i18n->translate('email_not_unique'), $this->get('model.account') );
+            ->isNotEmpty('Email missing')
+            ->isEmail('Invalid email address')
+            ->isUniqueEmail('Email address is already in the system', $this->get('model.user') );
 
         // password
-        $message = $i18n->translate('password_must_contain');
+        $message = 'Password must contain upper and lower case letters, and numbers';
         $validator->check('password')
             ->isNotEmpty($message)
             ->hasLowerCase($message)
@@ -60,35 +62,44 @@ class UsersController extends BaseController
         // we know this is a bot
         if ($validator->has('more_info')) {
             $validator->check('more_info')
-                ->isEmpty( $i18n->translate('email_not_unique') ); // misleading msg ;)
+                ->isEmpty('Something went wrong'); // misleading msg ;)
         }
 
         // if valid, create account
-        if ($validator->isValid() and $account = $this->get('model.account')->create( $params )) {
-
-            // set meta entries (if given)
-            if (isset($params['source'])) $account->setMeta('source', $params['source']);
+        if ($validator->isValid() and $user = $this->get('model.user')->create($params)) {
 
             // set session attributes w/ backend (method of signin)
-            $this->get('auth')->setAttributes( array_merge($account->toArray(), array(
-                'backend' => User::BACKEND_JAPANTRAVEL,
-            )) );
+            $this->get('auth')->setAttributes($user->toArray());
 
-            // send welcome email
-            $this->get('mail_manager')->sendWelcomeEmail($account);
+            // // send welcome email
+            // $this->get('mail_manager')->sendWelcomeEmail($user);
 
             // redirect
             isset($params['returnTo']) or $params['returnTo'] = '/';
             return $this->returnTo($params['returnTo']);
-
-        } elseif(! $validator->isValid()) {
-            $errors = $validator->getErrors();
-        } else {
-            $errors = $account->errors();
         }
 
-        $this->get('flash')->addMessage('errors', $errors);
+        $this->get('flash')->addMessage('errors', $validator->getErrors());
         return $this->forward('create');
+    }
+
+    /**
+     * Will ensure that returnTo url is valid before doing redirect. Otherwise mean
+     * people could use out login then redirect to a phishing site
+     * @param string $returnTo The returnTo url that we want to check against our white list
+     */
+    protected function returnTo($returnTo)
+    {
+        $container = $this->app->getContainer();
+        $settings = $container->get('settings');
+
+        // check returnTo
+        $host = parse_url($returnTo, PHP_URL_HOST);
+        if ($host and !preg_match($settings['valid_return_to'], $host)) {
+            throw new InvalidReturnToUrl('Invalid return to URL');
+        }
+
+        return parent::redirect($returnTo);
     }
 
     /**
@@ -156,13 +167,13 @@ class UsersController extends BaseController
                     try {
 
                         // find account by email
-                        $account = $this->get('model.account')->findByEmail($params['email']);
-                        if (! $account) {
+                        $user = $this->get('model.account')->findByEmail($params['email']);
+                        if (! $user) {
                             throw new UserNotFound('An account of this email address was not found.');
                         }
 
                         // delete old recovery_token if exists
-                        $recoveryToken = $account->recovery_token;
+                        $recoveryToken = $user->recovery_token;
                         if ($recoveryToken) {
                             $recoveryToken->delete();
                         }
@@ -173,16 +184,16 @@ class UsersController extends BaseController
                         $selector = uniqid();
                         $token = bin2hex(random_bytes(20));
                         $expire = date('Y-m-d: H:i:s', $settings['expire']);
-                        $recoveryToken = $account->recovery_token()->create( array(
+                        $recoveryToken = $user->recovery_token()->create( array(
                             'selector' => $selector,
                             'token' => $token,
                             'expire' => $expire,
                         ) );
 
                         // send an email with the link and token
-                        $account = $recoveryToken->account;
+                        $user = $recoveryToken->account;
                         $emailRecoveryToken = $selector . '_' . $token;
-                        $this->get('mail_manager')->sendPasswordRecoveryToken($account, $emailRecoveryToken);
+                        $this->get('mail_manager')->sendPasswordRecoveryToken($user, $emailRecoveryToken);
 
                         // success - check email
                         return $this->render('accounts.resetpassword_checkemail', compact('params'));
@@ -279,9 +290,9 @@ class UsersController extends BaseController
                         }
 
                         // finally, update password :)
-                        $account = $recoveryToken->account;
-                        $account->password = $params['password'];
-                        $account->save();
+                        $user = $recoveryToken->account;
+                        $user->password = $params['password'];
+                        $user->save();
 
                         // delete the token as it's no longer needed
                         $recoveryToken->delete();

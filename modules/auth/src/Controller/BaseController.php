@@ -13,18 +13,19 @@ abstract class BaseController extends Controller
      * @param array $data Additional variables to pass to the view
      * @param Response?
      */
-    public function render($file, $data=array())
+    public function render($file, $args=array())
     {
         $container = $this->app->getContainer();
 
-        // add some additional view vars
-        $data = array_merge($data, array(
+        // this will ensure that $data is available to all templates
+        $data = array(
             'messages' => $this->get('flash')->flushMessages(),
-            'currentUser' => null,
-        ));
+            'currentUser' => $this->get('auth')->getCurrentUser(),
+        );
+        $container['renderer']->addData($data);
 
         // generate the html
-        $html = $container['renderer']->render($file, $data);
+        $html = $container['renderer']->render($file, $args);
 
         // put the html in the response object
         $this->response->getBody()->write($html);
