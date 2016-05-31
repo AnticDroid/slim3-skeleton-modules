@@ -2,7 +2,7 @@
 
 // Define path to application directory
 defined('APPLICATION_PATH')
-    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../app'));
+    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../'));
 
 // Define application environment
 defined('APPLICATION_ENV')
@@ -17,31 +17,41 @@ if (PHP_SAPI == 'cli-server') {
     }
 }
 
-$loader = require APPLICATION_PATH . '/../vendor/autoload.php';
+$loader = require APPLICATION_PATH . '/vendor/autoload.php';
 $settings = require APPLICATION_PATH . '/config/global.php';
 
-// ================
+
+// Session
+
+// // server should keep session data for AT LEAST 1 hour
+// ini_set('session.gc_maxlifetime', 3600);
+//
+// // each client should remember their session id for EXACTLY 1 hour
+// session_set_cookie_params(3600);
+//
+// // set session settings before session_start
+// ini_set('session.cookie_domain', @$settings['settings']['session']['cookie_domain']);
+session_start();
+
+
 // App
 
 // Instantiate the app
 $app = new Slim\App($settings);
 $container = $app->getContainer();
-$module = new \MartynBiz\Slim3Module\Module($app, $loader);
 
 MartynBiz\Mongo\Connection::getInstance()->init($settings['settings']['mongo']);
 
-// Register dependencies
-require APPLICATION_PATH . '/dependencies.php';
+$module = new \MartynBiz\Slim3Module\Module($app, $loader, $settings['settings']['modules']);
 
-// Register middleware
-require APPLICATION_PATH . '/middleware.php';
-
-// Register routes
-require APPLICATION_PATH . '/routes.php';
-
-// if you want layouts outside the modules, this will add a new
-// view directory for our layouts
-$container['renderer']->addFolder('shared', APPLICATION_PATH . '/views/', true);
+// // Register dependencies
+// require APPLICATION_PATH . '/dependencies.php';
+//
+// // Register middleware
+// require APPLICATION_PATH . '/middleware.php';
+//
+// // Register routes
+// require APPLICATION_PATH . '/routes.php';
 
 // Run app
 $app->run();
