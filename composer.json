@@ -12,10 +12,12 @@
         "martynbiz/php-mongo": "dev-master",
         "martynbiz/php-validator": "dev-master",
         "league/plates": "^3.1",
-        "robmorgan/phinx": "^0.5.1",
         "monolog/monolog": "^1.17",
         "martynbiz/php-flash-message": "dev-master",
-        "facebook/php-sdk-v4": "^5.1"
+        "facebook/php-sdk-v4": "^5.1",
+        "zendframework/zend-i18n": "^2.6",
+        "zendframework/zend-servicemanager": "^2.0",
+        "zendframework/zend-mail": "^2.5"
     },
     "require-dev": {
         "phpunit/phpunit": "4.8.*"

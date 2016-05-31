@@ -26,6 +26,12 @@ $container['renderer'] = function ($c) {
     $settings = $c->get('settings')['renderer'];
     $template = new League\Plates\Engine($settings['template_path']);
     $template->setFileExtension('phtml');
+
+    // This function will handle out translations
+    $template->registerFunction('translate', function ($string) use ($c) {
+        return $c['i18n']->translate($string);
+    });
+
     return $template;
 };
 
@@ -35,57 +41,57 @@ $container['renderer'] = function ($c) {
 //     return new \App\Modules\Auth\Auth($authAdapter, $settings);
 // };
 
-// // locale - required by a few services, so easier to put in container
-// $container['locale'] = function($c) use ($app) {
-//     $settings = $c->get('settings')['i18n'];
-//     $locale = $c['request']->getCookie('language', $settings['default_locale']);
-//
-//     return $locale;
-// };
-//
-// // i18n
-// $container['i18n'] = function($c) {
-//     $settings = $c->get('settings')['i18n'];
-//     $translator = new \Zend\I18n\Translator\Translator();
-//
-//     // get the language code from the cookie, then get the language file
-//     // if no language file, or no cookie even, get default language.
-//     $locale = $c['locale'];
-//     $type = $settings['type'];
-//     $filePath = $settings['file_path'];
-//     $pattern = '/%s.php';
-//     $textDomain = 'default';
-//
-//     $translator->addTranslationFilePattern($type, $filePath, $pattern, $textDomain);
-//     $translator->setLocale($locale);
-//     $translator->setFallbackLocale($settings['default_locale']);
-//
-//     return $translator;
-// };
+// locale - required by a few services, so easier to put in container
+$container['locale'] = function($c) use ($app) {
+    $settings = $c->get('settings')['i18n'];
+    $locale = $c['request']->getCookie('language', $settings['default_locale']);
 
-// // mail
-// $container['mail_manager'] = function ($c) {
-//     $settings = $c->get('settings')['mail'];
-//
-//     // if not in production, we will write to file
-//     if (APPLICATION_ENV == 'production') {
-//         $transport = new Zend\Mail\Transport\Sendmail();
-//     } else {
-//         $transport = new \Zend\Mail\Transport\File();
-//         $options   = new \Zend\Mail\Transport\FileOptions(array(
-//             'path' => realpath($settings['file_path']),
-//             'callback' => function (\Zend\Mail\Transport\File $transport) {
-//                 return 'Message_' . microtime(true) . '_' . mt_rand() . '.txt';
-//             },
-//         ));
-//         $transport->setOptions($options);
-//     }
-//
-//     $locale = $c['locale'];
-//     $defaultLocale = @$c->get('settings')['i18n']['default_locale'];
-//
-//     return new \App\Mail\Manager($transport, $c['renderer'], $locale, $defaultLocale, $c['i18n']);
-// };
+    return $locale;
+};
+
+// i18n
+$container['i18n'] = function($c) {
+    $settings = $c->get('settings')['i18n'];
+    $translator = new \Zend\I18n\Translator\Translator();
+
+    // get the language code from the cookie, then get the language file
+    // if no language file, or no cookie even, get default language.
+    $locale = $c['locale'];
+    $type = $settings['type'];
+    $filePath = $settings['file_path'];
+    $pattern = '/%s.php';
+    $textDomain = 'default';
+
+    $translator->addTranslationFilePattern($type, $filePath, $pattern, $textDomain);
+    $translator->setLocale($locale);
+    $translator->setFallbackLocale($settings['default_locale']);
+
+    return $translator;
+};
+
+// mail
+$container['mail_manager'] = function ($c) {
+    $settings = $c->get('settings')['mail'];
+
+    // if not in production, we will write to file
+    if (APPLICATION_ENV == 'production') {
+        $transport = new Zend\Mail\Transport\Sendmail();
+    } else {
+        $transport = new \Zend\Mail\Transport\File();
+        $options   = new \Zend\Mail\Transport\FileOptions(array(
+            'path' => realpath($settings['file_path']),
+            'callback' => function (\Zend\Mail\Transport\File $transport) {
+                return 'Message_' . microtime(true) . '_' . mt_rand() . '.txt';
+            },
+        ));
+        $transport->setOptions($options);
+    }
+
+    $locale = $c['locale'];
+    $defaultLocale = @$c->get('settings')['i18n']['default_locale'];
+
+    return new \Application\Mail($transport, $c['renderer'], $c['i18n'], $locale, $defaultLocale, $c['i18n']);
+};
 
 // flash
 $container['flash'] = function ($c) {

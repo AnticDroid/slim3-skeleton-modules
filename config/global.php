@@ -77,24 +77,24 @@ $settings = [
             ],
         ],
 
-        // 'i18n' => [
-        //
-        //     // when the target locale is missing a translation/ template this the
-        //     // fallback locale to use (probably "en")
-        //     'default_locale' => 'en',
-        //
-        //     // this is the type of the translation files using by zend-i18n
-        //     'type' => 'phparray',
-        //
-        //     // where the translation files are stored
-        //     'file_path' => APPLICATION_PATH . '/i18n/',
-        // ],
+        'i18n' => [
 
-        // 'mail' => [
-        //
-        //     // directory where suppressed email files are written to in non-prod env
-        //     'file_path' => APPLICATION_PATH . '/../data/mail/',
-        // ],
+            // when the target locale is missing a translation/ template this the
+            // fallback locale to use (probably "en")
+            'default_locale' => 'en',
+
+            // this is the type of the translation files using by zend-i18n
+            'type' => 'phparray',
+
+            // where the translation files are stored
+            'file_path' => APPLICATION_PATH . '/modules/application/language/',
+        ],
+
+        'mail' => [
+
+            // directory where suppressed email files are written to in non-prod env
+            'file_path' => APPLICATION_PATH . '/data/mail/',
+        ],
 
         // // remember me cookie settings
         // 'recovery_token' => [

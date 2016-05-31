@@ -71,8 +71,8 @@ class UsersController extends BaseController
             // set session attributes w/ backend (method of signin)
             $this->get('auth')->setAttributes($user->toArray());
 
-            // // send welcome email
-            // $this->get('mail_manager')->sendWelcomeEmail($user);
+            // send welcome email
+            $this->get('mail_manager')->sendWelcomeEmail($user);
 
             // redirect
             isset($params['returnTo']) or $params['returnTo'] = '/';
