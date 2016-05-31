@@ -10,7 +10,7 @@
         "martynbiz/slim3-module": "dev-master",
         "martynbiz/slim3-controller": "dev-master",
         "martynbiz/php-mongo": "dev-master",
-        "martynbiz/php-validator": "dev-master",
+        "martynbiz/php-validator": "^1.2",
         "league/plates": "^3.1",
         "monolog/monolog": "^1.17",
         "martynbiz/php-flash-message": "dev-master",

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f283bd0bf097a5c22ab1cbb76c1a7fe5",
-    "content-hash": "ae6470fd21cbb1723647ab0f2165b503",
+    "hash": "1b611a8104e9a686420d76930fe431c4",
+    "content-hash": "5634705f77cd1909282194d1d90ffa9b",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -295,16 +295,16 @@
         },
         {
             "name": "martynbiz/php-validator",
-            "version": "dev-master",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/martynbiz/php-validator.git",
-                "reference": "7b98524e840c0f4509b280ebf2eae6fa77b76476"
+                "reference": "281065732abc63eba1422fc8c0baf6dc2df4e1d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/martynbiz/php-validator/zipball/7b98524e840c0f4509b280ebf2eae6fa77b76476",
-                "reference": "7b98524e840c0f4509b280ebf2eae6fa77b76476",
+                "url": "https://api.github.com/repos/martynbiz/php-validator/zipball/281065732abc63eba1422fc8c0baf6dc2df4e1d5",
+                "reference": "281065732abc63eba1422fc8c0baf6dc2df4e1d5",
                 "shasum": ""
             },
             "require": {
@@ -337,7 +337,7 @@
                 "form",
                 "validation"
             ],
-            "time": "2016-02-08 08:11:25"
+            "time": "2016-05-31 15:20:15"
         },
         {
             "name": "martynbiz/slim3-controller",
@@ -2334,7 +2334,6 @@
         "martynbiz/slim3-module": 20,
         "martynbiz/slim3-controller": 20,
         "martynbiz/php-mongo": 20,
-        "martynbiz/php-validator": 20,
         "martynbiz/php-flash-message": 20
     },
     "prefer-stable": true,

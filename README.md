@@ -2,6 +2,7 @@ php -S localhost:8000 -t public/
 
 TODO
 
+* move validator stuff from controller to validator class (Validator\Register)
 * articles
 * admin?
 * home - contact form, portfolio

@@ -5,6 +5,7 @@ use Auth\Model\User;
 // use Auth\Model\RecoveryToken;
 // use Auth\Exception\InvalidRecoveryToken;
 // use Auth\Exception\UserNotFound;
+use Auth\Validator\RegisterValidator;
 
 use Auth\Validator;
 
@@ -24,49 +25,13 @@ class UsersController extends BaseController
     public function post()
     {
         $params = $this->getPost();
+        $userModel = $this->get('model.user');
 
-        // ============================================
-        // validate form data
-
-        // our simple custom validator for the form
-        $validator = new Validator($params);
-
-        // first_name
-        $validator->check('first_name')
-            ->isNotEmpty('First name missing');
-
-        // last_name
-        $validator->check('last_name')
-            ->isNotEmpty('Last name missing');
-
-        // email
-        $validator->check('email')
-            ->isNotEmpty('Email missing')
-            ->isEmail('Invalid email address')
-            ->isUniqueEmail('Email address is already in the system', $this->get('model.user') );
-
-        // password
-        $message = 'Password must contain upper and lower case letters, and numbers';
-        $validator->check('password')
-            ->isNotEmpty($message)
-            ->hasLowerCase($message)
-            ->hasUpperCase($message)
-            ->isMinimumLength($message, 8);
-
-        // agreement
-        $validator->check('agreement'); // $i18n->translate('please_agree_to_tc');
-
-        // more_info
-        // more info is a invisible field (not type=hidden, use css) that humans won't see
-        // however, when bots turn up they don't know that and fill it in. so, if it's filled in,
-        // we know this is a bot
-        if ($validator->has('more_info')) {
-            $validator->check('more_info')
-                ->isEmpty('Something went wrong'); // misleading msg ;)
-        }
+        $validator = new RegisterValidator($userModel, $params);
+        $validator->setData($params);
 
         // if valid, create account
-        if ($validator->isValid() and $user = $this->get('model.user')->create($params)) {
+        if ($validator->isValid() and $user = $userModel->create($params)) {
 
             // set session attributes w/ backend (method of signin)
             $this->get('auth')->setAttributes($user->toArray());
@@ -83,24 +48,24 @@ class UsersController extends BaseController
         return $this->forward('create');
     }
 
-    /**
-     * Will ensure that returnTo url is valid before doing redirect. Otherwise mean
-     * people could use out login then redirect to a phishing site
-     * @param string $returnTo The returnTo url that we want to check against our white list
-     */
-    protected function returnTo($returnTo)
-    {
-        $container = $this->app->getContainer();
-        $settings = $container->get('settings');
-
-        // check returnTo
-        $host = parse_url($returnTo, PHP_URL_HOST);
-        if ($host and !preg_match($settings['valid_return_to'], $host)) {
-            throw new InvalidReturnToUrl('Invalid return to URL');
-        }
-
-        return parent::redirect($returnTo);
-    }
+    // /**
+    //  * Will ensure that returnTo url is valid before doing redirect. Otherwise mean
+    //  * people could use out login then redirect to a phishing site
+    //  * @param string $returnTo The returnTo url that we want to check against our white list
+    //  */
+    // protected function returnTo($returnTo)
+    // {
+    //     $container = $this->app->getContainer();
+    //     $settings = $container->get('settings');
+    //
+    //     // check returnTo
+    //     $host = parse_url($returnTo, PHP_URL_HOST);
+    //     if ($host and !preg_match($settings['valid_return_to'], $host)) {
+    //         throw new InvalidReturnToUrl('Invalid return to URL');
+    //     }
+    //
+    //     return parent::redirect($returnTo);
+    // }
 
     /**
      * This action is used to handle the process when a user wished to reset their
