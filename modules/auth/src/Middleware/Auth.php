@@ -1,7 +1,7 @@
 <?php
 namespace Auth\Middleware;
 
-use App\Auth\AuthInterface;
+use Auth\Auth;
 
 class Auth
 {
@@ -10,7 +10,7 @@ class Auth
      */
     protected $auth;
 
-    public function __construct(AuthInterface $auth)
+    public function __construct(Auth $auth)
     {
         $this->auth = $auth;
     }

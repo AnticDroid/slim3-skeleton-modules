@@ -2,60 +2,43 @@ php -S localhost:8000 -t public/
 
 TODO
 
-* auth
-  * move auth_register stuff to auth
-  * welcome emails
 * articles
 * admin?
 * home - contact form, portfolio
 * module tests
-* router passed to templates 
+* router passed to templates, use route paths
+* cache
+* namespace dependencies
 
-* git plan
-  - cp -rn app/module/views/* app/views (will make a copy of views and layouts)
-  -
-
+* csrf
 * cache busting (plates)
-* vendor modules
+* vendor modules, cp config/views
 
 
 further modules:
 
-admin_tags
-admin_articles
-admin_users
-articles
-users
+articles (admin, tags, photos, etc)
 auth
 auth_facebook
 
 oauth_client
 oauth_server
 qa
-qa_admin
 store
-store_admin
 
 examples:
 
 martynbiz
+* application
 * auth
-* auth_admin
 * articles
-* articles_admin
-* home
 
 qa
+* application
 * auth
-* auth_register
-* auth_admin
 * qa
-* qa_admin
-* home
 
 mylocalmap
+* application
 * auth
-* auth_admin
 * articles
-* articles_admin
-* home

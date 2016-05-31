@@ -17,8 +17,31 @@ if (PHP_SAPI == 'cli-server') {
     }
 }
 
-$loader = require APPLICATION_PATH . '/vendor/autoload.php';
-$settings = require APPLICATION_PATH . '/config/global.php';
+
+
+// config
+
+// first autoload stuff
+$configPath = APPLICATION_PATH . '/config/';
+$autoloadPath = $configPath . 'autoload/';
+$settings = [];
+foreach (scandir($autoloadPath) as $file) {
+    if ('.' === $file) continue;
+    if ('..' === $file) continue;
+
+    $settings = array_replace_recursive(
+        $settings,
+        require $autoloadPath . $file
+    );
+}
+
+// overwrite with environment config
+if (file_exists($configPath . APPLICATION_ENV . '.php')) {
+    $settings = array_replace_recursive(
+        $settings,
+        require $configPath . APPLICATION_ENV . '.php'
+    );
+}
 
 
 // Session
@@ -37,6 +60,7 @@ session_start();
 // App
 
 // Instantiate the app
+$loader = require APPLICATION_PATH . '/vendor/autoload.php';
 $app = new Slim\App($settings);
 $container = $app->getContainer();
 
