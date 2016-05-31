@@ -2,7 +2,8 @@ php -S localhost:8000 -t public/
 
 TODO
 
-* move validator stuff from controller to validator class (Validator\Register)
+* new packages: php-mail
+* handling translation keys, translation tool
 * articles
 * admin?
 * home - contact form, portfolio
