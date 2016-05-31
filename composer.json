@@ -22,10 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/library/",
-            "App\\Modules\\Home\\": "app/modules/home/library/",
-            "App\\Modules\\Auth\\": "app/modules/auth/library/",
-            "App\\Modules\\AuthRegister\\": "app/modules/auth_register/library/"
+            "App\\": "app/library/"
         },
         "classmap": [
             "tests"

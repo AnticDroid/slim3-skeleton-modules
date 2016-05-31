@@ -1,6 +1,6 @@
 <?php
 
-// module routes
+// application routes
 $app->group('', function () use ($app) {
 
     $controller = new App\Controller\IndexController($app);

@@ -27,14 +27,6 @@ Ensure the following to your composer file:
     "martynbiz/slim3-controller": "dev-master",
     "martynbiz/php-mongo": "dev-master",
     "league/plates": "^3.1"
-},
-"autoload": {
-    "psr-4": {
-        .
-        .
-        .
-        "App\\Modules\\Auth\\": "app/modules/auth/library/"
-    }
 }
 ```
 
@@ -58,12 +50,6 @@ $container['renderer'] = function ($c) {
     $template = new League\Plates\Engine();
     $template->setFileExtension('phtml');
     return $template;
-};
-
-$container['auth'] = function ($c) {
-    $settings = $c->get('settings')['auth'];
-    $authAdapter = new \App\Modules\Auth\Adapter\Eloquent( $c['model.account'] );
-    return new \App\Modules\Auth\Auth($authAdapter, $settings);
 };
 
 $container['flash'] = function ($c) {

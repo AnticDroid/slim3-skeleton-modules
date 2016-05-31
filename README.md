@@ -3,7 +3,7 @@ php -S localhost:8000 -t public/
 TODO
 
 * auth
-  * setPassword (check mongo custom setter and getters)
+  * move auth_* stuff to auth
 * auth_register
   * welcome emails
 * articles
