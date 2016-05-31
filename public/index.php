@@ -17,32 +17,8 @@ if (PHP_SAPI == 'cli-server') {
     }
 }
 
-require APPLICATION_PATH . '/../vendor/autoload.php';
-
+$loader = require APPLICATION_PATH . '/../vendor/autoload.php';
 $settings = require APPLICATION_PATH . '/config/global.php';
-
-// // ================
-// // Session
-//
-// // server should keep session data for AT LEAST 1 hour
-// ini_set('session.gc_maxlifetime', 3600);
-//
-// // each client should remember their session id for EXACTLY 1 hour
-// session_set_cookie_params(3600);
-//
-// // set session settings before session_start
-// ini_set('session.cookie_domain', @$settings['settings']['session']['cookie_domain']);
-// session_start();
-
-// // ================
-// // Eloquent
-//
-// // initiate database connection
-// // setup eloquent for the job
-// $capsule = new \Illuminate\Database\Capsule\Manager;
-// $capsule->addConnection($settings['settings']['eloquent']);
-// $capsule->setEventDispatcher( new \Illuminate\Events\Dispatcher( new \Illuminate\Container\Container ));
-// $capsule->bootEloquent();
 
 // ================
 // App
@@ -50,6 +26,7 @@ $settings = require APPLICATION_PATH . '/config/global.php';
 // Instantiate the app
 $app = new Slim\App($settings);
 $container = $app->getContainer();
+$module = new \MartynBiz\Slim3Module\Module($app, $loader);
 
 MartynBiz\Mongo\Connection::getInstance()->init($settings['settings']['mongo']);
 

@@ -1,7 +1,5 @@
 <?php
 
-$module = new \MartynBiz\Slim3Module\Module($app); //\MartynBiz\Slim3Modules\Loader($app);
-
 // module routes
 $app->group('', function () use ($app) {
 
@@ -15,5 +13,4 @@ $app->group('', function () use ($app) {
 });
 
 $module->load('auth');
-$module->load('auth_register');
 // $module->load('articles');
