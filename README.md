@@ -2,7 +2,6 @@ php -S localhost:8000 -t public/
 
 TODO
 
-* new packages: php-mail
 * handling translation keys, translation tool
 * articles
 * admin?
