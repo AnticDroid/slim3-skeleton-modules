@@ -2,7 +2,6 @@ php -S localhost:8000 -t public/
 
 TODO
 
-* handling translation keys, translation tool
 * articles
 * admin?
 * home - contact form, portfolio
@@ -13,6 +12,7 @@ TODO
 
 * csrf
 * cache busting (plates)
+
 * vendor modules, cp config/views
 
 

@@ -1,9 +1,9 @@
 <?php
-namespace Wordup\Controller\Admin;
+namespace Auth\Controller\Admin;
 
-use Wordup\Controller\BaseController;
-use Wordup\Model\User;
-use Wordup\Exception\PermissionDenied;
+use Auth\Controller\BaseController;
+use Auth\Model\User;
+use Auth\Exception\PermissionDenied;
 
 class UsersController extends BaseController
 {

@@ -27,7 +27,7 @@ $app->group('/admin', function () use ($app) {
     // admin/users routes
     $app->group('/users', function () use ($app) {
 
-        $controller = new \Auth\Controller\UsersController($app);
+        $controller = new \Auth\Controller\Admin\UsersController($app);
 
         $app->get('', $controller('index'))->setName('admin_users');
         // $app->get('/{id:[0-9]+}', $controller('show'))->setName('admin_users_show');
@@ -38,4 +38,6 @@ $app->group('/admin', function () use ($app) {
         $app->put('/{id:[0-9]+}', $controller('update'))->setName('admin_users_update');
         $app->delete('/{id:[0-9]+}', $controller('delete'))->setName('admin_users_delete');
     });
-}); //->add( new \Auth\Middleware\Auth( $container['auth'] ) );
+})
+->add( new \Auth\Middleware\AdminOnly( $container['auth'] ) ) // user must be admin
+->add( new \Auth\Middleware\Auth( $container['auth'] ) ); // user must be authenticated

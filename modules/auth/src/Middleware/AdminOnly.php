@@ -3,7 +3,7 @@ namespace Auth\Middleware;
 
 use Auth\Auth as AuthService;
 
-class Auth
+class AdminOnly
 {
     /**
      * @var App\Auth\Auth
@@ -26,10 +26,9 @@ class Auth
      */
     public function __invoke($request, $response, $next)
     {
-        // check if user is authenticated, otherwise return 401/ redirect/ etc
-        if (! $this->auth->isAuthenticated() ) {
-            // return $response->withStatus(401);
-            return $response->withRedirect('/auth/login', 401);
+        $currentUser = $this->auth->getCurrentUser();
+        if (! $currentUser->isAdmin() ) {
+            throw new PermissionDenied('Permission denied to manage users.');
         }
 
         // pass onto the next callable
