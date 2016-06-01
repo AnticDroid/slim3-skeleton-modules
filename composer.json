@@ -25,6 +25,11 @@
         "phpunit/phpunit": "4.8.*"
     },
     "autoload": {
+        "psr-4": {
+            "Application\\": "modules/application/src/",
+            "Auth\\": "modules/auth/src/",
+            "Blog\\": "modules/blog/src/"
+        },
         "classmap": [
             "tests"
         ]

@@ -2,6 +2,7 @@ php -S localhost:8000 -t public/
 
 TODO
 
+* Module.php class - need to load class paths, dependencies for all modules before routes
 * articles
 * admin?
 * home - contact form, portfolio

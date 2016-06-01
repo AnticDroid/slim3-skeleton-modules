@@ -39,5 +39,5 @@ $app->group('/admin', function () use ($app) {
         $app->delete('/{id:[0-9]+}', $controller('delete'))->setName('admin_users_delete');
     });
 })
-->add( new \Auth\Middleware\AdminOnly( $container['auth'] ) ) // user must be admin
+// ->add( new \Auth\Middleware\AdminOnly( $container['auth'] ) ) // user must be admin
 ->add( new \Auth\Middleware\Auth( $container['auth'] ) ); // user must be authenticated

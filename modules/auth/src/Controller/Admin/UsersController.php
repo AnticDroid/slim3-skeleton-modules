@@ -7,20 +7,20 @@ use Auth\Exception\PermissionDenied;
 
 class UsersController extends BaseController
 {
-    public function init()
-    {
-        // only admin can do anything here
-        $currentUser = $this->get('auth')->getCurrentUser();
-        if (! $currentUser->isAdmin() ) {
-            throw new PermissionDenied('Permission denied to manage users.');
-        }
-    }
+    // public function init()
+    // {
+    //     // only admin can do anything here
+    //     $currentUser = $this->get('auth')->getCurrentUser();
+    //     if (! $currentUser->isAdmin() ) {
+    //         throw new PermissionDenied('Permission denied to manage users.');
+    //     }
+    // }
 
     public function index()
     {
         $users = $this->get('model.user')->find();
 
-        return $this->render('admin.users.index', array(
+        return $this->render('auth::admin/users/index', array(
             'users' => $users,
         ));
     }

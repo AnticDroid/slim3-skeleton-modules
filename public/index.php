@@ -60,13 +60,13 @@ session_start();
 // App
 
 // Instantiate the app
-$loader = require APPLICATION_PATH . '/vendor/autoload.php';
+require APPLICATION_PATH . '/vendor/autoload.php';
 $app = new Slim\App($settings);
 $container = $app->getContainer();
 
 MartynBiz\Mongo\Connection::getInstance()->init($settings['settings']['mongo']);
 
-$module = new \MartynBiz\Slim3Module\Module($app, $loader, $settings['settings']['modules']);
+$module = new \MartynBiz\Slim3Module\Module($app, $settings['settings']['modules']);
 
 // // Register dependencies
 // require APPLICATION_PATH . '/dependencies.php';

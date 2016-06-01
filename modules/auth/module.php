@@ -5,9 +5,6 @@
  * following files too
  */
 
-// autoload classes
-$classLoader->setPsr4("Auth\\", __DIR__ . "/src");
-
 // merge config of this with app
 $moduleSettings = require 'config/auth.config.php';
 $container['settings']->__construct($moduleSettings);
