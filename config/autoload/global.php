@@ -6,17 +6,6 @@
 $settings = [
     'settings' => [
 
-        // Module settings
-        'modules' => [
-            'autoload' => [
-                'Application',
-                'Auth',
-                // 'Blog',
-                'Hello',
-            ],
-            'modules_path' => APPLICATION_PATH . '/modules',
-        ],
-
         // 'mongo' => [
         //     'db' => 'wordup',
         //     // 'username' => 'myuser',

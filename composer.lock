@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "34b3584455f2f240108fe58e205bf92f",
-    "content-hash": "ec244555a60c842f5406ac920719ff70",
+    "hash": "6ec934e7548b53bc3415dad4090baac9",
+    "content-hash": "e85a3ff1807fa5f8f494db842d011441",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -148,17 +148,14 @@
         },
         {
             "name": "league/plates",
-            "version": "3.1.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/thephpleague/plates.git",
-                "reference": "2d8569e9f140a70d6a05db38006926f7547cb802"
+                "url": "https://github.com/martynbiz/plates",
+                "reference": "e727dc5bdbd3d0a2b44de5003c44b3d9771206af"
             },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/plates/zipball/2d8569e9f140a70d6a05db38006926f7547cb802",
-                "reference": "2d8569e9f140a70d6a05db38006926f7547cb802",
-                "shasum": ""
+            "require": {
+                "php": "^5.3 | ^7.0"
             },
             "require-dev": {
                 "mikey179/vfsstream": "~1.4.0",
@@ -176,7 +173,6 @@
                     "League\\Plates\\": "src"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -196,7 +192,7 @@
                 "templating",
                 "views"
             ],
-            "time": "2015-07-09 02:14:40"
+            "time": "2016-06-02 11:32:17"
         },
         {
             "name": "martynbiz/php-flash-message",
@@ -2325,6 +2321,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "martynbiz/slim3-module": 20,
+        "league/plates": 20,
         "martynbiz/php-flash-message": 20
     },
     "prefer-stable": true,

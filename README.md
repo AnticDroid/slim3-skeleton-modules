@@ -1,7 +1,10 @@
-php -S localhost:8000 -t public/
+APPLICATION_ENV="development" php -S localhost:8000 -t public/
 
 TODO
 
+* https://github.com/FoilPHP/Foil
+  https://github.com/thephpleague/plates/issues/59
+  https://github.com/thephpleague/plates/pull/63
 * Module.php class - need to load class paths, dependencies for all modules before routes
 * articles
 * admin?

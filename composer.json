@@ -9,6 +9,10 @@
         {
             "url": "https://github.com/martynbiz/slim3-module",
             "type": "git"
+        },
+        {
+            "url": "https://github.com/martynbiz/plates",
+            "type": "git"
         }
     ],
 
@@ -19,7 +23,7 @@
         "martynbiz/slim3-controller": "^0.0",
         "martynbiz/php-mongo": "^0.0",
         "martynbiz/php-validator": "^1.2",
-        "league/plates": "^3.1",
+        "league/plates": "dev-master",
         "monolog/monolog": "^1.17",
         "martynbiz/php-flash-message": "dev-master",
         "facebook/php-sdk-v4": "^5.1",
