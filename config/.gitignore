@@ -3,3 +3,4 @@
 !autoload/*
 !staging.php
 !production.php
+!*.dist

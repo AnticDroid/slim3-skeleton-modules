@@ -1,0 +1,14 @@
+<?php
+
+// default settings
+return [
+    'settings' => [
+        'displayErrorDetails' => true,
+
+        'eloquent' => [
+    		'database' => 'sso_development',
+    		'username' => 'root',
+    		'password' => 'p455word',
+        ],
+    ],
+];
