@@ -1,9 +1,9 @@
 <?php
 namespace Application\Controller\Admin;
 
-use MartynBiz\Slim3Controller\Controller;
+use Application\Controller\BaseController;
 
-class IndexController extends Controller
+class IndexController extends BaseController
 {
     public function index()
     {

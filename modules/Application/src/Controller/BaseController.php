@@ -1,27 +1,10 @@
 <?php
 namespace Application\Controller;
 
-class IndexController extends BaseController
+use MartynBiz\Slim3Controller\Controller;
+
+class BaseController extends Controller
 {
-    public function index()
-    {
-        return $this->render('index/index');
-    }
-
-    public function portfolio()
-    {
-        return $this->render('index/portfolio');
-    }
-
-    public function contact()
-    {
-        if ($this->request->isPost()) {
-
-        }
-
-        return $this->render('index/contact');
-    }
-
     /**
      * Render the html and attach to the response
      * @param string $file Name of the template/ view to render
