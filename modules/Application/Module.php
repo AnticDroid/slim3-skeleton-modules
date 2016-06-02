@@ -21,8 +21,12 @@ class Module extends AbstractModule
     public static function getModuleConfig()
     {
         return [
-            'renderer' => [
-                'template_path' => APPLICATION_PATH . '/modules/Application/views',
+            'modules' => [
+                'Application' => [
+                    'renderer' => [
+                        'template_path' => APPLICATION_PATH . '/modules/Application/views',
+                    ],
+                ],
             ],
         ];
     }
@@ -44,6 +48,9 @@ class Module extends AbstractModule
      */
     public static function initDependencies(Container $container)
     {
+        $settings = $container->get('settings');
+        var_dump($settings); exit;
+
         // replace request with our own
         $container['request'] = function ($c) {
             return \MartynBiz\Slim3Controller\Http\Request::createFromEnvironment($c->get('environment'));

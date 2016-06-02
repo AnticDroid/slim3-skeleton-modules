@@ -6,11 +6,11 @@
 $settings = [
     'settings' => [
 
-        // 'mongo' => [
-        //     'db' => 'wordup',
-        //     // 'username' => 'myuser',
-        //     // 'password' => 'mypass',
-        // ],
+        'mongo' => [
+            'db' => 'wordup',
+            // 'username' => 'myuser',
+            // 'password' => 'mypass',
+        ],
 
         'session' => [
             'namespace' => 'slim3__',

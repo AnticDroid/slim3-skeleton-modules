@@ -22,7 +22,7 @@ class Module extends AbstractModule
     {
         return [
             'modules' => [
-                'auth' => [
+                'Auth' => [
                     'renderer' => [
                         'template_path' => APPLICATION_PATH . '/modules/Auth/views',
                     ],

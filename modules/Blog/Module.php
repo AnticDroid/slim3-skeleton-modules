@@ -22,7 +22,7 @@ class Module extends AbstractModule
     {
         return [
             'modules' => [
-                'blog' => [
+                'Blog' => [
                     'renderer' => [
                         'template_path' => APPLICATION_PATH . '/modules/Blog/views',
                     ],
