@@ -12,6 +12,7 @@ $settings = [
                 'Application',
                 'Auth',
                 // 'Blog',
+                'Hello',
             ],
             'modules_path' => APPLICATION_PATH . '/modules',
         ],
