@@ -1,5 +1,21 @@
 <!DOCTYPE html>
 <html>
+<head>
+<meta charset="UTF-8">
+<title>Title of the document</title>
+</head>
+
+<body>
+    <?php $this->section('content') ?>
+    <?php $this->stop() ?>
+</body>
+
+</html>
+
+
+<?php /*
+<!DOCTYPE html>
+<html>
     <head>
         <title><?=$this->e($title)?></title>
 
@@ -68,7 +84,8 @@
                 </div>
             <?php endif; ?>
 
-            <?=$this->section('body')?>
+            <?php $this->section('body') ?>
+            <?php $this->stop() ?>
         </div>
 
         <footer>
@@ -80,3 +97,4 @@
         <script src="/js/app.js" type="text/javascript"></script>
     </body>
 </html>
+*/ ?>

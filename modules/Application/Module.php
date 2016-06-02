@@ -48,9 +48,6 @@ class Module extends AbstractModule
      */
     public static function initDependencies(Container $container)
     {
-        $settings = $container->get('settings');
-        var_dump($settings); exit;
-
         // replace request with our own
         $container['request'] = function ($c) {
             return \MartynBiz\Slim3Controller\Http\Request::createFromEnvironment($c->get('environment'));
@@ -65,23 +62,29 @@ class Module extends AbstractModule
 
         // view renderer. the simple task of compiling a template with data
         $container['renderer'] = function ($c) {
-            $settings = $c->get('settings')['renderer'];
-            $template = new \League\Plates\Engine($settings['template_path']);
-            $template->setFileExtension('phtml');
+            $engine = \Foil\engine([
+                'ext' => 'phtml'
+            ]);
 
-            // TODO put helpers into invokable classes so we can test them
+            return $engine;
 
-            // This helper will handle out translations
-            $template->registerFunction('translate', function ($string) use ($c) {
-                return $c['i18n']->translate($string);
-            });
-
-            // This helper will allow us to use named links - $this->pathFor('application_index')
-            $template->registerFunction('pathFor', function ($name, $args=array()) use ($c) {
-                return $c['router']->pathFor($name, $args);
-            });
-
-            return $template;
+            // $settings = $c->get('settings')['renderer'];
+            // $template = new \League\Plates\Engine($settings['template_path']);
+            // $template->setFileExtension('phtml');
+            //
+            // // TODO put helpers into invokable classes so we can test them
+            //
+            // // This helper will handle out translations
+            // $template->registerFunction('translate', function ($string) use ($c) {
+            //     return $c['i18n']->translate($string);
+            // });
+            //
+            // // This helper will allow us to use named links - $this->pathFor('application_index')
+            // $template->registerFunction('pathFor', function ($name, $args=array()) use ($c) {
+            //     return $c['router']->pathFor($name, $args);
+            // });
+            //
+            // return $template;
         };
 
         // locale - required by a few services, so easier to put in container
@@ -140,6 +143,12 @@ class Module extends AbstractModule
         $container['flash'] = function ($c) {
             return new \MartynBiz\FlashMessage\Flash();
         };
+
+
+        // add folder to $engine
+        $settings = self::getModuleConfig();
+        $templatePath = $settings["modules"]["Application"]["renderer"]["template_path"];
+        $container['renderer']->addFolder($templatePath);
     }
 
     /**

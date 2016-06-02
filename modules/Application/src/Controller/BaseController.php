@@ -15,15 +15,12 @@ class BaseController extends Controller
     {
         $container = $this->app->getContainer();
 
-        // this will ensure that $data is available to all templates
-        $container['renderer']->addData(array(
+        // generate the html
+        $html = $container['renderer']->render($file, [
             'messages' => $this->get('flash')->flushMessages(),
             'currentUser' => $this->get('auth')->getCurrentUser(),
-            // 'router' => $this->app->getContainer()->get('router')
-        ));
-
-        // generate the html
-        $html = $container['renderer']->render($file, $args);
+            'router' => $this->app->getContainer()->get('router')
+        ]);
 
         // put the html in the response object
         $this->response->getBody()->write($html);
