@@ -62,9 +62,16 @@ class Module extends AbstractModule
             $template = new \League\Plates\Engine($settings['template_path']);
             $template->setFileExtension('phtml');
 
-            // This function will handle out translations
+            // TODO put helpers into invokable classes so we can test them
+
+            // This helper will handle out translations
             $template->registerFunction('translate', function ($string) use ($c) {
                 return $c['i18n']->translate($string);
+            });
+
+            // This helper will allow us to use named links - $this->pathFor('application_index')
+            $template->registerFunction('pathFor', function ($name, $args=array()) use ($c) {
+                return $c['router']->pathFor($name, $args);
             });
 
             return $template;

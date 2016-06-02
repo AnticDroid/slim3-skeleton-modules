@@ -19,6 +19,7 @@ class BaseController extends Controller
         $container['renderer']->addData(array(
             'messages' => $this->get('flash')->flushMessages(),
             'currentUser' => $this->get('auth')->getCurrentUser(),
+            // 'router' => $this->app->getContainer()->get('router')
         ));
 
         // generate the html
