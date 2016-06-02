@@ -9,7 +9,7 @@
         {
             "url": "https://github.com/martynbiz/slim3-module",
             "type": "git"
-        },
+        }
     ],
 
     "require": {
