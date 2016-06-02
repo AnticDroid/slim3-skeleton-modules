@@ -9,8 +9,9 @@ $settings = [
         // Module settings
         'modules' => [
             'autoload' => [
-                'application',
-                'auth',
+                'Application',
+                'Auth',
+                // 'Blog',
             ],
             'modules_path' => APPLICATION_PATH . '/modules',
         ],

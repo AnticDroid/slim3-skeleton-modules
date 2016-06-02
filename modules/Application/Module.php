@@ -7,25 +7,43 @@
 
 namespace Application;
 
+use Composer\Autoload\ClassLoader;
+use Slim\App;
+use Slim\Container;
 use MartynBiz\Slim3Module\AbstractModule;
 
-class Module extends AbstractModule implements InitClassLoaderInterface, InitDependenciesInterface, InitMiddlewareInterface
+class Module extends AbstractModule
 {
     /**
-     *
+     * Get config array for this module
+     * @return array
      */
-    public static function initClassLoader()
+    public static function getModuleConfig()
     {
-        $this->classLoader->setPsr4("Application\\", __DIR__ . "/src");
+        return [
+            'renderer' => [
+                'template_path' => APPLICATION_PATH . '/modules/Application/views',
+            ],
+        ];
     }
 
     /**
-     *
+     * Set class maps for class loader to autoload classes for this module
+     * @param ClassLoader $classLoader
+     * @return void
      */
-    public static function initDependencies()
+    public static function initClassLoader(ClassLoader $classLoader)
     {
-        $container = $this->container;
+        $classLoader->setPsr4("Application\\", __DIR__ . "/src");
+    }
 
+    /**
+     * Set class maps for class loader to autoload classes for this module
+     * @param Container $container
+     * @return void
+     */
+    public static function initDependencies(Container $container)
+    {
         // replace request with our own
         $container['request'] = function ($c) {
             return \MartynBiz\Slim3Controller\Http\Request::createFromEnvironment($c->get('environment'));
@@ -41,7 +59,7 @@ class Module extends AbstractModule implements InitClassLoaderInterface, InitDep
         // view renderer. the simple task of compiling a template with data
         $container['renderer'] = function ($c) {
             $settings = $c->get('settings')['renderer'];
-            $template = new League\Plates\Engine($settings['template_path']);
+            $template = new \League\Plates\Engine($settings['template_path']);
             $template->setFileExtension('phtml');
 
             // This function will handle out translations
@@ -52,14 +70,8 @@ class Module extends AbstractModule implements InitClassLoaderInterface, InitDep
             return $template;
         };
 
-        // $container['auth'] = function ($c) {
-        //     $settings = $c->get('settings')['auth'];
-        //     $authAdapter = new \App\Modules\Auth\Adapter\Mongo( $c['model.user'] );
-        //     return new \App\Modules\Auth\Auth($authAdapter, $settings);
-        // };
-
         // locale - required by a few services, so easier to put in container
-        $container['locale'] = function($c) use ($app) {
+        $container['locale'] = function($c) {
             $settings = $c->get('settings')['i18n'];
             $locale = $c['request']->getCookie('language', $settings['default_locale']);
 
@@ -117,23 +129,16 @@ class Module extends AbstractModule implements InitClassLoaderInterface, InitDep
     }
 
     /**
-     *
+     * Load is run last, when config, dependencies, etc have been initiated
+     * Routes ought to go here
+     * @param App $app
+     * @return void
      */
-    public static function initMiddleware()
+    public static function initRoutes(App $app)
     {
-
-    }
-
-    /**
-     *
-     */
-    public static function load()
-    {
-        $app = $this->app;
-
         $app->group('', function () use ($app) {
 
-            $controller = new Application\Controller\IndexController($app);
+            $controller = new \Application\Controller\IndexController($app);
 
             $app->get('/', $controller('index'))->setName('application_index');
             $app->get('/portfolio', $controller('portfolio'))->setName('application_portfolio');
@@ -142,29 +147,18 @@ class Module extends AbstractModule implements InitClassLoaderInterface, InitDep
             $app->post('/contact', $controller('contact'))->setName('application_contact');
         });
 
-        // admin routes -- invokes auth middleware
-        $app->group('/admin', function () use ($app) {
-
-            // admin/users routes
-            $app->group('', function () use ($app) {
-
-                $controller = new \Application\Controller\Admin\IndexController($app);
-
-                $app->get('', $controller('index'))->setName('application_admin_index');
-            });
-        })
-        // ->add( new \Auth\Middleware\AdminOnly( $container['auth'] ) ) // user must be admin
-        ->add( new \Auth\Middleware\Auth( $container['auth'] ) ); // user must be authenticated
+        // // admin routes -- invokes auth middleware
+        // $app->group('/admin', function () use ($app) {
+        //
+        //     // admin/users routes
+        //     $app->group('', function () use ($app) {
+        //
+        //         $controller = new \Application\Controller\Admin\IndexController($app);
+        //
+        //         $app->get('', $controller('index'))->setName('application_admin_index');
+        //     });
+        // })
+        // // ->add( new \Auth\Middleware\AdminOnly( $container['auth'] ) ) // user must be admin
+        // ->add( new \Auth\Middleware\Auth( $container['auth'] ) ); // user must be authenticated
     }
 }
-
-// merge config of this with app
-$moduleSettings = require 'config/module.config.php';
-$container['settings']->__construct($moduleSettings);
-
-require 'dependencies.php';
-require 'routes.php';
-
-// // add home module's views dir
-// $templatePath = $settings['renderer']['template_path'];
-// $container['renderer']->addFolder('application', $templatePath, true);
