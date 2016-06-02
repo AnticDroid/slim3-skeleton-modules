@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><?=$this->e($title)?></title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Mr+Dafoe' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" type="text/css" href="/css/frontend.css">
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="<?= $this->pathFor('application_index'); ?>">Title</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <form id="deleteSession" method="post" action="/auth">
+                        <input type="hidden" name="_METHOD" value="DELETE">
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/portfolio">Portfolio</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                        <?php if ($currentUser): ?>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Martyn <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/admin/articles">Admin</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#" onclick="$('form#deleteSession').submit(); return false;">Logout</a></li>
+                                </ul>
+                            </li>
+                        <?php else: ?>
+                            <li><a href="/auth/register">Register</a></li>
+                            <li><a href="/auth/login">Login</a></li>
+                        <?php endif; ?>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+        <div class="container">
+            <?php if (isset($messages['success'])): ?>
+                <div class="alert alert-success">
+                    <?=$this->e($messages['success']); ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if (isset($messages['errors'])): ?>
+                <div class="alert alert-danger alert-important">
+                    <ul>
+                        <?php foreach ($messages['errors'] as $error): ?>
+                            <li><?=$this->e($error); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
+
+            <?=$this->section('body')?>
+        </div>
+
+        <footer>
+            &copy; Martyn Bissett 2016 - Powered by <a href="#">Wordup</a>
+        </footer>
+
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script>
+        <script src="/js/app.js" type="text/javascript"></script>
+    </body>
+</html>

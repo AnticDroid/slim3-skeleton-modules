@@ -1,0 +1,49 @@
+{
+    "name": "metroworks/sso",
+    "description": "SSO authentication for apps sharing the same domain",
+    "homepage": "http://accounts.japantravel.com",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+
+    "repositories": [
+        {
+            "url": "https://github.com/martynbiz/slim3-module",
+            "type": "git"
+        },
+        {
+            "url": "https://github.com/martynbiz/plates",
+            "type": "git"
+        }
+    ],
+
+    "require": {
+        "php": ">=5.5.0",
+        "slim/slim": "~3.0",
+        "martynbiz/slim3-module": "dev-master",
+        "martynbiz/slim3-controller": "^0.0",
+        "martynbiz/php-mongo": "^0.0",
+        "martynbiz/php-validator": "^1.2",
+        "league/plates": "dev-master",
+        "monolog/monolog": "^1.17",
+        "martynbiz/php-flash-message": "dev-master",
+        "facebook/php-sdk-v4": "^5.1",
+        "zendframework/zend-i18n": "^2.6",
+        "zendframework/zend-servicemanager": "^2.0",
+        "zendframework/zend-mail": "^2.5",
+        "desarrolla2/cache": "^2.0",
+        "predis/predis": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.8.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Application\\": "modules/application/src/",
+            "Auth\\": "modules/auth/src/",
+            "Blog\\": "modules/blog/src/"
+        },
+        "classmap": [
+            "tests"
+        ]
+    }
+}
