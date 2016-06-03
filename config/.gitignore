@@ -3,4 +3,5 @@
 !autoload/*
 !staging.php
 !production.php
+!global.php
 !*.dist

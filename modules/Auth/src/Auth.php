@@ -85,7 +85,7 @@ class Auth
     {
         // ensure that whitelist is set
         if (! isset($this->settings['valid_attributes'])) {
-            throw new Exception('valid_attributes must be set in settings');
+            throw new \Exception('valid_attributes must be set in settings');
         }
 
         // filter attributes based on valid_attributes

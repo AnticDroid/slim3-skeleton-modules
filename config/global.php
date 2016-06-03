@@ -1,9 +1,8 @@
 <?php
 
-// TODO put this into config
+// this is app config
 
-// default settings
-$settings = [
+return [
     'settings' => [
 
         'modules' => [],
@@ -74,21 +73,3 @@ $settings = [
         // ],
     ],
 ];
-
-// // load environment settings
-// if (file_exists(APPLICATION_PATH . '/config/' . APPLICATION_ENV . '.php')) {
-//     $settings = array_replace_recursive(
-//         $settings,
-//         require APPLICATION_PATH . '/config/' . APPLICATION_ENV . '.php'
-//     );
-// }
-
-// // load any private settings (eg. database credentials)
-// if (file_exists(APPLICATION_PATH . '/config/local.php')) {
-//     $settings = array_replace_recursive(
-//         $settings,
-//         require APPLICATION_PATH . '/config/local.php'
-//     );
-// }
-
-return $settings;

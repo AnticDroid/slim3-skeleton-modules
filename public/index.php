@@ -21,10 +21,14 @@ if (PHP_SAPI == 'cli-server') {
 
 // config
 
-// first autoload stuff
+// 1) load global
+$settings = require APPLICATION_PATH . '/config/global.php';
+
+// 2) TODO load modules config here before autoload
+
+// 3) autoload stuff, module config here will overwrite default
 $configPath = APPLICATION_PATH . '/config/';
 $autoloadPath = $configPath . 'autoload/';
-$settings = [];
 foreach (scandir($autoloadPath) as $file) {
     if ('.' === $file) continue;
     if ('..' === $file) continue;
@@ -35,7 +39,7 @@ foreach (scandir($autoloadPath) as $file) {
     );
 }
 
-// overwrite with environment config
+// 4) overwrite all with environment config
 if (file_exists($configPath . APPLICATION_ENV . '.php')) {
     $settings = array_replace_recursive(
         $settings,
