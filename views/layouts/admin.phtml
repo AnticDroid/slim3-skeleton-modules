@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><?= $this->title ?></title>
+        <title><?=$this->e($title)?></title>
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
@@ -31,7 +31,7 @@
                     </form>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?= $this->currentUser->first_name ?> <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Martyn <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="/">Homepage</a></li>
                                 <li role="separator" class="divider"></li>
@@ -46,7 +46,7 @@
         <div class="container">
             <?php if (isset($messages['success'])): ?>
                 <div class="alert alert-success">
-                    <?= $this->messages['success']; ?>
+                    <?=$this->e($messages['success']); ?>
                 </div>
             <?php endif; ?>
 
@@ -54,7 +54,7 @@
                 <div class="alert alert-danger alert-important">
                     <ul>
                         <?php foreach ($messages['errors'] as $error): ?>
-                            <li><?= $this->e($error); ?></li>
+                            <li><?=$this->e($error); ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>

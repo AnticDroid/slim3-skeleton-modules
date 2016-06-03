@@ -1,9 +1,6 @@
-<?php $this->layout('layouts/main', [
-    'title' => 'Login',
-    'messages' => $messages,
-]); ?>
+<?php $this->layout('layouts/main'); ?>
 
-<?php $this->start('body') ?>
+<?php $this->section('content') ?>
     <h1>Login</h1>
 
     <div class="col-sm-6 col-sm-offset-3 sso-login">
@@ -13,12 +10,12 @@
                     <form method="post" action="/auth">
                         <div class="form-group">
                             <span class="sr-only">Username</span>
-                            <input type="text" class="form-control" name="email" placeholder="Username" value="<?=$this->e($username)?>">
+                            <input type="text" class="form-control" name="email" placeholder="Username" value="<?= $this->username ?>">
                         </div>
 
                         <div class="form-group">
                             <span class="sr-only">Password</span>
-                            <input type="password" class="form-control" name="password" placeholder="Password" value="<?=$this->e($password)?>">
+                            <input type="password" class="form-control" name="password" placeholder="Password" value="">
                             <a href="/accounts/resetpassword" class="forgot_password">Forgot password?</a>
                         </div>
 
@@ -58,12 +55,12 @@
                         	</div>
                         </div>
 
-                        <?php if(isset($params['returnTo'])): ?>
-                            <input type="hidden" name="returnTo" value="<?=$params['returnTo']?>">
+                        <?php if (isset($this->params['returnTo'])): ?>
+                            <input type="hidden" name="returnTo" value="<?=$this->params['returnTo']?>">
                         <?php endif; ?>
             		</form>
             	</div>
         	</div>
         </div>
     </div>
-<?php $this->stop() ?>
+<?php $this->replace() ?>

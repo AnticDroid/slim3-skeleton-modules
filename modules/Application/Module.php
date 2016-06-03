@@ -22,7 +22,35 @@ class Module extends AbstractModule
     {
         return [
             'renderer' => [
-                'template_path' => APPLICATION_PATH . '/modules/Application/views',
+                'folders' => [
+                    APPLICATION_PATH . '/views',
+                    APPLICATION_PATH . '/modules/Application/views',
+                ],
+                'ext' => 'phtml',
+            ],
+
+            'i18n' => [
+
+                // when the target locale is missing a translation/ template this the
+                // fallback locale to use (probably "en")
+                'default_locale' => 'en',
+
+                // this is the type of the translation files using by zend-i18n
+                'type' => 'phparray',
+
+                // where the translation files are stored
+                'file_path' => APPLICATION_PATH . '/modules/Application/language/',
+            ],
+
+            'mail' => [
+
+                // directory where suppressed email files are written to in non-prod env
+                'file_path' => APPLICATION_PATH . '/data/mail/',
+            ],
+
+            'logger' => [
+                'name' => 'slim3-module-app',
+                'path' => APPLICATION_PATH . '/data/logs/app.log',
             ],
         ];
     }
@@ -44,78 +72,62 @@ class Module extends AbstractModule
      */
     public static function initDependencies(Container $container)
     {
+        $settings = self::getModuleConfig();
+
         // replace request with our own
-        $container['request'] = function ($c) {
+        $container['request'] = function($c) use ($settings) {
             return \MartynBiz\Slim3Controller\Http\Request::createFromEnvironment($c->get('environment'));
         };
 
         // replace reponse with our own
-        $container['response'] = function ($c) {
+        $container['response'] = function($c) use ($settings) {
             $headers = new \Slim\Http\Headers(['Content-Type' => 'text/html; charset=UTF-8']);
             $response = new \MartynBiz\Slim3Controller\Http\Response(200, $headers);
             return $response->withProtocolVersion($c->get('settings')['httpVersion']);
         };
 
         // view renderer. the simple task of compiling a template with data
-        $container['renderer'] = function ($c) {
-            $settings = $c->get('settings')['renderer'];
-            $template = new \League\Plates\Engine($settings['template_path']);
-            $template->setFileExtension('phtml');
+        $container['renderer'] = function($c) use ($settings) {
+            $engine = \Foil\engine($settings['renderer']);
 
-            // TODO put helpers into invokable classes so we can test them
+            $engine->registerFunction('translate', new \Application\View\Helper\Translate($c) );
+            $engine->registerFunction('pathFor', new \Application\View\Helper\PathFor($c) );
 
-            // This helper will handle out translations
-            $template->registerFunction('translate', function ($string) use ($c) {
-                return $c['i18n']->translate($string);
-            });
+            return $engine;
+        };
 
-            // This helper will allow us to use named links - $this->pathFor('application_index')
-            $template->registerFunction('pathFor', function ($name, $args=array()) use ($c) {
-                return $c['router']->pathFor($name, $args);
-            });
-
-            return $template;
+        // monolog
+        $container['logger'] = function($c) use ($settings) {
+            $logger = new \Monolog\Logger($settings['logger']['name']);
+            $logger->pushProcessor(new \Monolog\Processor\UidProcessor());
+            $logger->pushHandler(new \Monolog\Handler\StreamHandler($settings['logger']['path'], \Monolog\Logger::DEBUG));
+            return $logger;
         };
 
         // locale - required by a few services, so easier to put in container
-        $container['locale'] = function($c) {
-            $settings = $c->get('settings')['i18n'];
-            $locale = $c['request']->getCookie('language', $settings['default_locale']);
-
+        $container['locale'] = function($c) use ($settings) {
+            $locale = $c['request']->getCookie('language', $settings['i18n']['default_locale']);
             return $locale;
         };
 
         // i18n
-        $container['i18n'] = function($c) {
-            $settings = $c->get('settings')['i18n'];
+        $container['i18n'] = function($c) use ($settings) {
             $translator = new \Zend\I18n\Translator\Translator();
-
-            // get the language code from the cookie, then get the language file
-            // if no language file, or no cookie even, get default language.
-            $locale = $c['locale'];
-            $type = $settings['type'];
-            $filePath = $settings['file_path'];
-            $pattern = '/%s.php';
-            $textDomain = 'default';
-
-            $translator->addTranslationFilePattern($type, $filePath, $pattern, $textDomain);
-            $translator->setLocale($locale);
-            $translator->setFallbackLocale($settings['default_locale']);
-
+            $translator->addTranslationFilePattern($settings['i18n']['type'], $settings['i18n']['file_path'], '/%s.php', 'default');
+            $translator->setLocale($c['locale']);
+            $translator->setFallbackLocale($settings['i18n']['default_locale']);
             return $translator;
         };
 
         // mail
-        $container['mail_manager'] = function ($c) {
-            $settings = $c->get('settings')['mail'];
-
+        $container['mail_manager'] = function($c) use ($settings) {
             // if not in production, we will write to file
             if (APPLICATION_ENV == 'production') {
                 $transport = new Zend\Mail\Transport\Sendmail();
             } else {
                 $transport = new \Zend\Mail\Transport\File();
                 $options   = new \Zend\Mail\Transport\FileOptions(array(
-                    'path' => realpath($settings['file_path']),
+                    'path' => realpath($settings['mail']['file_path']),
                     'callback' => function (\Zend\Mail\Transport\File $transport) {
                         return 'Message_' . microtime(true) . '_' . mt_rand() . '.txt';
                     },
@@ -124,15 +136,20 @@ class Module extends AbstractModule
             }
 
             $locale = $c['locale'];
-            $defaultLocale = @$c->get('settings')['i18n']['default_locale'];
+            $defaultLocale = @$settings['i18n']['default_locale'];
 
             return new \Application\Mail($transport, $c['renderer'], $c['i18n'], $locale, $defaultLocale, $c['i18n']);
         };
 
         // flash
-        $container['flash'] = function ($c) {
+        $container['flash'] = function($c) use ($settings) {
             return new \MartynBiz\FlashMessage\Flash();
         };
+
+
+        // // add template_path folder to $engine
+        // $settings = self::getModuleConfig();
+        // $container['renderer']->addFolder($settings["renderer"]["template_path"]);
     }
 
     /**

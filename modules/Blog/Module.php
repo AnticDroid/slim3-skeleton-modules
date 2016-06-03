@@ -22,7 +22,7 @@ class Module extends AbstractModule
     {
         return [
             'modules' => [
-                'blog' => [
+                'Blog' => [
                     'renderer' => [
                         'template_path' => APPLICATION_PATH . '/modules/Blog/views',
                     ],
@@ -71,9 +71,11 @@ class Module extends AbstractModule
             return new \Wordup\Model\Photo();
         };
 
-        // add home module's views dir
-        $templatePath = $container->get('settings')['modules']['blog']['renderer']['template_path'];
-        $container['renderer']->addFolder('auth', $templatePath, true);
+
+        // add folder to $engine
+        $settings = self::getModuleConfig();
+        $templatePath = $settings["modules"]["Blog"]["renderer"]["template_path"];
+        $container['renderer']->addFolder($templatePath);
     }
 
     /**

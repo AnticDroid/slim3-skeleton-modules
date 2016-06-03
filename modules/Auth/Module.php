@@ -21,12 +21,8 @@ class Module extends AbstractModule
     public static function getModuleConfig()
     {
         return [
-            'modules' => [
-                'auth' => [
-                    'renderer' => [
-                        'template_path' => APPLICATION_PATH . '/modules/Auth/views',
-                    ],
-                ],
+            'renderer' => [
+                'template_path' => APPLICATION_PATH . '/modules/Auth/views',
             ],
         ];
     }
@@ -59,9 +55,10 @@ class Module extends AbstractModule
             return new \Auth\Auth($authAdapter, $settings);
         };
 
-        // add home module's views dir
-        $templatePath = $container->get('settings')['modules']['auth']['renderer']['template_path'];
-        $container['renderer']->addFolder('auth', $templatePath, true);
+
+        // add template_path folder to $engine
+        $settings = self::getModuleConfig();
+        $container['renderer']->addFolder($settings["renderer"]["template_path"]);
     }
 
     /**

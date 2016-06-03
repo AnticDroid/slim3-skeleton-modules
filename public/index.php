@@ -71,8 +71,8 @@ $moduleInitializer = new \MartynBiz\Slim3Module\Initializer($app, $classLoader, 
     'autoload' => [
         'Application',
         'Auth',
-        'Blog',
-        // 'Hello',
+        // 'Blog',
+        'Hello',
     ],
     'modules_path' => APPLICATION_PATH . '/modules',
 ]);

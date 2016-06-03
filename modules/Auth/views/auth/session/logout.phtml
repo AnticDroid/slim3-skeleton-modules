@@ -1,9 +1,6 @@
-<?php $this->layout('layouts/main', [
-    'title' => 'Logout',
-    'messages' => $messages,
-]); ?>
+<?php $this->layout('layouts/main'); ?>
 
-<?php $this->start('body') ?>
+<?php $this->section('content') ?>
     <div class="col-sm-6 col-sm-offset-3 sso-login">
         <div class="row">
             <div class="col-xs-12">
@@ -21,4 +18,4 @@
             </div>
         </div>
     </div>
-<?php $this->stop() ?>
+<?php $this->replace() ?>

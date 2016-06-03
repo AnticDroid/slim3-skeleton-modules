@@ -138,9 +138,9 @@ class SessionController extends BaseController
             // a DELETE request which will be handled by the delete() method
             // if the user is not authenticated, the show the login page
             if ($this->get('auth')->isAuthenticated()) {
-                return $this->render('auth::session/logout', compact('params'));
+                return $this->render('auth/session/logout', compact('params'));
             } else {
-                return $this->render('auth::session/login', compact('params'));
+                return $this->render('auth/session/login', compact('params'));
             }
 
         // }
@@ -379,12 +379,12 @@ class SessionController extends BaseController
     //     return $this->returnTo($params['returnTo']);
     // }
 
-    /**
-     * Get the current sign in user account
-     */
-    protected function getSessionAccount()
-    {
-        $attributes = $this->get('auth')->getAttributes();
-        return $this->get('model.account')->findByEmail($attributes['email']);
-    }
+    // /**
+    //  * Get the current sign in user account
+    //  */
+    // protected function getSessionAccount()
+    // {
+    //     $attributes = $this->get('auth')->getAttributes();
+    //     return $this->get('model.account')->findByEmail($attributes['email']);
+    // }
 }

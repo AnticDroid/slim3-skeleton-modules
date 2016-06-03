@@ -7,6 +7,6 @@ class IndexController extends BaseController
 {
     public function index()
     {
-        return $this->render('admin/index/index');
+        return $this->render('application/admin/index/index');
     }
 }

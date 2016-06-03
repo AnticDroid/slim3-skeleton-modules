@@ -5,7 +5,9 @@ TODO
 * https://github.com/FoilPHP/Foil
   https://github.com/thephpleague/plates/issues/59
   https://github.com/thephpleague/plates/pull/63
-* Module.php class - need to load class paths, dependencies for all modules before routes
+
+  FOIL: titles to layout, functions (translate, forPath), folder order, escaping, 
+
 * articles
 * admin?
 * home - contact form, portfolio
