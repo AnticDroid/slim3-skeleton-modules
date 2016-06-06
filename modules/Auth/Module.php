@@ -79,6 +79,7 @@ class Module extends AbstractModule
             $app->delete('', $controller('delete'))->setName('auth_session_delete');
 
             $app->get('/login', $controller('index'))->setName('auth_session_login');
+            $app->get('/logout', $controller('index'))->setName('auth_session_logout');
 
             $app->group('/register', function () use ($app) {
 

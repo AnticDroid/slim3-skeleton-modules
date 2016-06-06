@@ -7,7 +7,7 @@
         <div class="row">
         	<div class="col-xs-12">
                 <div class="well">
-                    <form method="post" action="/auth">
+                    <form method="post" action="<?= $this->pathFor('auth_session_post') ?>">
                         <div class="form-group">
                             <span class="sr-only">Username</span>
                             <input type="text" class="form-control" name="email" placeholder="Username" value="<?= $this->username ?>">
@@ -58,6 +58,8 @@
                         <?php if (isset($this->params['returnTo'])): ?>
                             <input type="hidden" name="returnTo" value="<?=$this->params['returnTo']?>">
                         <?php endif; ?>
+
+                        <?= $this->insert('partials/csrf_token') ?>
             		</form>
             	</div>
         	</div>

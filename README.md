@@ -2,23 +2,20 @@ APPLICATION_ENV="development" php -S localhost:8000 -t public/
 
 TODO
 
-* https://github.com/FoilPHP/Foil
-  https://github.com/thephpleague/plates/issues/59
-  https://github.com/thephpleague/plates/pull/63
-
-  FOIL: titles to layout, functions (translate, forPath), folder order, escaping, 
-
-* articles
-* admin?
+* articles: admin/articles/*, homepage
+* cache: homepage, tags?
+* admin/users
+* new RoleAccess( [
+    Auth\Model\User::ROLE_EDITOR,
+    Auth\Model\User::ROLE_ADMIN
+] )
 * home - contact form, portfolio
 * module tests
 * router passed to templates, use route paths
-* cache
-* namespace dependencies
 
-* csrf
+* namespace dependencies e.g. "model.user" -> "Auth\Model\User"
+
 * cache busting (plates)
-
 * vendor modules, cp config/views
 
 

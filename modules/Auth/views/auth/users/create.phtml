@@ -1,8 +1,6 @@
-<?php $this->layout('layouts/main', [
-    'title' => 'Login',
-]); ?>
+<?php $this->layout('layouts/main'); ?>
 
-<?php $this->start('body') ?>
+<?php $this->section('content') ?>
     <h1>Register</h1>
 
     <div class="col-sm-6 col-sm-offset-3 sso-register">
@@ -41,6 +39,8 @@
 
                         <input type="text" class="more_info" name="more_info" value="" style="position: absolute; left: -9999px">
 
+                        <?= $this->insert('partials/csrf_token') ?>
+
                         <hr>
 
                         <div class="row">
@@ -53,4 +53,4 @@
             </div>
         </div>
     </div>
-<?php $this->stop() ?>
+<?php $this->replace() ?>

@@ -1,11 +1,11 @@
 <?php
-namespace Wordup\Controller\Admin;
+namespace Blog\Controller;
 
 use MartynBiz\Mongo;
-use Wordup\Controller\BaseController;
-use Wordup\Model\Article;
-use Wordup\Model\Photo;
-use Wordup\Exception\PermissionDenied as PermissionDeniedException;
+use Blog\Controller\BaseController;
+use Blog\Model\Article;
+use Blog\Model\Photo;
+use Blog\Exception\PermissionDenied as PermissionDeniedException;
 
 class ArticlesController extends BaseController
 {

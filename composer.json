@@ -32,7 +32,8 @@
         "zendframework/zend-mail": "^2.5",
         "desarrolla2/cache": "^2.0",
         "predis/predis": "^1.0",
-        "foil/foil": "0.*"
+        "foil/foil": "0.*",
+        "slim/csrf": "^0.6.0"
     },
     "require-dev": {
         "phpunit/phpunit": "4.8.*"

@@ -9,17 +9,13 @@ use Auth\Validator\RegisterValidator;
 
 use Auth\Validator;
 
-use MartynBiz\Slim3Controller\Controller;
-
 class UsersController extends BaseController
 {
     public function create()
     {
         $params = array_merge($this->getQueryParams(), $this->getPost());
 
-        return $this->render('auth::users/create', array(
-            'params' => $params,
-        ));
+        return $this->render('auth/users/create', compact('params'));
     }
 
     public function post()
@@ -45,6 +41,7 @@ class UsersController extends BaseController
         }
 
         $this->get('flash')->addMessage('errors', $validator->getErrors());
+        
         return $this->forward('create');
     }
 

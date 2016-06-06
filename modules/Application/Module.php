@@ -23,7 +23,7 @@ class Module extends AbstractModule
         return [
             'renderer' => [
                 'folders' => [
-                    APPLICATION_PATH . '/views',
+                    // APPLICATION_PATH . '/views',
                     APPLICATION_PATH . '/modules/Application/views',
                 ],
                 'ext' => 'phtml',
@@ -92,6 +92,7 @@ class Module extends AbstractModule
 
             $engine->registerFunction('translate', new \Application\View\Helper\Translate($c) );
             $engine->registerFunction('pathFor', new \Application\View\Helper\PathFor($c) );
+            // $engine->registerFunction('generateToken', new \Application\View\Helper\CsrfToken($c) );
 
             return $engine;
         };
@@ -146,10 +147,27 @@ class Module extends AbstractModule
             return new \MartynBiz\FlashMessage\Flash();
         };
 
+        $container['csrf'] = function ($c) {
+            return new \Slim\Csrf\Guard;
+        };
+
 
         // // add template_path folder to $engine
         // $settings = self::getModuleConfig();
         // $container['renderer']->addFolder($settings["renderer"]["template_path"]);
+    }
+
+    /**
+     * Initiate app middleware (route middleware should go in initRoutes)
+     * @param App $app
+     * @return void
+     */
+    public static function initMiddleware(App $app)
+    {
+        $container = $app->getContainer();
+
+        // If you are implementing per-route checks you must not add this
+        $app->add($container->get('csrf'));
     }
 
     /**

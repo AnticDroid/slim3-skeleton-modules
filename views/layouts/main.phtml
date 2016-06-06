@@ -25,6 +25,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <form id="deleteSession" method="post" action="/auth">
                         <input type="hidden" name="_METHOD" value="DELETE">
+                        <?= $this->insert('partials/csrf_token') ?>
                     </form>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="/">Home</a></li>
@@ -49,17 +50,17 @@
         </nav>
 
         <div class="container">
-            <?php if (isset($messages['success'])): ?>
+            <?php if (isset($this->messages['success'])): ?>
                 <div class="alert alert-success">
                     <?=$this->messages['success']; ?>
                 </div>
             <?php endif; ?>
 
-            <?php if (isset($messages['errors'])): ?>
+            <?php if (isset($this->messages['errors'])): ?>
                 <div class="alert alert-danger alert-important">
                     <ul>
-                        <?php foreach ($messages['errors'] as $error): ?>
-                            <li><?=$this->e($error); ?></li>
+                        <?php foreach ($this->messages['errors'] as $error): ?>
+                            <li><?= $error ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>

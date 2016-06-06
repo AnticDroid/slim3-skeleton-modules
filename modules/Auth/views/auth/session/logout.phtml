@@ -4,14 +4,16 @@
     <div class="col-sm-6 col-sm-offset-3 sso-login">
         <div class="row">
             <div class="col-xs-12">
-                <form class="well text-center" method="post" action="/auth/session">
-                    <p>You are currently logged in to JapanTravel. Please click below to logout:</p>
+                <form class="well text-center" method="post" action="<?= $this->pathFor('auth_session_delete') ?>">
+                    <p>You are currently logged in. Please click below to logout:</p>
 
                     <input type="hidden" name="_METHOD" value="DELETE">
 
                     <?php if(isset($params['returnTo'])): ?>
                         <input type="hidden" name="returnTo" value="<?= $params['returnTo'] ?>">
                     <?php endif ?>
+
+                    <?= $this->insert('partials/csrf_token') ?>
 
                     <button class="btn btn-default">Logout</button>
                 </form>
