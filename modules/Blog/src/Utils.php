@@ -3,7 +3,7 @@
 /**
  * A mockable replacement for file system functions
  */
-namespace Wordup;
+namespace Blog;
 
 class Utils
 {

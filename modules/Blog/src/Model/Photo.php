@@ -2,6 +2,8 @@
 
 namespace Wordup\Model;
 
+use Application\Model\Base;
+
 /**
  *
  */

@@ -1,11 +1,12 @@
 <?php
-namespace Blog\Controller;
+namespace Blog\Controller\Admin;
 
 use MartynBiz\Mongo;
-use Blog\Controller\BaseController;
 use Blog\Model\Article;
 use Blog\Model\Photo;
 use Blog\Exception\PermissionDenied as PermissionDeniedException;
+
+use Application\Controller\BaseController;
 
 class ArticlesController extends BaseController
 {

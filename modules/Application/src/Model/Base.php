@@ -1,6 +1,6 @@
 <?php
 
-namespace Auth\Model;
+namespace Application\Model;
 
 use MartynBiz\Mongo\Mongo;
 

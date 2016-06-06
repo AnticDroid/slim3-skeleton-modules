@@ -13,8 +13,7 @@ use MartynBiz\Slim3Module\AbstractModule;
 class Module extends AbstractModule
 {
     /**
-     * Load is run last, when config, dependencies, etc have been initiated
-     * Routes ought to go here
+     * This method is run last, when dependencies, middleware etc have been initiated
      * @param App $app
      * @return void
      */

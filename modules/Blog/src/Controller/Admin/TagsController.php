@@ -1,9 +1,10 @@
 <?php
-namespace Wordup\Controller\Admin;
+namespace Blog\Controller\Admin;
 
-use Wordup\Controller\BaseController;
-use Wordup\Model\Tag;
-use Wordup\Exception\PermissionDenied;
+use Blog\Model\Tag;
+use Blog\Exception\PermissionDenied;
+
+use Application\Controller\BaseController;
 
 class TagsController extends BaseController
 {

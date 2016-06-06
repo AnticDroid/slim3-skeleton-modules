@@ -1,12 +1,13 @@
 <?php
 
-namespace Wordup\Model;
+namespace Blog\Model;
 
-use MartynBiz\Validator;
 use MartynBiz\Mongo;
-use Wordup\Utils;
-use Wordup\Model\Tag;
-use Wordup\Model\Photo;
+use Blog\Utils;
+use Blog\Model\Tag;
+use Blog\Model\Photo;
+
+use Application\Model\Base;
 
 /**
  *

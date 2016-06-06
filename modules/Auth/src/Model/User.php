@@ -1,7 +1,9 @@
 <?php
 namespace Auth\Model;
 
-use MartynBiz\Mongo;
+// use MartynBiz\Mongo;
+
+use Application\Model\Base;
 
 /**
  *

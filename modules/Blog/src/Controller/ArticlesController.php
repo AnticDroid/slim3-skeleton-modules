@@ -1,27 +1,39 @@
 <?php
 namespace Blog\Controller;
 
+use Application\Controller\BaseController;
+
 class ArticlesController extends BaseController
 {
     public function index()
     {
-        $this->render('blog::articles/index.html');
+        $container = $this->app->getContainer();
+
+        $articles = $container->get('Blog\Model\Article')->find([
+            //..
+        ]);
+
+        $this->render('blog/articles/index', compact('articles'));
     }
 
     public function show($id)
     {
-        $this->render('blog::articles/show.html');
+        $articles = $this->container->get('Blog\Model\Article')->findOne([
+            'id' => (int) $id,
+        ]);
+
+        $this->render('blog/articles/show');
     }
 
-    public function create()
-    {
-        $this->render('blog::articles/create.html');
-    }
-
-    public function edit($id)
-    {
-        $this->render('blog::articles/edit.html');
-    }
+    // public function create()
+    // {
+    //     $this->render('blog/articles/create');
+    // }
+    //
+    // public function edit($id)
+    // {
+    //     $this->render('blog/articles/edit');
+    // }
 
     /**
      * Render the html and attach to the response

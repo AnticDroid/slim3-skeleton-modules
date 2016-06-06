@@ -1,11 +1,12 @@
 <?php
-namespace Wordup\Controller\Admin;
+namespace Blog\Controller\Admin;
 
-use Wordup\Controller\BaseController;
-// use Wordup\Model\Article;
-// use Wordup\Model\Tag;
-use Wordup\Utils;
-use Wordup\Exception\PermissionDenied;
+// use Blog\Model\Article;
+// use Blog\Model\Tag;
+use Blog\Utils;
+use Blog\Exception\PermissionDenied;
+
+use Application\Controller\BaseController;
 
 class DataController extends BaseController
 {
