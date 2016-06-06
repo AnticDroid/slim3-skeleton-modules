@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0c8bc83fbb38d647bdba88826df5eaa7",
-    "content-hash": "637fb12dd33e936481019325dcf10f24",
+    "hash": "588818624cce790530a94040837f7fce",
+    "content-hash": "46f6f652fa6bc60fd44d0cd597d70483",
     "packages": [
         {
             "name": "aura/html",
@@ -457,17 +457,11 @@
         },
         {
             "name": "martynbiz/php-mongo",
-            "version": "v0.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/martynbiz/php-mongo.git",
-                "reference": "6954e4c9a3c05edd4a7d8ccf617a5610c24343c3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/martynbiz/php-mongo/zipball/6954e4c9a3c05edd4a7d8ccf617a5610c24343c3",
-                "reference": "6954e4c9a3c05edd4a7d8ccf617a5610c24343c3",
-                "shasum": ""
+                "url": "https://github.com/martynbiz/php-mongo",
+                "reference": "e6259a5d4d9849813b83dc124525aac2f028e600"
             },
             "require": {
                 "php": ">=5.3.0"
@@ -484,7 +478,6 @@
                     "tests"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -501,7 +494,7 @@
             "keywords": [
                 "mongo"
             ],
-            "time": "2016-05-30 10:10:49"
+            "time": "2016-06-06 15:16:44"
         },
         {
             "name": "martynbiz/php-validator",
@@ -859,20 +852,20 @@
         },
         {
             "name": "predis/predis",
-            "version": "v1.0.4",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nrk/predis.git",
-                "reference": "9ead747663bb1b1ae017dfa0d152aca87792b42f"
+                "reference": "0e17edbefb50c6cbd1acc4a6f6ef06399deb1af2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nrk/predis/zipball/9ead747663bb1b1ae017dfa0d152aca87792b42f",
-                "reference": "9ead747663bb1b1ae017dfa0d152aca87792b42f",
+                "url": "https://api.github.com/repos/nrk/predis/zipball/0e17edbefb50c6cbd1acc4a6f6ef06399deb1af2",
+                "reference": "0e17edbefb50c6cbd1acc4a6f6ef06399deb1af2",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.2"
+                "php": ">=5.3.9"
             },
             "require-dev": {
                 "phpunit/phpunit": "~4.8"
@@ -905,7 +898,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2016-05-30 15:25:52"
+            "time": "2016-06-01 22:06:21"
         },
         {
             "name": "psr/http-message",
@@ -2633,6 +2626,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "martynbiz/slim3-module": 20,
+        "martynbiz/php-mongo": 20,
         "league/plates": 20,
         "martynbiz/php-flash-message": 20
     },
