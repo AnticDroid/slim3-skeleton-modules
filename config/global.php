@@ -14,12 +14,6 @@ return [
         //     'ext' => 'phtml'
         // ],
 
-        'mongo' => [
-            'db' => 'wordup',
-            // 'username' => 'myuser',
-            // 'password' => 'mypass',
-        ],
-
         'session' => [
             'namespace' => 'slim3__',
         ],

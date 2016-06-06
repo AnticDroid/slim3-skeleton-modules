@@ -61,7 +61,8 @@
                 </div>
             <?php endif; ?>
 
-            <?=$this->section('body')?>
+            <?php $this->section('content') ?>
+            <?php $this->stop() ?>
         </div>
 
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>

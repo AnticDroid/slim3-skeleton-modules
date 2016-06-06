@@ -167,7 +167,7 @@ class Module extends AbstractModule
         $container = $app->getContainer();
 
         // If you are implementing per-route checks you must not add this
-        $app->add($container->get('csrf'));
+        // $app->add($container->get('csrf'));
     }
 
     /**

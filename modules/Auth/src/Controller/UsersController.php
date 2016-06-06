@@ -26,6 +26,9 @@ class UsersController extends BaseController
         $validator = new RegisterValidator($userModel, $params);
         $validator->setData($params);
 
+        // new users are set s ROLE_CONTRIBUTOR
+        $params['role'] = User::ROLE_CONTRIBUTOR;
+
         // if valid, create account
         if ($validator->isValid() and $user = $userModel->create($params)) {
 
@@ -41,7 +44,7 @@ class UsersController extends BaseController
         }
 
         $this->get('flash')->addMessage('errors', $validator->getErrors());
-        
+
         return $this->forward('create');
     }
 

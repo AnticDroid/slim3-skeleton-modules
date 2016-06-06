@@ -18,7 +18,7 @@ class ArticlesController extends BaseController
 
     public function show($id)
     {
-        $articles = $this->container->get('Blog\Model\Article')->findOne([
+        $articles = $this->container->get('Blog\Model\Article')->findOneOrFail([
             'id' => (int) $id,
         ]);
 

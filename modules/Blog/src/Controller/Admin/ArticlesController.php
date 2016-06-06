@@ -13,9 +13,9 @@ class ArticlesController extends BaseController
     public function index()
     {
         $currentUser = $this->get('auth')->getCurrentUser();
-        $articles = $this->get('model.article')->findArticlesManagedBy($currentUser);
+        $articles = $this->get('Blog\Model\Article')->findArticlesManagedBy($currentUser);
 
-        return $this->render('admin.articles.index', compact('articles'));
+        return $this->render('blog/admin/articles/index', compact('articles'));
     }
 
     /**
@@ -26,7 +26,7 @@ class ArticlesController extends BaseController
     {
         $currentUser = $this->get('auth')->getCurrentUser();
 
-        $article = $this->get('model.article')->findOneOrFail(array(
+        $article = $this->get('Blog\Model\Article')->findOneOrFail(array(
             'id' => (int) $id,
         ));
 
@@ -47,7 +47,7 @@ class ArticlesController extends BaseController
     public function post()
     {
         $currentUser = $this->get('auth')->getCurrentUser();
-        $article = $this->get('model.article')->factory();
+        $article = $this->get('Blog\Model\Article')->factory();
 
         // for security reasons, some properties are not on the whitelist but
         // we can directly assign
@@ -72,7 +72,7 @@ class ArticlesController extends BaseController
     {
         $currentUser = $this->get('auth')->getCurrentUser();
 
-        $article = $this->get('model.article')->findOneOrFail(array(
+        $article = $this->get('Blog\Model\Article')->findOneOrFail(array(
             'id' => (int) $id,
         ));
 
@@ -100,7 +100,7 @@ class ArticlesController extends BaseController
     {
         $currentUser = $this->get('auth')->getCurrentUser();
         $params = $this->getPost();
-        $article = $this->get('model.article')->findOneOrFail(array(
+        $article = $this->get('Blog\Model\Article')->findOneOrFail(array(
             'id' => (int) $id,
         ));
 
@@ -185,7 +185,7 @@ class ArticlesController extends BaseController
     // {
     //     $currentUser = $this->get('auth')->getCurrentUser();
     //     $params = $this->getPost();
-    //     $article = $this->get('model.article')->findOneOrFail(array(
+    //     $article = $this->get('Blog\Model\Article')->findOneOrFail(array(
     //         'id' => (int) $id,
     //     ));
     //
@@ -222,7 +222,7 @@ class ArticlesController extends BaseController
     // {
     //     $currentUser = $this->get('auth')->getCurrentUser();
     //     $params = $this->getPost();
-    //     $article = $this->get('model.article')->findOneOrFail(array(
+    //     $article = $this->get('Blog\Model\Article')->findOneOrFail(array(
     //         'id' => (int) $id,
     //     ));
     //
@@ -259,7 +259,7 @@ class ArticlesController extends BaseController
     {
         $currentUser = $this->get('auth')->getCurrentUser();
 
-        $article = $this->get('model.article')->findOneOrFail(array(
+        $article = $this->get('Blog\Model\Article')->findOneOrFail(array(
             'id' => (int) $id,
         ));
 

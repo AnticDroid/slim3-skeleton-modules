@@ -1,4 +1,6 @@
-<?php $this->start('body') ?>
+<?php $this->layout('layouts/email'); ?>
+
+<?php $this->section('content') ?>
     <p>Hello <?= $account->name ?>,</p>
 
     <p>Welcome to JapanTravel.com!</p>
@@ -14,4 +16,4 @@
 
     <p>Sincerely,<br>
     The JapanTravel Team</p>
-<?php $this->stop() ?>
+<?php $this->replace() ?>

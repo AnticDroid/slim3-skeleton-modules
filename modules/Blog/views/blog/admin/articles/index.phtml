@@ -1,6 +1,6 @@
-@extends('layouts.admin')
+<?php $this->layout('layouts/admin'); ?>
 
-@section('content')
+<?php $this->section('content') ?>
     <ol class="breadcrumb">
         <li><a href="/admin">Admin</a></li>
         <li class="active">Articles</li>
@@ -17,20 +17,20 @@
             <th>Published</th>
             <th>&nbsp;</th>
         </tr>
-        @foreach ($articles as $article)
+        <?php foreach ($this->articles as $article): ?>
             <tr>
-                <td><a href="/admin/articles/{{ $article->id }}">{{ $article->title }}</a></td>
-                <td>{{ $article->type }}</td>
-                <td>{{ $article->published_at }}</td>
+                <td><a href="/admin/articles/<?= $article->id ?>"><?= $article->title ?></a></td>
+                <td><?= $article->type ?></td>
+                <td><?= $article->published_at ?></td>
                 <td width="10%" class="text-right">
-                    @if ($article->featured)
+                    <?php if ($article->featured): ?>
                         <a href="#"><i class="glyphicon glyphicon-star"></i></a>
-                    @else
+                    <?php else: ?>
                         <a href="#"><i class="glyphicon glyphicon-star-empty"></i></a>
-                    @endif
+                    <?php endif; ?>
                 </td>
             </tr>
-        @endforeach
+        <?php endforeach; ?>
     </table>
 
     <nav>
@@ -52,4 +52,4 @@
             </li>
         </ul>
     </nav>
-@stop
+<?php $this->replace() ?>

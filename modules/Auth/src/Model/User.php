@@ -12,7 +12,7 @@ class User extends Base
 {
     const ROLE_ADMIN = 'admin';
     const ROLE_EDITOR = 'editor';
-    const ROLE_MEMBER = 'member';
+    const ROLE_CONTRIBUTOR = 'contributor';
 
     // collection this model refers to
     protected static $collection = 'users';
@@ -24,43 +24,6 @@ class User extends Base
         'email',
         'password',
     );
-
-    // public static function encryptPassword($value)
-    // {
-    //     // even null will be encrypted it seems
-    //     if (is_null($value)) {
-    //         return null;
-    //     }
-    //
-    //     return password_hash($value, PASSWORD_BCRYPT, array(
-    //         'cost' => 12,
-    //     ));
-    // }
-
-    // public function validate()
-    // {
-    //     $this->resetErrors();
-    //
-    //     $validator = new Validator($this->data);
-    //
-    //     $validator->check('first_name')
-    //         ->isNotEmpty('First name is missing');
-    //
-    //     $validator->check('last_name')
-    //         ->isNotEmpty('First name is missing');
-    //
-    //     $validator->check('email')
-    //         ->isNotEmpty('Email address is missing')
-    //         ->isEmail('Invalid email address');
-    //
-    //     $validator->check('password')
-    //         ->isNotEmpty('Password is missing');
-    //
-    //     // update the model's errors with the validators
-    //     $this->setError( $validator->getErrors() );
-    //
-    //     return empty($this->getErrors());
-    // }
 
     // ===============================
     // ACL methods
@@ -92,80 +55,10 @@ class User extends Base
      * Return true if "member" user
      * @return boolean
      */
-    public function isMember()
+    public function isContributor()
     {
-        return (isset($this->data['role']) and $this->data['role'] == static::ROLE_MEMBER);
+        return (isset($this->data['role']) and $this->data['role'] == static::ROLE_CONTRIBUTOR);
     }
-
-    // /**
-    //  * Return true if user is owner of resource
-    //  * @param Ownable $resource
-    //  * @return boolean
-    //  */
-    // public function isOwnerOf($resource)
-    // {
-    //     // no id, no life
-    //     if (! isset($this->data['id']))
-    //         return false;
-    //
-    //     // this will fetch objects so we know what we're working with rather
-    //     // than possibly messing about with DBRefs
-    //     $author = $resource->author;
-    //
-    //     if ($author instanceof Mongo) {
-    //         return ($author->id == $this->data['id']);
-    //     }
-    //
-    //     return false;
-    // }
-
-    // /**
-    //  * Return true if user can view a given resource
-    //  * @param Ownable $resource
-    //  * @return boolean
-    //  */
-    // public function canView($resource)
-    // {
-    //     if ($this->isAdmin())
-    //         return true;
-    //
-    //     if ($this->isEditor())
-    //         return true; //$this->isEditorFor($resource->author);
-    //
-    //     return $this->isOwnerOf($resource);
-    // }
-
-    // /**
-    //  * Return true if user can view a given resource
-    //  * @param Ownable $resource
-    //  * @return boolean
-    //  */
-    // public function canEdit($resource)
-    // {
-    //     if ($this->isAdmin())
-    //         return true;
-    //
-    //     if ($this->isEditor())
-    //         return true;
-    //
-    //     return $this->isOwnerOf($resource);
-    // }
-
-    // /**
-    //  * Return true if user can view a given resource
-    //  * @param Ownable $resource
-    //  * @return boolean
-    //  */
-    // public function canDelete($resource)
-    // {
-    //     if ($this->isAdmin())
-    //         return true;
-    //
-    //     if ($this->isEditor())
-    //         return true;
-    //
-    //     return $this->isOwnerOf($resource);
-    // }
 
     /**
      * Encrypt password upon setting
@@ -178,36 +71,4 @@ class User extends Base
 
         return $hash;
     }
-
-    // /**
-    //  * Return true if user can view a given resource
-    //  * @param Article $article
-    //  * @return boolean
-    //  */
-    // public function canSubmit($article)
-    // {
-    //     if ($this->isAdmin())
-    //         return true;
-    //
-    //     if ($this->isEditor())
-    //         return true;
-    //
-    //     return $this->isOwnerOf($article);
-    // }
-    //
-    // /**
-    //  * Return true if user can view a given resource
-    //  * @param Article $article
-    //  * @return boolean
-    //  */
-    // public function canApprove($article)
-    // {
-    //     if ($this->isAdmin())
-    //         return true;
-    //
-    //     if ($this->isEditor())
-    //         return true;
-    //
-    //     return $this->isOwnerOf($article);
-    // }
 }

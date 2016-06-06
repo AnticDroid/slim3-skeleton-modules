@@ -11,6 +11,10 @@
             "type": "git"
         },
         {
+            "url": "https://github.com/martynbiz/php-mongo",
+            "type": "git"
+        },
+        {
             "url": "https://github.com/martynbiz/plates",
             "type": "git"
         }
@@ -21,7 +25,7 @@
         "slim/slim": "~3.0",
         "martynbiz/slim3-module": "dev-master",
         "martynbiz/slim3-controller": "^0.0",
-        "martynbiz/php-mongo": "^0.0",
+        "martynbiz/php-mongo": "dev-master",
         "martynbiz/php-validator": "^1.2",
         "league/plates": "dev-master",
         "monolog/monolog": "^1.19",

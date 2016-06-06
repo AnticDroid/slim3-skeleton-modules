@@ -45,13 +45,13 @@ class Module extends AbstractModule
     public static function initDependencies(Container $container)
     {
         // Models
-        $container['model.user'] = function ($c) {
+        $container['Auth\Model\User'] = function ($c) {
             return new \Auth\Model\User();
         };
 
         $container['auth'] = function ($c) {
             $settings = $c->get('settings')['auth'];
-            $authAdapter = new \Auth\Adapter\Mongo( $c['model.user'] );
+            $authAdapter = new \Auth\Adapter\Mongo( $c['Auth\Model\User'] );
             return new \Auth\Auth($authAdapter, $settings);
         };
 

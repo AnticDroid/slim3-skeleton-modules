@@ -2,7 +2,7 @@
 namespace Application;
 
 use Zend\Mail\Transport\TransportInterface;
-use League\Plates\Engine;
+use Foil\Engine;
 use Zend\I18n\Translator\TranslatorInterface;
 use Zend\Mail\Message;
 use Zend\Mime\Message as MimeMessage;
@@ -61,8 +61,8 @@ class Mail
     public function sendWelcomeEmail(User $user)
     {
         // create the message body from the templates and data
-        $textTemplate = 'auth::emails/welcome-%s-text';
-        $htmlTemplate = 'auth::emails/welcome-%s-html';
+        $textTemplate = 'auth/emails/welcome-%s-text';
+        $htmlTemplate = 'auth/emails/welcome-%s-html';
         $body = $this->createMessageBody($textTemplate, $htmlTemplate, array(
             'user' => $user,
         ));

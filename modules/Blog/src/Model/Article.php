@@ -6,6 +6,7 @@ use MartynBiz\Mongo;
 use Blog\Utils;
 use Blog\Model\Tag;
 use Blog\Model\Photo;
+use Auth\Model\User;
 
 use Application\Model\Base;
 
@@ -44,7 +45,7 @@ class Article extends Base
     public function findArticlesManagedBy(User $user, $query=array())
     {
         // members can only view their own articles
-        if ($user->isMember()) {
+        if ($user->isContributor()) {
             $query = array_merge(array(
                 'author' => $user,
             ), $query);
