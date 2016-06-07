@@ -1,12 +1,12 @@
 <?php
+/**
+ * @author Martyn Bissett
+ */
 
-namespace Wordup\Model;
+namespace Blog\Model;
 
 use Application\Model\Base;
 
-/**
- *
- */
 class Photo extends Base
 {
     // collection this model refers to

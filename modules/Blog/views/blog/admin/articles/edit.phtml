@@ -26,7 +26,7 @@
     <div class="col-md-8">
         <div class="homebox">
             <div class="body">
-                <h3 class="underline"><label for="title">Title</label></h3>
+                <h3><label for="title">Title</label></h3>
 
                 <div class="form-group">
                     <input type="text" value="<?= $this->article->title ?>" class="form-control" name="title" id="title" placeholder="Title">
@@ -43,10 +43,10 @@
 
         <div class="homebox">
             <div class="body">
-                <h3 class="underline"><label for="content">Content</label></h3>
+                <h3><label for="content">Content</label></h3>
 
                 <div class="form-group">
-                    <textarea id="content" name="content" class="form-control" rows="5"><?= $this->article->content ?></textarea>
+                    <textarea id="content" name="content" class="form-control ckeditor" rows="5"><?= $this->article->content ?></textarea>
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@
     <div class="col-md-4">
         <div class="homebox">
             <div class="body">
-                <h3 class="underline">Tags</h3>
+                <h3>Tags</h3>
 
                 <?php if ($tags): ?>
                     <div class="form-group">
@@ -70,7 +70,7 @@
 
         <div class="homebox">
             <div class="body">
-                <h3 class="underline">Photos</h3>
+                <h3>Photos</h3>
 
                 <?php if ($this->article->photos): ?>
                     <ul class="photo-list sortable">
@@ -97,7 +97,7 @@
 
         <div class="homebox">
             <div class="body">
-                <h3 class="underline">Options</h3>
+                <h3>Options</h3>
 
                 <div class="form-group">
                     <input type="checkbox" name="featured" value="1" <?= ($this->article->featured) ? 'checked="checked"' : '' ?>> <label for="featured">Featured on homepage</label>
@@ -111,9 +111,27 @@
     </form>
 <?php $this->replace() ?>
 
-<?php $this->section('content') ?>
+<?php $this->section('scripts') ?>
     <script src="//cdn.ckeditor.com/4.5.6/standard/ckeditor.js"></script>
     <script>
-        CKEDITOR.replace( 'content' );
+        // CKEDITOR.replace( 'content' );
+
+        CKEDITOR.replaceAll( function( textarea, config ) {
+console.log('Hi');
+            // Create an element based on a native DOM element, check if it has "js-ckeditor" class
+            if ( new CKEDITOR.dom.element( textarea ).hasClass( 'ckeditor' ) ) {
+
+                //Copies the properties from one object to another (in this case, config). By default, properties already present in the target object are not overwritten.
+                CKEDITOR.tools.extend( config, {
+                    customConfig: '/js/ckeditor/config.js'
+                } );
+
+                CKEDITOR.plugins.addExternal('simpleuploads', '/js/ckeditor/plugins/simpleuploads/');
+
+                return true;
+            }
+
+            return false;
+        } );
     </script>
 <?php $this->append() ?>

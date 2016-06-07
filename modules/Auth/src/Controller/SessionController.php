@@ -159,7 +159,7 @@ class SessionController extends BaseController
         if ($this->get('auth')->authenticate($params['email'], $params['password'])) {
 
             // as authentication has passed, get the user by email OR username
-            $user = $this->get('model.user')->findOne(array('$or' => array(
+            $user = $this->get('Auth\Model\User')->findOne(array('$or' => array(
                 array('email' => $params['email']),
                 array('username' => $params['email'])
             )));

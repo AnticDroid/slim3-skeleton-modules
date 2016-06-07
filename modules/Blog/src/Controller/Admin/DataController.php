@@ -1,8 +1,6 @@
 <?php
 namespace Blog\Controller\Admin;
 
-// use Blog\Model\Article;
-// use Blog\Model\Tag;
 use Blog\Utils;
 use Blog\Exception\PermissionDenied;
 
@@ -76,7 +74,6 @@ class DataController extends BaseController
 
                     $article->save();
 
-                    // =========
                     // import tags
 
                     // extract tags from xml

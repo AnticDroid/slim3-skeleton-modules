@@ -21,12 +21,14 @@ class Module extends AbstractModule
     public static function getModuleConfig()
     {
         return [
-            'modules' => [
-                'Blog' => [
-                    'renderer' => [
-                        'template_path' => APPLICATION_PATH . '/modules/Blog/views',
-                    ],
-                ],
+            'renderer' => [
+                'template_path' => APPLICATION_PATH . '/modules/Blog/views',
+            ],
+
+            // photos upload dir
+            'photos_dir' => [
+                'original' => realpath(APPLICATION_PATH . '/../data/photos/'),
+                'cache' => realpath(APPLICATION_PATH . '/../data/cache/photos/'),
             ],
         ];
     }
@@ -74,7 +76,7 @@ class Module extends AbstractModule
 
         // add folder to $engine
         $settings = self::getModuleConfig();
-        $templatePath = $settings["modules"]["Blog"]["renderer"]["template_path"];
+        $templatePath = $settings["renderer"]["template_path"];
         $container['renderer']->addFolder($templatePath);
     }
 
@@ -106,6 +108,7 @@ class Module extends AbstractModule
         $app->group('/admin', function () use ($app) {
             // admin/articles routes
             $app->group('/articles', function () use ($app) {
+
                 $controller = new \Blog\Controller\Admin\ArticlesController($app);
                 $app->get('', $controller('index'))->setName('admin_articles');
                 $app->get('/{id:[0-9]+}', $controller('show'))->setName('admin_articles_show');
@@ -118,6 +121,9 @@ class Module extends AbstractModule
                 $app->put('/{id:[0-9]+}', $controller('update'))->setName('admin_articles_update');
                 // $app->put('/{id:[0-9]+}/submit', $controller('submit'))->setName('admin_articles_submit');
                 // $app->put('/{id:[0-9]+}/approve', $controller('approve'))->setName('admin_articles_approve');
+
+                $controller = new \Blog\Controller\Admin\FilesController($app);
+                $app->post('/upload', $controller('upload'))->setName('admin_articles_upload');
             });
             // // admin/articles routes
             // $app->group('/tags', function () use ($app) {
