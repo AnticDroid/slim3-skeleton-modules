@@ -461,7 +461,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/martynbiz/php-mongo",
-                "reference": "e6259a5d4d9849813b83dc124525aac2f028e600"
+                "reference": "ba00be9b6a77f4eacb3e8491ede6e4068b0c25d1"
             },
             "require": {
                 "php": ">=5.3.0"
@@ -494,7 +494,7 @@
             "keywords": [
                 "mongo"
             ],
-            "time": "2016-06-06 15:16:44"
+            "time": "2016-06-07 07:01:28"
         },
         {
             "name": "martynbiz/php-validator",

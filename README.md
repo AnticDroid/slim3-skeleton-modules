@@ -2,7 +2,7 @@ APPLICATION_ENV="development" php -S localhost:8000 -t public/
 
 TODO
 
-* articles: admin/articles/*, homepage
+* articles: admin: photos, tags, homepage
 * cache: homepage, tags?
 * admin/users
 * new RoleAccess( [

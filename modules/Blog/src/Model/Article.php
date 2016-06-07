@@ -77,31 +77,71 @@ class Article extends Base
     }
 
     /**
-     * Additional Save procedures
+     * @param User $user
+     * @return boolean
      */
-    public function has(Mongo $item)
+    public function isEditableBy(User $user)
     {
-        // if $item doesn't have a DBRef, then we can't proceed
-        if(!$item->getDBRef()) return false;
-
-        // check for Tags
-        if ($item instanceof Tag) {
-            if ($tags = @$this->data['tags']) {
-                foreach($this->data['tags'] as $tag) {
-                    if($item->getDBRef() == $tag) return true;
-                }
-            }
-        }
-
-        // check for Photo
-        if ($item instanceof Photo) {
-            if ($photos = @$this->data['photos']) {
-                foreach($this->data['photos'] as $photo) {
-                    if($item->getDBRef() == $photo) return true;
-                }
-            }
-        }
-
-        return false;
+        // TODO this
+        return (@$this->data['author']['$id'] == $user->_id);
     }
+
+    /**
+     * @param User $user
+     * @return boolean
+     */
+    public function isSubmittableBy(User $user)
+    {
+        // TODO this
+        return (@$this->data['author']['$id'] == $user->_id);
+    }
+
+    /**
+     * @param User $user
+     * @return boolean
+     */
+    public function isApprovableBy(User $user)
+    {
+        // TODO this
+        return $user->isAdmin();
+    }
+
+    /**
+     * @param User $user
+     * @return boolean
+     */
+    public function isViewableBy(User $user)
+    {
+        // TODO this
+        return (@$this->data['author']['$id'] == $user->_id);
+    }
+
+    // /**
+    //  * Additional Save procedures
+    //  */
+    // public function has(Mongo $item)
+    // {
+    //     // if $item doesn't have a DBRef, then we can't proceed
+    //     if(!$item->getDBRef()) return false;
+    //
+    //     // check for Tags
+    //     if ($item instanceof Tag) {
+    //         if ($tags = @$this->data['tags']) {
+    //             foreach($this->data['tags'] as $tag) {
+    //                 if($item->getDBRef() == $tag) return true;
+    //             }
+    //         }
+    //     }
+    //
+    //     // check for Photo
+    //     if ($item instanceof Photo) {
+    //         if ($photos = @$this->data['photos']) {
+    //             foreach($this->data['photos'] as $photo) {
+    //                 if($item->getDBRef() == $photo) return true;
+    //             }
+    //         }
+    //     }
+    //
+    //     return false;
+    // }
 }

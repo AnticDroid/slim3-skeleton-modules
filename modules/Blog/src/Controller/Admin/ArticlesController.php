@@ -1,7 +1,7 @@
 <?php
 namespace Blog\Controller\Admin;
 
-use MartynBiz\Mongo;
+use MartynBiz\Mongo\Mongo;
 use Blog\Model\Article;
 use Blog\Model\Photo;
 use Blog\Exception\PermissionDenied as PermissionDeniedException;
@@ -25,17 +25,16 @@ class ArticlesController extends BaseController
     public function show($id)
     {
         $currentUser = $this->get('auth')->getCurrentUser();
-
         $article = $this->get('Blog\Model\Article')->findOneOrFail(array(
             'id' => (int) $id,
         ));
 
         // ensure that this user can edit this article
-        if (! $currentUser->canView($article) ) {
+        if (! $article->isViewableBy($currentUser)) {
             throw new PermissionDeniedException('Permission denied to view this article.');
         }
 
-        return $this->render('admin.articles.show', compact('article'));
+        return $this->render('blog/admin/articles/show', compact('article'));
     }
 
     /**
@@ -77,18 +76,19 @@ class ArticlesController extends BaseController
         ));
 
         // ensure that this user can edit this article
-        if (! $currentUser->canEdit($article) ) {
+        if (! $article->isEditableBy($currentUser) ) {
             throw new PermissionDeniedException('Permission denied to edit this article.');
         }
 
-        // get tags from cache
-        $cacheId = 'tags';
-        if (! $tags = $this->get('cache')->get($cacheId)) {
-            $tags = $this->get('model.tag')->find();
-            $this->get('cache')->set($cacheId, $tags, 1);
-        }
+        // // get tags from cache
+        // $cacheId = 'tags';
+        // if (! $tags = $this->get('cache')->get($cacheId)) {
+        //     $tags = $this->get('model.tag')->find();
+        //     $this->get('cache')->set($cacheId, $tags, 1);
+        // }
+        $tags = [];
 
-        return $this->render('admin.articles.edit', compact('article', 'tags'));
+        return $this->render('blog/admin/articles/edit', compact('article', 'tags'));
     }
 
     /**
@@ -105,30 +105,21 @@ class ArticlesController extends BaseController
         ));
 
         // ensure that this user can edit this article
-        if (! $currentUser->canEdit($article) ) {
+        if (! $article->isEditableBy($currentUser) ) {
             throw new PermissionDeniedException('Permission denied to edit this article.');
         }
 
+        // // tags
+        // $params['tags'] = $this->getTagsFromTagIds(@$params['tags']);
 
-        // =====================
-        // tags
+        // // photos
+        // $this->attachPhotosTo($article, @$_FILES['photos']);
 
-        $params['tags'] = $this->getTagsFromTagIds(@$params['tags']);
-
-
-        // =====================
-        // photos
-
-        $this->attachPhotosTo($article, @$_FILES['photos']);
-
-
-        // =====================
         // status
-
         switch((int) @$params['status']) {
             case Article::STATUS_DRAFT:
 
-                if (! $currentUser->canEdit($article))
+                if (! $article->isEditableBy($currentUser))
                     throw new PermissionDeniedException('Permission denied to submit this article.');
 
                 $flashSuccessMessage = 'Draft article saved. Click "submit" when ready to publish.';
@@ -138,7 +129,7 @@ class ArticlesController extends BaseController
                 break;
             case Article::STATUS_SUBMITTED:
 
-                if (! $currentUser->canSubmit($article))
+                if (! $article->isSubmittableBy($currentUser))
                     throw new PermissionDeniedException('Permission denied to submit this article.');
 
                 $flashSuccessMessage = 'Article has been submitted and will be reviewed by an editor shortly.';
@@ -148,7 +139,7 @@ class ArticlesController extends BaseController
                 break;
             case Article::STATUS_APPROVED:
 
-                if (! $currentUser->canApprove($article))
+                if (! $article->isApprovableBy($currentUser))
                     throw new PermissionDeniedException('Permission denied to submit this article.');
 
                 $flashSuccessMessage = 'Article has been approved.';
@@ -294,7 +285,7 @@ class ArticlesController extends BaseController
         }
 
         // get tags from tags[] and write back to params['tags']
-        return $this->get('model.tag')->find(array(
+        return $this->get('Blog\Model\Tag')->find(array(
             'id' => array(
                 '$in' => $ids,
             ),
@@ -346,7 +337,7 @@ class ArticlesController extends BaseController
 
                 // create the photo in collection first so that we have an id to
                 // name the photo by
-                $photo = $this->get('model.photo')->create(array(
+                $photo = $this->get('Blog\Model\Photo')->create(array(
                     'original_file' => $file,
                     'type' => $type,
                     'width' => $width,

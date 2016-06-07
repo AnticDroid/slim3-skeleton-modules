@@ -1,10 +1,10 @@
-@extends('layouts.admin')
+<?php $this->layout('layouts/admin'); ?>
 
-@section('content')
+<?php $this->section('content') ?>
     <ol class="breadcrumb">
         <li><a href="/admin">Admin</a></li>
         <li><a href="/admin/articles">Articles</a></li>
-        <li class="active">{{ $article->title }}</li>
+        <li class="active"><?= $this->article->title ?></li>
     </ol>
 
     <div class="buttons">
@@ -13,77 +13,77 @@
         </div>
 
         <div class="col-md-6 text-right">
-            <a href="/admin/articles/{{ $article->id }}/edit" class="btn btn-default">Edit</a>
+            <a href="/admin/articles/<?= $this->article->id ?>/edit" class="btn btn-default">Edit</a>
 
-            <form id="deleteUser" method="POST" action="/admin/articles/{{ $article->id }}">
+            <form id="deleteUser" method="POST" action="/admin/articles/<?= $this->article->id ?>">
                 <input type="hidden" name="_METHOD" value="DELETE">
                 <button type="submit" class="btn btn-default">Delete</button>
             </form>
 
-            @if($current_user and ($current_user->isAdmin() or $current_user->isEditor()))
-                @if($article->status == 1)
-                    <form method="POST" action="/admin/articles/{{ $article->id }}">
+            <?php if($this->currentUser and ($this->currentUser->isAdmin() or $this->currentUser->isEditor())): ?>
+                <?php if($this->article->status == 1): ?>
+                    <form method="POST" action="/admin/articles/{{ $this->article->id }}">
                         <input type="hidden" name="_METHOD" value="PUT">
                         <button type="submit" name="status" value="2" class="btn btn-primary">Approve</button>
                     </form>
-                @else
-                    <form method="POST" action="/admin/articles/{{ $article->id }}">
+                <?php else: ?>
+                    <form method="POST" action="/admin/articles/{{ $this->article->id }}">
                         <input type="hidden" name="_METHOD" value="PUT">
                         <button type="submit" name="status" value="1" class="btn btn-default">Unapprove</button>
                     </form>
-                @endif
-            @endif
+                <?php endif; ?>
+            <?php endif; ?>
         </div>
     </div>
 
     <table class="table table-striped">
         <tr>
             <th width="20%">Title</th>
-            <td>{{ $article->title }}</td>
+            <td><?= $this->article->title ?></td>
         </tr>
         <tr>
             <th>Slug</th>
-            <td>{{ $article->slug }}</td>
+            <td><?= $this->article->slug ?></td>
         </tr>
         <tr>
             <th>Content</th>
-            <td>{!! $article->content !!}</td>
+            <td><?= $this->raw($this->article->content) ?></td>
         </tr>
         <tr>
             <th>Tags</th>
             <td>
-                @if ($article->tags)
+                <?php if ($this->article->tags): ?>
                     <ul class="tags">
-                        @foreach ($article->tags as $tag)
+                        <?php foreach ($this->article->tags as $tag): ?>
                             <li><span>{{ $tag->name }}</span></li>
-                        @endforeach
+                        <?php endforeach; ?>
                     </ul>
-                @endif
+                <?php endif; ?>
             </td>
         </tr>
         <tr>
             <th>Photos</th>
             <td>
-                @if ($article->photos)
+                <?php if ($this->article->photos): ?>
                     <div class="photos">
-                        @foreach ($article->photos as $photo)
+                        <?php foreach ($this->article->photos as $photo): ?>
                             <img src="/photos{{ $photo->getCachedPath('x100') }}" class="photo">
-                        @endforeach
+                        <?php endforeach; ?>
                     </div>
-                @endif
+                <?php endif; ?>
             </td>
         </tr>
         <tr>
             <th>Type</th>
-            <td>{{ $article->type }}</td>
+            <td><?= $this->article->type ?></td>
         </tr>
         <tr>
             <th>Status</th>
-            <td>{{ $article->status }}</td>
+            <td><?= $this->article->status ?></td>
         </tr>
         <tr>
             <th>Data created</th>
-            <td>{{ $article->created_at }}</td>
+            <td><?= $this->article->created_at ?></td>
         </tr>
     </table>
-@stop
+<?php $this->replace() ?>
