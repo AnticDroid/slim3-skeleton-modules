@@ -17,7 +17,7 @@ class Module extends AbstractModule
      * @param App $app
      * @return void
      */
-     public static function initRoutes(App $app)
+     public function initRoutes(App $app)
      {
          $app->get('/hello/{name}', function ($request, $response) {
              $name = $request->getAttribute('name');

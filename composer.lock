@@ -599,7 +599,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/martynbiz/slim3-module",
-                "reference": "49d34037ebca6b641cc6bd18580a7c192893f2b1"
+                "reference": "55c9fc94051e9807362dc285df46d120459865d0"
             },
             "require": {
                 "php": ">=5.3.0",
@@ -633,7 +633,7 @@
                 "slim",
                 "slim3"
             ],
-            "time": "2016-06-03 06:16:41"
+            "time": "2016-06-08 04:54:23"
         },
         {
             "name": "monolog/monolog",

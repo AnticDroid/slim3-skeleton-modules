@@ -18,7 +18,7 @@ class Module extends AbstractModule
      * Get config array for this module
      * @return array
      */
-    public static function getModuleConfig()
+    public function getModuleConfig()
     {
         return [
             'renderer' => [
@@ -38,7 +38,7 @@ class Module extends AbstractModule
      * @param ClassLoader $classLoader
      * @return void
      */
-    public static function initClassLoader(ClassLoader $classLoader)
+    public function initClassLoader(ClassLoader $classLoader)
     {
         $classLoader->setPsr4("Blog\\", __DIR__ . "/src");
     }
@@ -48,7 +48,7 @@ class Module extends AbstractModule
      * @param Container $container
      * @return void
      */
-    public static function initDependencies(Container $container)
+    public function initDependencies(Container $container)
     {
         $container['Blog\FileSystem'] = function ($c) {
             return new \Blog\FileSystem();
@@ -86,7 +86,7 @@ class Module extends AbstractModule
      * @param App $app
      * @return void
      */
-    public static function initRoutes(App $app)
+    public function initRoutes(App $app)
     {
         $container = $app->getContainer();
 
