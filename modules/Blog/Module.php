@@ -27,8 +27,9 @@ class Module extends AbstractModule
 
             // photos upload dir
             'photos_dir' => [
-                'original' => realpath(APPLICATION_PATH . '/../data/photos/'),
-                'cache' => realpath(APPLICATION_PATH . '/../data/cache/photos/'),
+                'original' => APPLICATION_PATH . '/data/photos',
+                'cache' => APPLICATION_PATH . '/data/photos/cache',
+                'public' => '/photos',
             ],
         ];
     }
@@ -59,7 +60,7 @@ class Module extends AbstractModule
         };
 
         $container['Blog\PhotoManager'] = function ($c) {
-            return new \Blog\PhotoManager($c['image'], $c['fs']);
+            return new \Blog\PhotoManager($c['Blog\Image'], $c['Blog\FileSystem']);
         };
 
         // models
@@ -98,11 +99,11 @@ class Module extends AbstractModule
             $app->get('/{id:[0-9]+}/{slug}', $controller('show'))->setName('articles_show_wslug');
         });
 
-        // // photos
-        // $app->group('/photos', function () use ($app) {
-        //     $controller = new \Blog\Controller\PhotosController($app);
-        //     $app->get('/{path:[0-9]+\/[0-9]+\/[0-9]+\/.+}.jpg', $controller('cached'))->setName('photos_cached');
-        // });
+        // photos
+        $app->group('/photos', function () use ($app) {
+            $controller = new \Blog\Controller\PhotosController($app);
+            $app->get('/{path:[0-9]+\/[0-9]+\/[0-9]+\/.+}.jpg', $controller('cached'))->setName('photos_cached');
+        });
 
         // admin routes -- invokes auth middleware
         $app->group('/admin', function () use ($app) {

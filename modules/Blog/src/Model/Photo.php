@@ -14,7 +14,7 @@ class Photo extends Base
 
     // define on the fields that can be saved
     protected static $whitelist = array(
-        'original_file',
+        'filepath',
         'type',
         'width',
         'height',
@@ -90,6 +90,6 @@ class Photo extends Base
      */
     public function getOriginalFileName()
     {
-        return $this->data['original_file'];
+        return basename($this->data['filepath']);
     }
 }

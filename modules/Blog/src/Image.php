@@ -1,9 +1,9 @@
 <?php
-
 /**
  * A mockable replacement for gd image functions
  */
-namespace Wordup;
+
+namespace Blog;
 
 class Image
 {

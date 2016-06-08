@@ -1,13 +1,13 @@
 <?php
-
 /**
  * A tool for handling the heavy lifting of storing uploaded photos and
  * generating photo paths
  */
-namespace Wordup;
 
-use Wordup\Image;
-use Wordup\FileSystem;
+namespace Blog;
+
+use Blog\Image;
+use Blog\FileSystem;
 
 class PhotoManager
 {
@@ -39,6 +39,30 @@ class PhotoManager
     }
 
     /**
+     * Get the re-calculated width/height based on max w/h
+     * @param int $widthOrig
+     * @param int $heightOrig
+     * @param int $maxWidth Max width to recalculate to
+     * @param int $maxHeight Max height to recalculate to
+     */
+    public function getMaxWidthHeight($widthOrig, $heightOrig, $maxWidth, $maxHeight=null)
+    {
+        // if $maxHeight is null, set to $maxWidth
+        $maxHeight or $maxHeight = $maxWidth;
+
+        // Set a maximum height and width
+        $ratioOrig = $widthOrig/$heightOrig;
+
+        if ($maxWidth/$maxHeight > $ratioOrig) {
+           $maxWidth = ceil($maxHeight*$ratioOrig);
+        } else {
+           $maxHeight = ceil($maxWidth/$ratioOrig);
+        }
+
+        return [$maxWidth, $maxHeight];
+    }
+
+    /**
      * Create a new true color image
      * @param string $srcPath
      * @param string $destPath
@@ -55,18 +79,7 @@ class PhotoManager
             throw new \Exception('Could not get image size from uploaded image.');
 
         // Set a maximum height and width
-        if ($maxWidth and $maxHeight) {
-            $ratioOrig = $widthOrig/$heightOrig;
-
-            if ($maxWidth/$maxHeight > $ratioOrig) {
-               $maxWidth = ceil($maxHeight*$ratioOrig);
-            } else {
-               $maxHeight = ceil($maxWidth/$ratioOrig);
-            }
-        } else {
-            $maxWidth = $widthOrig;
-            $maxHeight = $heightOrig;
-        }
+        list($maxWidth, $maxHeight) = $this->getMaxWidthHeight($widthOrig, $heightOrig, $maxWidth, $maxHeight);
 
         // Create a new image from the uploaded file
         $src = $imageService->createImageFromJpeg($srcPath);

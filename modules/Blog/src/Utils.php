@@ -1,8 +1,8 @@
 <?php
-
 /**
  * A mockable replacement for file system functions
  */
+
 namespace Blog;
 
 class Utils

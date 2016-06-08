@@ -34,4 +34,18 @@ class BaseController extends Controller
 
         return $this->response;
     }
+
+    /**
+     * Render the html and attach to the response
+     * @param string $file Name of the template/ view to render
+     * @param array $args Additional variables to pass to the view
+     * @param Response?
+     */
+    public function renderJson($data=array())
+    {
+        // put the html in the response object
+        $this->response->getBody()->write(json_encode($data));
+
+        return $this->response;
+    }
 }

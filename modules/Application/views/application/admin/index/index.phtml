@@ -2,9 +2,9 @@
     'title' => 'Admin - Home',
 ]); ?>
 
-<?php $this->start('body') ?>
+<?php $this->section('content') ?>
     <ul>
         <li><a href="/admin/articles">Articles</a></li>
         <li><a href="/admin/users">Users</a></li>
     </ul>
-<?php $this->stop() ?>
+<?php $this->replace() ?>

@@ -41,7 +41,6 @@ if ($autoloadPath) {
     }
 }
 
-
 // 4) overwrite all with environment config
 if (file_exists($configPath . APPLICATION_ENV . '.php')) {
     $settings = array_replace_recursive(
@@ -79,7 +78,7 @@ $moduleInitializer = new \MartynBiz\Slim3Module\Initializer($app, $classLoader, 
         'Application',
         'Auth',
         'Blog',
-        'Hello',
+        // 'Hello',
     ],
     'modules_path' => APPLICATION_PATH . '/modules',
 ]);
