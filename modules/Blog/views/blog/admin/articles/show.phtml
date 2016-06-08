@@ -47,7 +47,7 @@
         </tr>
         <tr>
             <th>Content</th>
-            <td><?= $this->raw($this->article->content) ?></td>
+            <td><?= $this->article->content ?></td>
         </tr>
         <tr>
             <th>Tags</th>
@@ -55,7 +55,7 @@
                 <?php if ($this->article->tags): ?>
                     <ul class="tags">
                         <?php foreach ($this->article->tags as $tag): ?>
-                            <li><span>{{ $tag->name }}</span></li>
+                            <li><span><?= $tag->name ?></span></li>
                         <?php endforeach; ?>
                     </ul>
                 <?php endif; ?>
@@ -67,7 +67,7 @@
                 <?php if ($this->article->photos): ?>
                     <div class="photos">
                         <?php foreach ($this->article->photos as $photo): ?>
-                            <img src="/photos{{ $photo->getCachedPath('x100') }}" class="photo">
+                            <img src="/photos<?= $photo->getCachedPath('x100') ?>" class="photo">
                         <?php endforeach; ?>
                     </div>
                 <?php endif; ?>

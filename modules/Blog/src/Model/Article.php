@@ -65,6 +65,22 @@ class Article extends Base
     }
 
     /**
+     * Convert published_at date to human readable TODO test
+     */
+    public function getType($value)
+    {
+        switch ($this->data['type'])
+        {
+            case self::TYPE_ARTICLE:
+                return 'Article';
+                break;
+            case self::TYPE_PLACE:
+                return 'Place';
+                break;
+        }
+    }
+
+    /**
      * Additional Save procedures
      */
     public function save($data=array())

@@ -13,7 +13,25 @@ class ArticlesController extends BaseController
     public function index()
     {
         $currentUser = $this->get('auth')->getCurrentUser();
-        $articles = $this->get('Blog\Model\Article')->findArticlesManagedBy($currentUser);
+
+        // get articles
+        $params = array_merge([
+            'sort_by' => 'created_at',
+            'sort_dir' => (int) '-1',
+            'limit' => (int) '20',
+            'skip' => (int) '0',
+        ],[
+            'sort_by' => 'created_at',
+            'sort_dir' => (int) '-1',
+            'limit' => (int) '20',
+            'skip' => (int) '0',
+        ]); //$this->getQueryParams();
+
+        $articles = $this->get('Blog\Model\Article')->findArticlesManagedBy($currentUser, [
+            'sort' => [ $params['sort_by'] => $params['sort_dir'] ],
+            'limit' => (int) $params['limit'],
+            'skip' => (int) $params['skip'],
+        ]);
 
         return $this->render('blog/admin/articles/index', compact('articles'));
     }
@@ -87,6 +105,10 @@ class ArticlesController extends BaseController
         //     $this->get('cache')->set($cacheId, $tags, 1);
         // }
         $tags = [];
+
+        // we will set the current id in session so that uploaded images know which
+        // article to attach to
+        $this->get('Application\Session')->set('current_article_id', (int) $id);
 
         return $this->render('blog/admin/articles/edit', compact('article', 'tags'));
     }

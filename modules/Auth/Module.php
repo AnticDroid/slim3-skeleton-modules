@@ -11,6 +11,7 @@ use Composer\Autoload\ClassLoader;
 use Slim\App;
 use Slim\Container;
 use MartynBiz\Slim3Module\AbstractModule;
+use MartynBiz\Mongo\Connection;
 
 class Module extends AbstractModule
 {
@@ -53,6 +54,12 @@ class Module extends AbstractModule
                     'facebook_id',
                 ],
             ],
+
+            'mongo' => [
+                'classmap' => [
+                    'users' => '\\Auth\\Model\\User',
+                ],
+            ],
         ];
     }
 
@@ -73,6 +80,8 @@ class Module extends AbstractModule
      */
     public function initDependencies(Container $container)
     {
+        $settings = self::getModuleConfig();
+
         // Models
         $container['Auth\Model\User'] = function ($c) {
             return new \Auth\Model\User();
@@ -84,10 +93,11 @@ class Module extends AbstractModule
             return new \Auth\Auth($authAdapter, $settings);
         };
 
-
         // add template_path folder to $engine
-        $settings = self::getModuleConfig();
         $container['renderer']->addFolder($settings["renderer"]["template_path"]);
+
+        // add models to mongo
+        Connection::getInstance()->appendClassMap($settings['mongo']['classmap']);
     }
 
     /**

@@ -89,10 +89,12 @@ class PhotoManager
         // Create a new true color image and copy and resize part of an image
         // with resampling
         $tmp = $imageService->createTrueColorImage($maxWidth, $maxHeight);
-        $imageService->copyImageWithResampling($tmp, $src, 0, 0, 0, 0, $maxWidth, $maxHeight, $widthOrig, $heightOrig);
+        $success = $imageService->copyImageWithResampling($tmp, $src, 0, 0, 0, 0, $maxWidth, $maxHeight, $widthOrig, $heightOrig);
 
         $imageService->outputJpeg($tmp, $destPath);
         $imageService->destroyImage($tmp);
+
+        return $success;
     }
 
     /**

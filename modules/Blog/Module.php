@@ -11,6 +11,7 @@ use Composer\Autoload\ClassLoader;
 use Slim\App;
 use Slim\Container;
 use MartynBiz\Slim3Module\AbstractModule;
+use MartynBiz\Mongo\Connection;
 
 class Module extends AbstractModule
 {
@@ -30,6 +31,14 @@ class Module extends AbstractModule
                 'original' => APPLICATION_PATH . '/data/photos',
                 'cache' => APPLICATION_PATH . '/data/photos/cache',
                 'public' => '/photos',
+            ],
+
+            'mongo' => [
+                'classmap' => [
+                    'articles' => '\\Blog\\Model\\Article',
+                    'photos' => '\\Blog\\Model\\Photo',
+                    'tags' => '\\Blog\\Model\\Tag',
+                ],
             ],
         ];
     }
@@ -51,6 +60,8 @@ class Module extends AbstractModule
      */
     public function initDependencies(Container $container)
     {
+        $settings = self::getModuleConfig();
+
         $container['Blog\FileSystem'] = function ($c) {
             return new \Blog\FileSystem();
         };
@@ -74,11 +85,12 @@ class Module extends AbstractModule
             return new \Blog\Model\Photo();
         };
 
-
         // add folder to $engine
-        $settings = self::getModuleConfig();
         $templatePath = $settings["renderer"]["template_path"];
         $container['renderer']->addFolder($templatePath);
+
+        // add models to mongo
+        Connection::getInstance()->appendClassMap($settings['mongo']['classmap']);
     }
 
     /**

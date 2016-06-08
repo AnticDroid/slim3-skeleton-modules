@@ -27,6 +27,7 @@ class Module extends AbstractModule
                     APPLICATION_PATH . '/modules/Application/views',
                 ],
                 'ext' => 'phtml',
+                // 'autoescape' => true,
             ],
 
             'i18n' => [
@@ -51,6 +52,10 @@ class Module extends AbstractModule
             'logger' => [
                 'name' => 'slim3-module-app',
                 'path' => APPLICATION_PATH . '/data/logs/app.log',
+            ],
+
+            'session' => [
+                'namespace' => 'slim3__',
             ],
         ];
     }
@@ -150,6 +155,15 @@ class Module extends AbstractModule
         $container['csrf'] = function ($c) {
             return new \Slim\Csrf\Guard;
         };
+
+        $container['Application\Session'] = function ($c) use ($settings) {
+            $session_factory = new \Aura\Session\SessionFactory;
+            $session = $session_factory->newInstance($_COOKIE);
+
+            return $session->getSegment($settings['session']['namespace']);
+        };
+
+
 
 
         // // add template_path folder to $engine

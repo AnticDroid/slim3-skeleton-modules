@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "588818624cce790530a94040837f7fce",
-    "content-hash": "46f6f652fa6bc60fd44d0cd597d70483",
+    "hash": "4e6a0d4c46a725a223f94b18051d4435",
+    "content-hash": "f1355949383e2beb7c37c9b72268b1f7",
     "packages": [
         {
             "name": "aura/html",
@@ -69,6 +69,70 @@
                 "input"
             ],
             "time": "2015-03-27 17:31:31"
+        },
+        {
+            "name": "aura/session",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/auraphp/Aura.Session.git",
+                "reference": "9e018278794228e40c7695b699c848bea2355a12"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/auraphp/Aura.Session/zipball/9e018278794228e40c7695b699c848bea2355a12",
+                "reference": "9e018278794228e40c7695b699c848bea2355a12",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "aura/di": "~2.0"
+            },
+            "suggest": {
+                "ext-mcrypt": "Mcrypt generates the next best secure CSRF tokens.",
+                "ext-openssl": "OpenSSL generates the best secure CSRF tokens.",
+                "ircmaxell/random-lib": "A Library For Generating Secure Random Numbers"
+            },
+            "type": "library",
+            "extra": {
+                "aura": {
+                    "type": "library",
+                    "config": {
+                        "common": "Aura\\Session\\_Config\\Common"
+                    }
+                },
+                "branch-alias": {
+                    "dev-develop-2": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Aura\\Session\\": "src/",
+                    "Aura\\Session\\_Config\\": "config/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Aura.Session Contributors",
+                    "homepage": "https://github.com/auraphp/Aura.Session/contributors"
+                }
+            ],
+            "description": "Provides session management functionality, including lazy session starting, session segments, next-request-only (\"flash\") values, and CSRF tools.",
+            "homepage": "https://github.com/auraphp/Aura.Session",
+            "keywords": [
+                "csrf",
+                "flash",
+                "flash message",
+                "session",
+                "sessions"
+            ],
+            "time": "2015-03-27 18:33:22"
         },
         {
             "name": "container-interop/container-interop",
@@ -461,7 +525,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/martynbiz/php-mongo",
-                "reference": "ba00be9b6a77f4eacb3e8491ede6e4068b0c25d1"
+                "reference": "2167adb1c44c6b40dfa67d76866b906d72772151"
             },
             "require": {
                 "php": ">=5.3.0"
@@ -494,7 +558,7 @@
             "keywords": [
                 "mongo"
             ],
-            "time": "2016-06-07 07:01:28"
+            "time": "2016-06-08 14:17:23"
         },
         {
             "name": "martynbiz/php-validator",

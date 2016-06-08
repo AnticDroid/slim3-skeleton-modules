@@ -2,7 +2,7 @@ APPLICATION_ENV="development" php -S localhost:8000 -t public/
 
 TODO
 
-* articles: admin: photos, tags, homepage
+* articles: admin: tags, homepage, photo manage page (delete photos)
 * cache: homepage, tags?
 * admin/users
 * new RoleAccess( [
@@ -10,7 +10,7 @@ TODO
     Auth\Model\User::ROLE_ADMIN
 ] )
 * home - contact form, portfolio
-* module tests
+* library tests, module tests
 * router passed to templates, use route paths
 
 * namespace dependencies e.g. "model.user" -> "Auth\Model\User"

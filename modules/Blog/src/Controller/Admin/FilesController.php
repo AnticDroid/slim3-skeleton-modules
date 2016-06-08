@@ -5,10 +5,7 @@
 
 namespace Blog\Controller\Admin;
 
-// use MartynBiz\Mongo\Mongo;
-// use Blog\Model\Article;
 use Blog\Model\Photo;
-// use Blog\Exception\PermissionDenied as PermissionDeniedException;
 
 use Application\Controller\BaseController;
 
@@ -48,28 +45,45 @@ class FilesController extends BaseController
             $filepath = Photo::getNewDir() . '/' . $file;
 
             // e.g. /var/www/app/photos/path/to/12345.jpg
-            $backendPath = $dir . '/' . $file;
+            $backendPath = $dir . '/' . $filepath;
 
             // handle the uploaded file
-            $this->get('Blog\PhotoManager')->moveUploadedFile($tmpName, $backendPath, $maxWidth=2000, $maxHeight=2000);
+            if ($this->get('Blog\PhotoManager')->moveUploadedFile($tmpName, $backendPath, $maxWidth=2000, $maxHeight=2000)) {
 
-            // create the photo in collection first so that we have an id to
-            // name the photo by
-            $photo = $this->get('Blog\Model\Photo')->create(array(
-                'filepath' => $filepath,
-                'type' => $type,
-                // 'width' => $width,
-                // 'height' => $height,
-            ));
+                // create the photo in collection first so that we have an id to
+                // name the photo by
+                $photo = $this->get('Blog\Model\Photo')->create(array(
+                    'filepath' => $filepath,
+                    'type' => $type,
+                    // 'width' => $width,
+                    // 'height' => $height,
+                ));
 
-            // the path to the file name from a front end (e.g. /images/...)
-            $imageSize = $this->get('Blog\Image')->getImageSize($backendPath);
-            list($width, $height) = $this->get('Blog\PhotoManager')->getMaxWidthHeight($imageSize[0], $imageSize[1], 400);
-            $frontendPath = $settings['photos_dir']['public'] . $photo->getCachedDir() . '/' . $photo->getCachedFileName( sprintf('%sx%s', $width, $height) );
+                // attach the photo to the current article
+                $articleId = $this->get('Application\Session')->get('current_article_id');
+                if ($articleId) {
+                    $article = $this->get('Blog\Model\Article')->findOneOrFail(array(
+                        'id' => (int) $articleId,
+                    ));
 
-            $message = 'File uploaded successfully';
+                    // attach the photo to $article
+                    $article->push( array(
+                        'photos' => $photo,
+                    ) );
+                }
 
-        } catch (RuntimeException $e) {
+                // the path to the file name from a front end (e.g. /images/...)
+                $imageSize = $this->get('Blog\Image')->getImageSize($backendPath);
+                list($width, $height) = $this->get('Blog\PhotoManager')->getMaxWidthHeight($imageSize[0], $imageSize[1], 400);
+                $frontendPath = $settings['photos_dir']['public'] . $photo->getCachedDir() . '/' . $photo->getCachedFileName( sprintf('%sx%s', $width, $height) );
+
+                $message = 'File uploaded successfully';
+
+            } else {
+                throw new \Exception('Could not copy file to destination');
+            }
+
+        } catch (\Exception $e) {
 
             $message = $e->getMessage();
 
