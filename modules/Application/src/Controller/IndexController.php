@@ -15,10 +15,6 @@ class IndexController extends BaseController
 
     public function contact()
     {
-        if ($this->request->isPost()) {
-
-        }
-
         return $this->render('application/index/contact');
     }
 }

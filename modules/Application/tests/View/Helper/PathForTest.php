@@ -1,22 +1,43 @@
 <?php
 namespace Application\Test\View\Helper;
 
-use Application\View\Helper\Translate;
+use Application\View\Helper\PathFor;
 use Slim\Container;
 
 class PathForTest extends \PHPUnit_Framework_TestCase
 {
-    public function test_initialization()
+    /**
+     * @var Slim\Container_mock
+     */
+    private $container;
+
+    public function setUp()
     {
-        $container = new Container();
+        $this->container = new Container();
 
         // mock objects
-        $container['router'] = $this->getMockBuilder('Slim\Router')
+        $this->container['router'] = $this->getMockBuilder('Slim\Router')
             ->disableOriginalConstructor()
             ->getMock();
+    }
 
-        $translate = new Translate($container);
+    public function test_initialization()
+    {
+        $pathFor = new PathFor($this->container);
 
-        $this->assertTrue($translate instanceof Translate);
+        $this->assertTrue($pathFor instanceof PathFor);
+    }
+
+    public function test_invoke_calls_router_pathfor_method()
+    {
+        $pathFor = new PathFor($this->container);
+
+        $this->container['router']
+            ->expects($this->once())
+            ->method('pathFor')
+            ->with('articles_index')
+            ->willReturn('/articles');
+
+        $this->assertEquals('/articles', $pathFor('articles_index'));
     }
 }

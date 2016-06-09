@@ -6,17 +6,38 @@ use Slim\Container;
 
 class TranslateTest extends \PHPUnit_Framework_TestCase
 {
-    public function test_initialization()
+    /**
+     * @var Slim\Container_mock
+     */
+    private $container;
+
+    public function setUp()
     {
-        $container = new Container();
+        $this->container = new Container();
 
         // mock objects
-        $container['i18n'] = $this->getMockBuilder('Zend\I18n\Translator\Translator')
+        $this->container['i18n'] = $this->getMockBuilder('Zend\I18n\Translator\Translator')
             ->disableOriginalConstructor()
             ->getMock();
+    }
 
-        $translate = new Application\View\Helper\Translate($container);
+    public function test_initialization()
+    {
+        $translate = new Translate($this->container);
 
         $this->assertTrue($translate instanceof Translate);
+    }
+
+    public function test_invoke_method_calls_i18n_translate_method()
+    {
+        $translate = new Translate($this->container);
+
+        $this->container['i18n']
+            ->expects($this->once())
+            ->method('translate')
+            ->with('hello')
+            ->willReturn('bonjour');
+
+        $this->assertEquals('bonjour', $translate('hello'));
     }
 }

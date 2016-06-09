@@ -2,6 +2,8 @@ APPLICATION_ENV="development" php -S localhost:8000 -t public/
 
 TODO
 
+* need to break up module initializer so that we can call getModuleConfig(), initDependencies, etc
+  and put stuff (e.g. mocks) inbetween, before router is used. Otherwise, stuff is frozen
 * articles: admin: tags, homepage, photo manage page (delete photos)
 * cache: homepage, tags?
 * admin/users
