@@ -60,7 +60,9 @@ if (file_exists($configPath . APPLICATION_ENV . '.php')) {
 // Instantiate the app
 $classLoader = require APPLICATION_PATH . '/vendor/autoload.php';
 $app = new Slim\App($settings);
-$container = $app->getContainer();
+
+// classmap for tests
+$classLoader->setPsr4("Application\\Test\\", __DIR__);
 
 MartynBiz\Mongo\Connection::getInstance()->init($settings['settings']['mongo']);
 

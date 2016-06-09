@@ -5,7 +5,18 @@
 return [
     'settings' => [
 
+        // will store settings for each module? (TODO can't we just use self::getModuleConfig within Module.php)
         'modules' => [],
+
+        'module_initializer' => [
+            'autoload' => [
+                'Application',
+                'Auth',
+                'Blog',
+                // 'Hello',
+            ],
+            'modules_path' => APPLICATION_PATH . '/modules',
+        ],
 
         // // TODO need to move these into modules somehow
         // //   do similar to Eloquent relations where class is inside model

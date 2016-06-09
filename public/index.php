@@ -80,15 +80,7 @@ $container = $app->getContainer();
 MartynBiz\Mongo\Connection::getInstance()->init($settings['settings']['mongo']);
 
 // initialize all modules in settings > modules > autoload [...]
-$moduleInitializer = new \MartynBiz\Slim3Module\Initializer($app, $classLoader, [
-    'autoload' => [
-        'Application',
-        'Auth',
-        'Blog',
-        // 'Hello',
-    ],
-    'modules_path' => APPLICATION_PATH . '/modules',
-]);
+$moduleInitializer = new \MartynBiz\Slim3Module\Initializer($app, $classLoader, $settings['settings']['module_initializer']);
 $moduleInitializer->initModules();
 
 // Run app
