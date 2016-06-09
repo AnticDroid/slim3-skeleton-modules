@@ -14,10 +14,22 @@ class ControllerTestCase extends TestCase
 
     public function setUp()
     {
-        $app = $GLOBALS["app"];
+        // Config
+        $settings = require APPLICATION_PATH . '/config/global.php';
 
-        $this->app = $app;
-        $this->container = $app->getContainer();
+        // Instantiate the app
+        $this->app = new \Slim\App($settings);
+        $this->container = $this->app->getContainer();
+
+        \MartynBiz\Mongo\Connection::getInstance()->init($settings['settings']['mongo']);
+
+        // initialize all modules in settings > modules > autoload [...]
+        $moduleInitializer = new \MartynBiz\Slim3Module\Initializer($this->app, $settings['settings']['module_initializer']);
+
+        // $moduleInitializer->initModules();
+        $moduleInitializer->initModuleConfig();
+        $moduleInitializer->initDependencies();
+        $moduleInitializer->initMiddleware();
 
         // mock stuff
         $this->container['mail_manager'] = $this->getMockBuilder('Application\Mail')
@@ -28,6 +40,10 @@ class ControllerTestCase extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        // router must be handled last otherwise stuff gets frozen before we can mock it
+        $moduleInitializer->initRoutes();
+
+
         // create fixtures
         $this->user = $this->findOrCreate(new User(), array(
             'first_name' => 'Martyn',
@@ -37,12 +53,17 @@ class ControllerTestCase extends TestCase
         ), 'first_name');
     }
 
+    public function tearDown()
+    {
+        // $this->container['Auth\Model\User']->remove();
+    }
+
     public function login($user)
     {
         // return an identity (eg. email)
         $this->container['auth']
             ->method('getAttributes')
-            ->willReturn( array_intersect_key($this->account->toArray(), array_flip(array(
+            ->willReturn( array_intersect_key($this->user->toArray(), array_flip(array(
                 'id',
                 'first_name',
                 'last_name',
@@ -53,6 +74,11 @@ class ControllerTestCase extends TestCase
         $this->container['auth']
             ->method('isAuthenticated')
             ->willReturn( true );
+
+        // by defaut, we'll make isAuthenticated return a false
+        $this->container['auth']
+            ->method('getCurrentUser')
+            ->willReturn( $user );
     }
 
     /**

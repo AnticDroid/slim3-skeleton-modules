@@ -17,70 +17,19 @@ if (PHP_SAPI == 'cli-server') {
     }
 }
 
+require APPLICATION_PATH . '/vendor/autoload.php';
 
-
-// config
-
-/*
-TODO
-$config = new Application\Config();
-
-$config->mergeFile([
-    APPLICATION_PATH . '/config/global.php',
-]);
-$config->merge( $moduleInitializer->getModulesConfig() );
-$config->mergeFile([
-    APPLICATION_PATH . '/config/autoload/',
-    APPLICATION_PATH . '/config/' . APPLICATION_ENV . '.php'
-]);
-
-$settings = $config->get();
-*/
-
-// 1) load global
+// Config
 $settings = require APPLICATION_PATH . '/config/global.php';
 
-// 2) TODO load modules config here before autoload
-
-// 3) autoload stuff, module config here will overwrite default
-$configPath = APPLICATION_PATH . '/config/';
-$autoloadPath = realpath($configPath . 'autoload/');
-if ($autoloadPath) {
-    foreach (scandir($autoloadPath) as $file) {
-        if ('.' === $file) continue;
-        if ('..' === $file) continue;
-
-        $settings = array_replace_recursive(
-            $settings,
-            require $autoloadPath . $file
-        );
-    }
-}
-
-// 4) overwrite all with environment config
-if (file_exists($configPath . APPLICATION_ENV . '.php')) {
-    $settings = array_replace_recursive(
-        $settings,
-        require $configPath . APPLICATION_ENV . '.php'
-    );
-}
-
-
-// // Session
-// session_start();
-
-
-// App
-
 // Instantiate the app
-$classLoader = require APPLICATION_PATH . '/vendor/autoload.php';
 $app = new Slim\App($settings);
 $container = $app->getContainer();
 
 MartynBiz\Mongo\Connection::getInstance()->init($settings['settings']['mongo']);
 
 // initialize all modules in settings > modules > autoload [...]
-$moduleInitializer = new \MartynBiz\Slim3Module\Initializer($app, $classLoader, $settings['settings']['module_initializer']);
+$moduleInitializer = new \MartynBiz\Slim3Module\Initializer($app, $settings['settings']['module_initializer']);
 $moduleInitializer->initModules();
 
 // Run app
