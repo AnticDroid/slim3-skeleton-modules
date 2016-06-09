@@ -68,6 +68,7 @@ class Module extends AbstractModule
     public function initClassLoader(ClassLoader $classLoader)
     {
         $classLoader->setPsr4("Application\\", __DIR__ . "/src");
+        $classLoader->setPsr4("Application\\Test\\", __DIR__ . "/tests");
     }
 
     /**
@@ -90,7 +91,7 @@ class Module extends AbstractModule
             $response = new \MartynBiz\Slim3Controller\Http\Response(200, $headers);
             return $response->withProtocolVersion($c->get('settings')['httpVersion']);
         };
-
+var_dump($container['response']);
         // view renderer. the simple task of compiling a template with data
         $container['renderer'] = function($c) use ($settings) {
             $engine = \Foil\engine($settings['renderer']);

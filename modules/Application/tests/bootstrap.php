@@ -2,11 +2,11 @@
 
 // Define path to application directory
 defined('APPLICATION_PATH')
-    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../'));
+    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../../../'));
 
 // Define application environment
 defined('APPLICATION_ENV')
-    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
+    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'testing'));
 
 if (PHP_SAPI == 'cli-server') {
     // To help the built-in PHP dev server, check if the request was actually for
@@ -20,22 +20,6 @@ if (PHP_SAPI == 'cli-server') {
 
 
 // config
-
-/*
-TODO
-$config = new Application\Config();
-
-$config->mergeFile([
-    APPLICATION_PATH . '/config/global.php',
-]);
-$config->merge( $moduleInitializer->getModulesConfig() );
-$config->mergeFile([
-    APPLICATION_PATH . '/config/autoload/',
-    APPLICATION_PATH . '/config/' . APPLICATION_ENV . '.php'
-]);
-
-$settings = $config->get();
-*/
 
 // 1) load global
 $settings = require APPLICATION_PATH . '/config/global.php';
@@ -66,6 +50,7 @@ if (file_exists($configPath . APPLICATION_ENV . '.php')) {
 }
 
 
+
 // // Session
 // session_start();
 
@@ -91,5 +76,5 @@ $moduleInitializer = new \MartynBiz\Slim3Module\Initializer($app, $classLoader, 
 ]);
 $moduleInitializer->initModules();
 
-// Run app
-$app->run();
+// // Run app
+// $app->run();

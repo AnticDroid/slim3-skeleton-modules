@@ -7,17 +7,17 @@ return [
 
         'modules' => [],
 
-        // TODO need to move these into modules somehow
-        //   do similar to Eloquent relations where class is inside model
-        'mongo' => [
-            'db' => 'crsrc',
-            'classmap' => [
-                // 'articles' => '\\Blog\\Model\\Article',
-                // 'users' => '\\Auth\\Model\\User',
-                // 'photos' => '\\Blog\\Model\\Photo',
-                // 'tags' => '\\Blog\\Model\\Tag',
-            ]
-        ],
+        // // TODO need to move these into modules somehow
+        // //   do similar to Eloquent relations where class is inside model
+        // 'mongo' => [
+        //     'db' => 'crsrc',
+        //     'classmap' => [
+        //         // 'articles' => '\\Blog\\Model\\Article',
+        //         // 'users' => '\\Auth\\Model\\User',
+        //         // 'photos' => '\\Blog\\Model\\Photo',
+        //         // 'tags' => '\\Blog\\Model\\Tag',
+        //     ]
+        // ],
 
         // 'renderer' => [
         //     'folders' => [

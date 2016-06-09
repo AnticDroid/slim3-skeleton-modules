@@ -48,9 +48,6 @@
             "Application\\": "modules/application/src/",
             "Auth\\": "modules/auth/src/",
             "Blog\\": "modules/blog/src/"
-        },
-        "classmap": [
-            "tests"
-        ]
+        }
     }
 }
