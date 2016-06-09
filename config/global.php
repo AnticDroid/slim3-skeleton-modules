@@ -10,7 +10,7 @@ return [
                 'Application',
                 'Auth',
                 'Blog',
-                // 'Hello',
+                'Hello',
             ],
             'modules_path' => APPLICATION_PATH . '/modules',
         ],

@@ -46,9 +46,11 @@
     },
     "autoload": {
         "psr-4": {
-            "Application\\": "modules/application/src/",
-            "Auth\\": "modules/auth/src/",
-            "Blog\\": "modules/blog/src/"
+            "Application\\": "modules/Application/src/",
+            "Auth\\": "modules/Auth/src/",
+            "Blog\\": "modules/Blog/src/",
+            
+            "Hello\\": "modules/Hello/"
         }
     }
 }

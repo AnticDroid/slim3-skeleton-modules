@@ -60,15 +60,15 @@ class Module extends AbstractModule
         ];
     }
 
-    /**
-     * Set class maps for class loader to autoload classes for this module
-     * @param ClassLoader $classLoader
-     * @return void
-     */
-    public function initClassLoader(ClassLoader $classLoader)
-    {
-        $classLoader->setPsr4("Application\\", __DIR__ . "/src");
-    }
+    // /**
+    //  * Set class maps for class loader to autoload classes for this module
+    //  * @param ClassLoader $classLoader
+    //  * @return void
+    //  */
+    // public function initClassLoader(ClassLoader $classLoader)
+    // {
+    //     $classLoader->setPsr4("Application\\", __DIR__ . "/src");
+    // }
 
     /**
      * Set class maps for class loader to autoload classes for this module

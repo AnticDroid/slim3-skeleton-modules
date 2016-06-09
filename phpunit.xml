@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
-         bootstrap="modules/Application/tests/bootstrap.php"
+         bootstrap="modules/Application/src/Test/bootstrap.php"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
@@ -11,7 +11,7 @@
          syntaxCheck="false">
     <testsuites>
         <testsuite name="Application Test Suite">
-            <directory>./modules/Application/tests</directory>
+            <directory>./modules/Application/src/Test</directory>
         </testsuite>
     </testsuites>
 </phpunit>
