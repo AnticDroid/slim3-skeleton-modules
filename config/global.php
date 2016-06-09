@@ -3,15 +3,11 @@
 // 1) load global
 $settings = [
     'settings' => [
-
         'module_initializer' => [
-            'autoload' => [
-                'Application',
-                'Auth',
-                'Blog',
-                'Hello',
-            ],
-            'modules_path' => APPLICATION_PATH . '/modules',
+            'Application',
+            'Auth',
+            'Blog',
+            'Hello',
         ],
     ],
 ];
