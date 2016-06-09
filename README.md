@@ -4,6 +4,10 @@ TODO
 
 * need to break up module initializer so that we can call getModuleConfig(), initDependencies, etc
   and put stuff (e.g. mocks) inbetween, before router is used. Otherwise, stuff is frozen
+  * tests:
+    - classLoader needs to be in bootstrap for other unit tests
+    - Module.php is being loaded twice?? Maybe module needs to be part of autoload, not require Module.php
+    - $app needs to be rebuild every test i think (setUp)
 * articles: admin: tags, homepage, photo manage page (delete photos)
 * cache: homepage, tags?
 * admin/users

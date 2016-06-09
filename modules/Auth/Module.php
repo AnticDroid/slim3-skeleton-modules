@@ -88,7 +88,7 @@ class Module extends AbstractModule
         };
 
         $container['auth'] = function ($c) {
-            $settings = $c->get('settings')['auth'];
+            $settings = $c->get('settings')['modules']['Auth']['auth'];
             $authAdapter = new \Auth\Adapter\Mongo( $c['Auth\Model\User'] );
             return new \Auth\Auth($authAdapter, $settings);
         };
