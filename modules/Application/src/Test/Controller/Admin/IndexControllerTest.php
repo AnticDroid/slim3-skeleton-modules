@@ -1,7 +1,6 @@
 <?php
 namespace Application\Test\Controller\Admin;
 
-use MartynBiz\Mongo\Connection;
 use Application\Test\Controller\ControllerTestCase;
 
 class IndexControllerTest extends ControllerTestCase

@@ -2,19 +2,10 @@ APPLICATION_ENV="development" php -S localhost:8000 -t public/
 
 TODO
 
-* need to break up module initializer so that we can call getModuleConfig(), initDependencies, etc
-  and put stuff (e.g. mocks) inbetween, before router is used. Otherwise, stuff is frozen
-  * tests:
-    - classLoader needs to be in bootstrap for other unit tests
-    - Module.php is being loaded twice?? Maybe module needs to be part of autoload, not require Module.php
-    - $app needs to be rebuild every test i think (setUp)
 * articles: admin: tags, homepage, photo manage page (delete photos)
 * cache: homepage, tags?
 * admin/users
-* new RoleAccess( [
-    Auth\Model\User::ROLE_EDITOR,
-    Auth\Model\User::ROLE_ADMIN
-] )
+* use RoleAccess middleware
 * home - contact form, portfolio
 * library tests, module tests
 * router passed to templates, use route paths

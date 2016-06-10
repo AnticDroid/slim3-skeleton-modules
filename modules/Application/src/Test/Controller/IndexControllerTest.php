@@ -1,9 +1,6 @@
 <?php
 namespace Application\Test\Controller;
 
-use MartynBiz\Mongo\Connection;
-// use Application\Test\Controller\ControllerTestCase;
-
 class IndexControllerTest extends ControllerTestCase
 {
     public function test_index_route()
