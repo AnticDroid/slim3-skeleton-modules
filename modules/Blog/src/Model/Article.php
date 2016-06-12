@@ -2,7 +2,7 @@
 
 namespace Blog\Model;
 
-use MartynBiz\Mongo;
+use MartynBiz\Mongo\Mongo;
 use Blog\Utils;
 use Blog\Model\Tag;
 use Blog\Model\Photo;
@@ -42,18 +42,18 @@ class Article extends Base
      * @param App\Model\User $user
      * @param array $query Optional query to find articles
      */
-    public function findArticlesManagedBy(User $user, $query=array())
+    public function findArticlesManagedBy(User $user, $query=[], $options=[])
     {
         // members can only view their own articles
         if ($user->isContributor()) {
-            $query = array_merge(array(
+            $query = array_merge([
                 'author' => $user,
-            ), $query);
+            ], $query);
         }
 
         // TODO editors can only view their members articles
 
-        return $this->find($query);
+        return $this->find($query, $options);
     }
 
     /**
@@ -132,32 +132,32 @@ class Article extends Base
         return (@$this->data['author']['$id'] == $user->_id);
     }
 
-    // /**
-    //  * Additional Save procedures
-    //  */
-    // public function has(Mongo $item)
-    // {
-    //     // if $item doesn't have a DBRef, then we can't proceed
-    //     if(!$item->getDBRef()) return false;
-    //
-    //     // check for Tags
-    //     if ($item instanceof Tag) {
-    //         if ($tags = @$this->data['tags']) {
-    //             foreach($this->data['tags'] as $tag) {
-    //                 if($item->getDBRef() == $tag) return true;
-    //             }
-    //         }
-    //     }
-    //
-    //     // check for Photo
-    //     if ($item instanceof Photo) {
-    //         if ($photos = @$this->data['photos']) {
-    //             foreach($this->data['photos'] as $photo) {
-    //                 if($item->getDBRef() == $photo) return true;
-    //             }
-    //         }
-    //     }
-    //
-    //     return false;
-    // }
+    /**
+     * Additional Save procedures
+     */
+    public function has(Mongo $item)
+    {
+        // if $item doesn't have a DBRef, then we can't proceed
+        if(!$item->getDBRef()) return false;
+
+        // check for Tags
+        if ($item instanceof Tag) {
+            if ($tags = @$this->data['tags']) {
+                foreach($this->data['tags'] as $tag) {
+                    if($item->getDBRef() == $tag) return true;
+                }
+            }
+        }
+
+        // check for Photo
+        if ($item instanceof Photo) {
+            if ($photos = @$this->data['photos']) {
+                foreach($this->data['photos'] as $photo) {
+                    if($item->getDBRef() == $photo) return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }

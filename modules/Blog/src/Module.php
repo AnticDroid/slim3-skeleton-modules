@@ -123,20 +123,20 @@ class Module extends AbstractModule
             $app->group('/articles', function () use ($app) {
 
                 $controller = new \Blog\Controller\Admin\ArticlesController($app);
-                $app->get('', $controller('index'))->setName('admin_articles');
-                $app->get('/{id:[0-9]+}', $controller('show'))->setName('admin_articles_show');
-                // $app->get('/create', $controller('create'))->setName('admin_articles_create');
-                $app->get('/{id:[0-9]+}/edit', $controller('edit'))->setName('admin_articles_edit');
-                $app->post('', $controller('post'))->setName('admin_articles_post');
-                // $app->delete('/{id:[0-9]+}', $controller('delete'))->setName('admin_articles_delete');
+                $app->get('', $controller('index'))->setName('blog_admin_articles');
+                $app->get('/{id:[0-9]+}', $controller('show'))->setName('blog_admin_articles_show');
+                // $app->get('/create', $controller('create'))->setName('blog_admin_articles_create');
+                $app->get('/{id:[0-9]+}/edit', $controller('edit'))->setName('blog_admin_articles_edit');
+                $app->post('', $controller('post'))->setName('blog_admin_articles_post');
+                // $app->delete('/{id:[0-9]+}', $controller('delete'))->setName('blog_admin_articles_delete');
                 // // these routes must be POST as they contain files and slim doesn't reconize the
                 // // _METHOD in multipart/form-data :(
-                $app->put('/{id:[0-9]+}', $controller('update'))->setName('admin_articles_update');
-                // $app->put('/{id:[0-9]+}/submit', $controller('submit'))->setName('admin_articles_submit');
-                // $app->put('/{id:[0-9]+}/approve', $controller('approve'))->setName('admin_articles_approve');
+                $app->put('/{id:[0-9]+}', $controller('update'))->setName('blog_admin_articles_update');
+                // $app->put('/{id:[0-9]+}/submit', $controller('submit'))->setName('blog_admin_articles_submit');
+                // $app->put('/{id:[0-9]+}/approve', $controller('approve'))->setName('blog_admin_articles_approve');
 
                 $controller = new \Blog\Controller\Admin\FilesController($app);
-                $app->post('/upload', $controller('upload'))->setName('admin_articles_upload');
+                $app->post('/upload', $controller('upload'))->setName('blog_admin_articles_upload');
             });
             // // admin/articles routes
             // $app->group('/tags', function () use ($app) {

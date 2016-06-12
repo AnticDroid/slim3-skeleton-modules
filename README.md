@@ -3,6 +3,8 @@ APPLICATION_ENV="development" php -S localhost:8000 -t public/
 TODO
 
 * articles: admin: tags, homepage, photo manage page (delete photos)
+* auth : remember me, facebook login, use aura/session?
+* photos: dropzone, drag from div to ckeditor,
 * cache: homepage, tags?
 * admin/users
 * use RoleAccess middleware

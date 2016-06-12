@@ -1,0 +1,26 @@
+//
+// Tags
+// --------------------------------------------------
+
+ul.tags {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+
+    li {
+        display: inline;
+
+        a,
+        span {
+            display: inline-block;
+            background-color: @link-color;
+            color: @white;
+            padding: 10px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        a:hover {
+            background-color: darken(@link-color, 6.5%);
+        }
+    }
+}

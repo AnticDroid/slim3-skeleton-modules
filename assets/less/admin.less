@@ -1,0 +1,62 @@
+@import 'bootstrap';
+
+// components
+@import 'partials/body';
+@import 'partials/navbar';
+@import 'partials/homebox';
+@import 'partials/photo';
+@import 'partials/footer';
+
+
+
+
+
+//
+// Buttons
+// --------------------------------------------------
+
+.buttons {
+    padding: 10px;
+    background: @gray-lighter;
+    float:left;
+    width: 100%;
+
+    margin-bottom: 1em;
+
+    a, button {
+        margin-bottom: 0.5em;
+    }
+
+    form {
+        display: inline;
+    }
+}
+
+
+
+//
+// Tags
+// --------------------------------------------------
+
+ul.tags {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+
+    li {
+        display: inline;
+
+        span {
+            display: inline-block;
+            background-color: @link-color;
+            color: @white;
+            padding: 10px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        input {
+            margin: 0px;
+            padding: 0px;
+        }
+    }
+}

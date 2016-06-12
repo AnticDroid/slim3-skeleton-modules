@@ -17,6 +17,8 @@ if (PHP_SAPI == 'cli-server') {
     }
 }
 
+session_start();
+
 require APPLICATION_PATH . '/vendor/autoload.php';
 
 // Config

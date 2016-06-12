@@ -1,0 +1,50 @@
+@import 'bootstrap';
+
+// components
+@import 'partials/body';
+@import 'partials/navbar';
+@import 'partials/homebox';
+@import 'partials/footer';
+
+// controllers
+@import 'session';
+
+
+body {
+    background-image: url('/images/bg.jpg');
+}
+
+
+
+//
+// Banner
+// --------------------------------------------------
+
+.banner {
+    box-shadow: 0px 1px 3px rgba(34, 25, 25, 0.4);
+    margin-bottom: 1em;
+    float: left;
+    width: 100%;
+}
+
+
+
+
+
+//
+// Featured
+// --------------------------------------------------
+
+ol.featured {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    border-top: 1px solid #ddd;
+    padding-top: 0.5em;
+
+    li {
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 0.5em;
+        margin-bottom: 0.5em;
+    }
+}

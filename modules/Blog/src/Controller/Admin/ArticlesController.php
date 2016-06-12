@@ -14,26 +14,25 @@ class ArticlesController extends BaseController
     {
         $currentUser = $this->get('auth')->getCurrentUser();
 
-        // get articles
-        $params = array_merge([
-            'sort_by' => 'created_at',
-            'sort_dir' => (int) '-1',
-            'limit' => (int) '20',
-            'skip' => (int) '0',
-        ],[
-            'sort_by' => 'created_at',
-            'sort_dir' => (int) '-1',
-            'limit' => (int) '20',
-            'skip' => (int) '0',
-        ]); //$this->getQueryParams();
+        // set params
+        $limit = $this->getQueryParam('limit', 10);
+        $page = $this->getQueryParam('page', 1);
+        $options = array_intersect_key(array_merge([
+            'limit' => (int) $limit,
+            'skip' => (int) $limit * ($page - 1),
+        ], $this->getQueryParams()), array_flip(['limit', 'skip']));
 
-        $articles = $this->get('Blog\Model\Article')->findArticlesManagedBy($currentUser, [
-            'sort' => [ $params['sort_by'] => $params['sort_dir'] ],
-            'limit' => (int) $params['limit'],
-            'skip' => (int) $params['skip'],
-        ]);
+        // fetch articles this user manages
+        $articles = $this->get('Blog\Model\Article')->findArticlesManagedBy($currentUser, [], $options);
 
-        return $this->render('blog/admin/articles/index', compact('articles'));
+        // set page info for pagination
+        $totalArticles = $this->get('Blog\Model\Article')->findArticlesManagedBy($currentUser);
+        $pageInfo = [
+            'page' => $page,
+            'total_pages' => ceil(count($totalArticles) / $limit),
+        ];
+
+        return $this->render('blog/admin/articles/index', compact('articles', 'pageInfo'));
     }
 
     /**
@@ -52,7 +51,7 @@ class ArticlesController extends BaseController
             throw new PermissionDeniedException('Permission denied to view this article.');
         }
 
-        return $this->render('blog/admin/articles/show', compact('article'));
+        return $this->render('blog/admin/articles/show', compact('article', 'tags'));
     }
 
     /**
@@ -98,13 +97,14 @@ class ArticlesController extends BaseController
             throw new PermissionDeniedException('Permission denied to edit this article.');
         }
 
-        // // get tags from cache
+        // get tags from cache
         // $cacheId = 'tags';
         // if (! $tags = $this->get('cache')->get($cacheId)) {
-        //     $tags = $this->get('model.tag')->find();
-        //     $this->get('cache')->set($cacheId, $tags, 1);
+            $tags = $this->get('Blog\Model\Tag')->find();
+            // $this->get('cache')->set($cacheId, $tags, 1);
         // }
-        $tags = [];
+        // $tags = [];
+// var_dump($tags); exit;
 
         // we will set the current id in session so that uploaded images know which
         // article to attach to
@@ -131,8 +131,8 @@ class ArticlesController extends BaseController
             throw new PermissionDeniedException('Permission denied to edit this article.');
         }
 
-        // // tags
-        // $params['tags'] = $this->getTagsFromTagIds(@$params['tags']);
+        // tags
+        $params['tags'] = $this->getTagsFromTagIds(@$params['tags']);
 
         // // photos
         // $this->attachPhotosTo($article, @$_FILES['photos']);
