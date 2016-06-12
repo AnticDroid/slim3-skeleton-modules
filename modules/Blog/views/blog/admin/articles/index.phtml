@@ -10,20 +10,28 @@
             </ol>
 
             <form action="/admin/articles" method="post">
-                <button type="submit" class="btn btn-default">New article</button>
+                <div class="buttons">
+                    <div class="col-md-6 hidden-s hidden-xs">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <button type="submit" class="btn btn-default">New article</button>
+                    </div>
+                </div>
             </form>
 
             <table class="table table-striped">
                 <tr>
-                    <th>Title</th>
-                    <th>Type</th>
-                    <th>Published</th>
+                    <th><a href="#">Title</a>
+</th>
+                    <th><a href="#">Type</a></th>
+                    <th><a href="#">Created</a> <i class="fa fa-caret-down" aria-hidden="true"></i></th>
                 </tr>
                 <?php foreach ($this->articles as $article): ?>
                     <tr>
                         <td><a href="/admin/articles/<?= $article->id ?>"><?= $article->title ?></a></td>
                         <td><?= $article->type ?></td>
-                        <td><?= $article->published_at ?></td>
+                        <td><?= $article->created_at ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>

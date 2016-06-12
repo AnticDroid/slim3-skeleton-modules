@@ -64,9 +64,14 @@ class Article extends Base
         return date('d/m/Y h:i', $value->sec);
     }
 
-    /**
-     * Convert published_at date to human readable TODO test
-     */
+    public function getTitle($value)
+    {
+        if (empty($value))
+            return 'Untitled';
+
+        return $value;
+    }
+
     public function getType($value)
     {
         switch ($this->data['type'])
