@@ -55,7 +55,7 @@
                 <?php if ($this->article->tags): ?>
                     <ul class="tags">
                         <?php foreach ($this->article->tags as $tag): ?>
-                            <li><span><?= $tag->name ?></span></li>
+                            <li><a href="<?= $this->pathFor('blog_admin_articles') ?>?tags=<?= $tag->slug ?>"><?= $tag->name ?></a></li>
                         <?php endforeach; ?>
                     </ul>
                 <?php endif; ?>

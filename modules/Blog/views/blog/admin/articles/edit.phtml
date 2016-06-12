@@ -60,7 +60,7 @@
                     <div class="form-group">
                         <ul class="tags">
                             <?php foreach ($this->tags as $tag): ?>
-                                <li><span><input type="checkbox" name="tags[]" value="<?= $tag->id ?>" <?php if ($this->article->has($tag)): ?> checked="checked"<?php endif ?>)> <?= $tag->name ?><span></li>
+                                <li><label><input type="checkbox" name="tags[]" value="<?= $tag->id ?>" <?php if ($this->article->has($tag)): ?> checked="checked"<?php endif ?>)> <?= $tag->name ?><label></li>
                             <?php endforeach ?>
                         </ul>
                     </div>
