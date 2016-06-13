@@ -21,16 +21,16 @@ class FilesController extends BaseController
 
         try {
 
-            // generate the photo dir from the target id
-            // we'll use Photo::getCurrentDir to generate the dir from date
-            // useful when managing thousands of photos/articles
-            // e.g. /var/www/.../data/photos/201601/31/
-            $dir = $settings['photos_dir']['original'];
-
-            $fileExists = $this->get('Blog\FileSystem')->fileExists($dir);
-            if (!$fileExists and !$this->get('Blog\FileSystem')->makeDir($dir, 0775, true)) {
-                throw new \Exception('Could not create directory');
-            }
+            // // generate the photo dir from the target id
+            // // we'll use Photo::getCurrentDir to generate the dir from date
+            // // useful when managing thousands of photos/articles
+            // // e.g. /var/www/.../data/photos/201601/31/
+            // $dir = $settings['photos_dir']['original'];
+            //
+            // $fileExists = $this->get('Blog\FileSystem')->fileExists($dir);
+            // if (!$fileExists and !$this->get('Blog\FileSystem')->makeDir($dir, 0775, true)) {
+            //     throw new \Exception('Could not create directory');
+            // }
 
             // get the parameters from the form submission
             $name = $photoParams['name'];
@@ -45,7 +45,12 @@ class FilesController extends BaseController
             $filepath = Photo::getNewDir() . '/' . $file;
 
             // e.g. /var/www/app/photos/path/to/12345.jpg
-            $backendPath = $dir . '/' . $filepath;
+            $backendPath = $settings['photos_dir']['original'] . '/' . $filepath;
+
+            $fileExists = $this->get('Blog\FileSystem')->fileExists( dirname($backendPath) );
+            if (!$fileExists and !$this->get('Blog\FileSystem')->makeDir(dirname($backendPath), 0775, true)) {
+                throw new \Exception('Could not create directory');
+            }
 
             // handle the uploaded file
             if ($this->get('Blog\PhotoManager')->moveUploadedFile($tmpName, $backendPath, $maxWidth=2000, $maxHeight=2000)) {
@@ -74,7 +79,7 @@ class FilesController extends BaseController
 
                 // the path to the file name from a front end (e.g. /images/...)
                 $imageSize = $this->get('Blog\Image')->getImageSize($backendPath);
-                list($width, $height) = $this->get('Blog\PhotoManager')->getMaxWidthHeight($imageSize[0], $imageSize[1], 400);
+                list($width, $height) = $this->get('Blog\PhotoManager')->getMaxWidthHeight($imageSize[0], $imageSize[1], 300);
                 $frontendPath = $settings['photos_dir']['public'] . $photo->getCachedDir() . '/' . $photo->getCachedFileName( sprintf('%sx%s', $width, $height) );
 
                 $message = 'File uploaded successfully';

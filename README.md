@@ -2,7 +2,9 @@ APPLICATION_ENV="development" php -S localhost:8000 -t public/
 
 TODO
 
-* articles: admin: tags, homepage, photo manage page (delete photos)
+* articles: admin: homepage, photo manage page (delete photos), preview, styles,
+* Tags: delete, paginate, create,
+* translations 
 * auth : remember me, facebook login, use aura/session?
 * photos: dropzone, drag from div to ckeditor,
 * cache: homepage, tags?

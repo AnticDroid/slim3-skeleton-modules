@@ -2,28 +2,18 @@
 namespace Blog\Controller\Admin;
 
 use Blog\Model\Tag;
-use Blog\Exception\PermissionDenied;
+use Blog\Exception\PermissionDenied as PermissionDeniedException;
 
 use Application\Controller\BaseController;
 
 class TagsController extends BaseController
 {
-    public function init()
-    {
-        // only admin can do anything here
-        $currentUser = $this->get('auth')->getCurrentUser();
-        if (! $currentUser->isAdmin() ) {
-            throw new PermissionDenied('Permission denied to manage tags.');
-        }
-    }
-
     public function index()
     {
-        $tags = $this->get('model.tag')->find();
+        // fetch articles this user manages
+        $tags = $this->get('Blog\Model\Tag')->find();
 
-        return $this->render('admin.tags.index', array(
-            'tags' => $tags,
-        ));
+        return $this->render('blog/admin/tags/index', compact('tags'));
     }
 
     public function create()
@@ -36,7 +26,7 @@ class TagsController extends BaseController
     public function post()
     {
         $currentUser = $this->get('auth')->getCurrentUser();
-        $tag = $this->get('model.tag')->factory();
+        $tag = $this->get('Blog\Model\Tag')->factory();
 
         if ( $tag->save( $this->getPost() ) ) {
             $this->get('flash')->addMessage('success', 'Tag created.');
@@ -52,14 +42,14 @@ class TagsController extends BaseController
      */
     public function edit($id)
     {
-        $tag = $this->get('model.tag')->findOneOrFail(array(
+        $tag = $this->get('Blog\Model\Tag')->findOneOrFail(array(
             'id' => (int) $id,
         ));
 
         // include any params that may have been sent
         $tag->set( $this->getPost() );
 
-        return $this->render('admin.tags.edit', array(
+        return $this->render('blog/admin/tags/edit', array(
             'tag' => $tag,
         ));
     }
@@ -71,15 +61,11 @@ class TagsController extends BaseController
      */
     public function update($id)
     {
-        $tag = $this->get('model.tag')->findOneOrFail(array(
+        $tag = $this->get('Blog\Model\Tag')->findOneOrFail(array(
             'id' => (int) $id,
         ));
 
         $params = $this->getPost();
-
-        // for security reasons, some properties are not on the whitelist but
-        // we can directly assign them by this way
-        if (isset($params['role'])) $tag->role = $params['role'];
 
         if ( $tag->save($params) ) {
             $this->get('flash')->addMessage('success', 'Tag saved.');
@@ -94,7 +80,7 @@ class TagsController extends BaseController
 
     public function delete($id)
     {
-        $tag = $this->get('model.tag')->findOneOrFail(array(
+        $tag = $this->get('Blog\Model\Tag')->findOneOrFail(array(
             'id' => (int) $id,
         ));
 

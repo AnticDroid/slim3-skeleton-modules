@@ -13,8 +13,8 @@ class PathFor
         $this->container = $container;
     }
 
-    function __invoke($routeName)
+    function __invoke($routeName, $args=[])
     {
-        return $this->container['router']->pathFor($routeName);
+        return $this->container['router']->pathFor($routeName, $args);
     }
 }

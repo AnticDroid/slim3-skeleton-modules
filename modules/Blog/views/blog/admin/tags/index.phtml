@@ -1,0 +1,45 @@
+<?php $this->layout('layouts/admin'); ?>
+
+<?php $this->section('content') ?>
+    <ol class="breadcrumb">
+        <li><a href="<?= $this->pathFor('application_admin') ?>">Admin</a></li>
+        <li class="active">Tags</li>
+    </ol>
+
+    <a href="/admin/tags/create" class="btn btn-default">New tag</a>
+
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Slug</th>
+            <th>Created</th>
+        </tr>
+        <?php foreach ($this->tags as $tag): ?>
+            <tr>
+                <td><a href="<?= $this->pathFor('blog_admin_tags_edit', [ 'id' => $tag->id ]) ?>"><?= $tag->name ?></td>
+                <td><?= $tag->slug ?></td>
+                <td><?= $tag->created_at ?></td>
+            </tr>
+        <?php endforeach ?>
+    </table>
+
+    <nav>
+        <ul class="pagination">
+            <li>
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+<?php $this->replace() ?>

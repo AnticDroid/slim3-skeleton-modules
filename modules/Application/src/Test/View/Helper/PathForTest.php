@@ -35,9 +35,9 @@ class PathForTest extends \PHPUnit_Framework_TestCase
         $this->container['router']
             ->expects($this->once())
             ->method('pathFor')
-            ->with('articles_index')
+            ->with('articles_index', [ 'name' => 'Martyn' ])
             ->willReturn('/articles');
 
-        $this->assertEquals('/articles', $pathFor('articles_index'));
+        $this->assertEquals('/articles', $pathFor('articles_index', [ 'name' => 'Martyn' ]));
     }
 }

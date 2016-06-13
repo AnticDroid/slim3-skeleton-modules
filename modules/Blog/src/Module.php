@@ -26,7 +26,6 @@ class Module extends AbstractModule
                 'template_path' => APPLICATION_PATH . '/modules/Blog/views',
             ],
 
-            // photos upload dir
             'photos_dir' => [
                 'original' => APPLICATION_PATH . '/data/photos',
                 'cache' => APPLICATION_PATH . '/data/photos/cache',
@@ -138,17 +137,17 @@ class Module extends AbstractModule
                 $controller = new \Blog\Controller\Admin\FilesController($app);
                 $app->post('/upload', $controller('upload'))->setName('blog_admin_articles_upload');
             });
-            // // admin/articles routes
-            // $app->group('/tags', function () use ($app) {
-            //     $controller = new \Blog\Controller\Admin\TagsController($app);
-            //     $app->get('', $controller('index'))->setName('admin_tags');
-            //     $app->get('/{id:[0-9]+}', $controller('show'))->setName('admin_tags_show');
-            //     $app->get('/create', $controller('create'))->setName('admin_tags_create');
-            //     $app->get('/{id:[0-9]+}/edit', $controller('edit'))->setName('admin_tags_edit');
-            //     $app->post('', $controller('post'))->setName('admin_tags_post');
-            //     $app->put('/{id:[0-9]+}', $controller('update'))->setName('admin_tags_update');
-            //     $app->delete('/{id:[0-9]+}', $controller('delete'))->setName('admin_tags_delete');
-            // });
+            // admin/tags/* routes
+            $app->group('/tags', function () use ($app) {
+                $controller = new \Blog\Controller\Admin\TagsController($app);
+                $app->get('', $controller('index'))->setName('blog_admin_tags');
+                // $app->get('/{id:[0-9]+}', $controller('show'))->setName('blog_admin_tags_show');
+                $app->get('/create', $controller('create'))->setName('blog_admin_tags_create');
+                $app->get('/{id:[0-9]+}/edit', $controller('edit'))->setName('blog_admin_tags_edit');
+                $app->post('', $controller('post'))->setName('blog_admin_tags_post');
+                $app->put('/{id:[0-9]+}', $controller('update'))->setName('blog_admin_tags_update');
+                $app->delete('/{id:[0-9]+}', $controller('delete'))->setName('blog_admin_tags_delete');
+            });
             // // admin/articles routes
             // $app->group('/data', function () use ($app) {
             //     $controller = new \Blog\Controller\Admin\DataController($app);

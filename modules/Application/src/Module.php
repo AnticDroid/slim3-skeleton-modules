@@ -213,7 +213,7 @@ class Module extends AbstractModule
 
                 $controller = new \Application\Controller\Admin\IndexController($app);
 
-                $app->get('', $controller('index'))->setName('application_admin_index');
+                $app->get('', $controller('index'))->setName('application_admin');
             });
         })
         // ->add( new \Auth\Middleware\AdminOnly( $container['auth'] ) ) // user must be admin
