@@ -16,5 +16,8 @@
         <testsuite name="Auth Test Suite">
             <directory>./modules/Auth/src/Test</directory>
         </testsuite>
+        <testsuite name="Blog Test Suite">
+            <directory>./modules/Blog/src/Test</directory>
+        </testsuite>
     </testsuites>
 </phpunit>

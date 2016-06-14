@@ -4,7 +4,7 @@
 
 <?php $this->section('content') ?>
     <ul>
-        <li><a href="<?= $this->pathFor('blog_admin_articles') ?>">Articles</a></li>
-        <li><a href="<?= $this->pathFor('blog_admin_tags') ?>">Tags</a></li>
+        <li><a href="<?= $this->pathFor('blog_admin_articles') ?>"><?= $this->translate('admin_articles_link') ?></a></li>
+        <li><a href="<?= $this->pathFor('blog_admin_tags') ?>"><?= $this->translate('admin_tags_link') ?></a></li>
     </ul>
 <?php $this->replace() ?>

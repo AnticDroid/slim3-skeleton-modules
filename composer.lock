@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1857f33c016901dd25a411508365ac16",
-    "content-hash": "219019f5c453c4e3fb6150b7886fbf93",
+    "hash": "8e9fc0d25b1f4cd4d6f6844d3a00c2e9",
+    "content-hash": "e08f562053528bb6f4caab708b8449b1",
     "packages": [
         {
             "name": "aura/html",
@@ -423,54 +423,6 @@
                 "hash-map"
             ],
             "time": "2014-12-15 23:03:51"
-        },
-        {
-            "name": "league/plates",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/martynbiz/plates",
-                "reference": "e727dc5bdbd3d0a2b44de5003c44b3d9771206af"
-            },
-            "require": {
-                "php": "^5.3 | ^7.0"
-            },
-            "require-dev": {
-                "mikey179/vfsstream": "~1.4.0",
-                "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "~1.5"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "League\\Plates\\": "src"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jonathan Reinink",
-                    "email": "jonathan@reinink.ca",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Plates, the native PHP template system that's fast, easy to use and easy to extend.",
-            "homepage": "http://platesphp.com",
-            "keywords": [
-                "league",
-                "package",
-                "templates",
-                "templating",
-                "views"
-            ],
-            "time": "2016-06-02 11:32:17"
         },
         {
             "name": "martynbiz/php-flash-message",
@@ -1907,6 +1859,96 @@
             "time": "2015-06-14 21:17:01"
         },
         {
+            "name": "league/plates",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/martynbiz/plates",
+                "reference": "e727dc5bdbd3d0a2b44de5003c44b3d9771206af"
+            },
+            "require": {
+                "php": "^5.3 | ^7.0"
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "~1.4.0",
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~1.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Plates\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Reinink",
+                    "email": "jonathan@reinink.ca",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Plates, the native PHP template system that's fast, easy to use and easy to extend.",
+            "homepage": "http://platesphp.com",
+            "keywords": [
+                "league",
+                "package",
+                "templates",
+                "templating",
+                "views"
+            ],
+            "time": "2016-06-02 11:32:17"
+        },
+        {
+            "name": "martynbiz/php-translate-tool",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/martynbiz/php-translate-tool.git",
+                "reference": "fd6b41457ee44b47ebaa3a44970ba2a7c8c9286b"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.3.*"
+            },
+            "bin": [
+                "bin/translatetool"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MartynBiz\\Translate\\": "src/"
+                },
+                "classmap": [
+                    "tests/"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Martyn Bissett",
+                    "email": "martynbissett@yahoo.co.uk"
+                }
+            ],
+            "description": "A CLI tool for managing translation files and syncing entries with view files. Allows translations to be synced with views, get/set values, and list empty values.",
+            "homepage": "http://github.com/martynbiz/cattlog",
+            "keywords": [
+                "languages",
+                "multi-language",
+                "multilanguage",
+                "translations"
+            ],
+            "time": "2016-03-01 09:36:02"
+        },
+        {
             "name": "phpdocumentor/reflection-docblock",
             "version": "2.0.4",
             "source": {
@@ -2814,8 +2856,8 @@
     "stability-flags": {
         "martynbiz/slim3-module": 20,
         "martynbiz/php-mongo": 20,
-        "league/plates": 20,
-        "martynbiz/php-flash-message": 20
+        "martynbiz/php-flash-message": 20,
+        "martynbiz/php-translate-tool": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

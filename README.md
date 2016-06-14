@@ -3,47 +3,35 @@ APPLICATION_ENV="development" php -S localhost:8000 -t public/
 TODO
 
 * articles: admin: homepage, photo manage page (delete photos), preview, styles,
-* Tags: delete, paginate, create,
-* translations 
+* homepage: tags list, tags page
+* users: admin, roles, use RoleAccess middleware
+* tags: admin: delete, paginate, create,
+* quick n easy: pathFor
+* translations: japanese site
+* comments:
 * auth : remember me, facebook login, use aura/session?
 * photos: dropzone, drag from div to ckeditor,
 * cache: homepage, tags?
 * admin/users
-* use RoleAccess middleware
 * home - contact form, portfolio
-* library tests, module tests
-* router passed to templates, use route paths
+* testing: library tests, module tests, test 40x when not logged in
+* docs: installation of modules (module/Name/README): add to config, add to composer.json, add to phpunit.xml
 
 * namespace dependencies e.g. "model.user" -> "Auth\Model\User"
 
 * cache busting (plates)
 * vendor modules, cp config/views
+* sync with live db
 
 
 further modules:
 
-articles (admin, tags, photos, etc)
-auth
-auth_facebook
+Articles (admin, tags, photos, etc)
+Auth
+AuthFacebook
 
-oauth_client
-oauth_server
-qa
-store
-
-examples:
-
-martynbiz
-* application
-* auth
-* articles
-
-qa
-* application
-* auth
-* qa
-
-mylocalmap
-* application
-* auth
-* articles
+OauthClient
+OauthServer
+QA
+Store -
+Translate - UI for translators

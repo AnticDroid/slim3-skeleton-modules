@@ -20,7 +20,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/">Title</a>
+                    <a class="navbar-brand" href="/"><?= $this->translate('header_title') ?></a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -30,19 +30,19 @@
                         <?= $this->insert('partials/csrf_token') ?>
                     </form>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/">Home</a></li>
+                        <li><a href="/"><?= $this->translate('common_home') ?></a></li>
                         <?php if ($this->currentUser): ?>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Martyn <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/admin/articles">Admin</a></li>
+                                    <li><a href="/admin/articles"><?= $this->translate('common_admin') ?></a></li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="#" onclick="$('form#deleteSession').submit(); return false;">Logout</a></li>
+                                    <li><a href="#" onclick="$('form#deleteSession').submit(); return false;"><?= $this->translate('common_logout') ?></a></li>
                                 </ul>
                             </li>
                         <?php else: ?>
-                            <li><a href="/auth/register">Register</a></li>
-                            <li><a href="/auth/login">Login</a></li>
+                            <li><a href="/auth/register"><?= $this->translate('common_register') ?></a></li>
+                            <li><a href="/auth/login"><?= $this->translate('common_login') ?></a></li>
                         <?php endif; ?>
                     </ul>
                 </div><!-- /.navbar-collapse -->

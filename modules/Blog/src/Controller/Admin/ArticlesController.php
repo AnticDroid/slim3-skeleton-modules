@@ -15,11 +15,12 @@ class ArticlesController extends BaseController
         $currentUser = $this->get('auth')->getCurrentUser();
 
         // set params
-        $limit = $this->getQueryParam('limit', 10);
-        $page = $this->getQueryParam('page', 1);
+        $limit = (int) $this->getQueryParam('limit', 10);
+        $page = (int) $this->getQueryParam('page', 1);
+        $skip = $limit * ($page - 1);
         $options = array_intersect_key(array_merge([
-            'limit' => (int) $limit,
-            'skip' => (int) $limit * ($page - 1),
+            'limit' => $limit,
+            'skip' => $skip,
         ], $this->getQueryParams()), array_flip(['limit', 'skip']));
 
         // fetch articles this user manages

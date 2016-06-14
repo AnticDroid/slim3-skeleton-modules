@@ -1,0 +1,15 @@
+{
+    "src": [
+        "modules",
+        "views"
+    ],
+    "dest": "modules/Application/language/{lang}.php",
+    "pattern": [
+        "/translate\\s*\\(\\s*[\\'|\\\"]([A-Za-z0-9_\\-\\.]*)[\\'|\\\"]/",
+        "/plural\\s*\\(\\s*[\\'|\\\"]([A-Za-z0-9_\\-\\.]*)[\\'|\\\"]/"
+    ],
+    "adapter": "php",
+    "languages": [
+        "en"
+    ]
+}

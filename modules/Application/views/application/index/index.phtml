@@ -34,22 +34,22 @@
             <!-- Left and right controls -->
             <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
               <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
+              <span class="sr-only"><?= $this->translate('carousel_previous_link') ?></span>
             </a>
             <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
               <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
+              <span class="sr-only"><?= $this->translate('carousel_next_link') ?></span>
             </a>
           </div>
         </div>
 
         <div class="col-md-8 body">
-            <h1>Welcome to my website</h1>
-            <p>This is my blog slash about slash portfolio slash homepage. He'll you'll find stuff I've written about web technologies I use as well as other interests. I'll be adding new content from time to time so do check back.</p>
+            <h1><?= $this->translate('home_welcome_header') ?></h1>
+            <p><?= $this->translate('home_welcome_intro') ?></p>
             <hr>
             <ul class="tags">
-                <li><a href="#">About me</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="#"><?= $this->translate('common_about') ?></a></li>
+                <li><a href="#"><?= $this->translate('common_contact') ?></a></li>
             </ul>
         </div>
     </div>
@@ -63,48 +63,7 @@
                 <div class="col-md-9 body">
                     <h2>Shungs</h2>
                     <p>Slim framework blah blah blah</p>
-                    <p class="small">Written by {{ 'article.author.name' }} | {{ 'article.created_at' }}</p>
-                </div>
-            </div>
-
-            <div class="homebox">
-                <div class="col-md-12 body">
-                    <h2>Earth parade</h2>
-                    <p>Slim framework blah blah blah</p>
-                    <p class="small">Written by {{ 'article.author.name' }} | {{ 'article.created_at' }}</p>
-                </div>
-            </div>
-
-            <div class="homebox">
-                <div class="col-md-3 image">
-                    <img src="/photos/201602/03/195/300x.jpg" class="img-responsive">
-                </div>
-                <div class="col-md-9 body">
-                    <h2>Cool kids in Vietnam</h2>
-                    <p>Slim framework blah blah blah</p>
-                    <p class="small">Written by {{ 'article.author.name' }} | {{ 'article.created_at' }}</p>
-                </div>
-            </div>
-
-            <div class="homebox">
-                <div class="col-md-3 image">
-                    <img src="/photos/201602/03/195/300x.jpg" class="img-responsive">
-                </div>
-                <div class="col-md-9 body">
-                    <h2>Waaaa office!</h2>
-                    <p>Slim framework blah blah blah</p>
-                    <p class="small">Written by {{ 'article.author.name' }} | {{ 'article.created_at' }}</p>
-                </div>
-            </div>
-
-            <div class="homebox">
-                <div class="col-md-3 image">
-                    <img src="/photos/201602/03/195/300x.jpg" class="img-responsive">
-                </div>
-                <div class="col-md-9 body">
-                    <h2>Cool kids in Vietnam</h2>
-                    <p>Slim framework blah blah blah</p>
-                    <p class="small">Written by {{ 'article.author.name' }} | {{ 'article.created_at' }}</p>
+                    <p class="small"><?= $this->translate('articles_written_by') ?></p>
                 </div>
             </div>
         </div>
@@ -124,17 +83,17 @@
 
             <div class="homebox">
                 <div class="col-md-12 body">
-                    <h3>Tags</h3>
+                    <h3><?= $this->translate('common_tags') ?></h3>
 
                     <ul class="tags">
-                        <li><a href="/tag">Tag</a></li>
+                        <li><a href="#">Tag</a></li>
                     </ul>
                 </div>
             </div>
 
             <div class="homebox">
                 <div class="col-md-12 body">
-                    <h3>Featured</h3>
+                    <h3><?= $this->translate('common_featured') ?></h3>
 
                     <ol class="featured">
                         <li><a href="#">A Bootstrap/LESS work-flow</a></li>
