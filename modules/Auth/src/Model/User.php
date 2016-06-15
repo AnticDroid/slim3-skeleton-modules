@@ -71,4 +71,20 @@ class User extends Base
 
         return $hash;
     }
+
+    public function getRole($value)
+    {
+        switch ($this->data['role'])
+        {
+            case self::ROLE_ADMIN:
+                return 'Admin';
+                break;
+            case self::ROLE_EDITOR:
+                return 'Editor';
+                break;
+            case self::ROLE_CONTRIBUTOR:
+                return 'Contributor';
+                break;
+        }
+    }
 }

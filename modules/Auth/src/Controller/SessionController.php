@@ -3,8 +3,6 @@ namespace Auth\Controller;
 
 use Facebook\Exceptions\FacebookResponseException;
 use Facebook\Exceptions\FacebookSDKException;
-
-use Auth\Model\Account;
 use Auth\Exception\InvalidAuthToken as InvalidAuthTokenException;
 
 class SessionController extends BaseController

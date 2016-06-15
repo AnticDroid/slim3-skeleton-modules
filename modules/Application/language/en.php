@@ -1,6 +1,8 @@
 <?php
 
 return array (
+  'common_edit' => 'Edit',
+  'common_delete' => 'Delete',
   'email' => 'Email',
   'send_recovery_email_button' => '',
   'resetpassword_password_has_been_changed' => 'Password has been changed',

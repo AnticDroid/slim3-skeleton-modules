@@ -1,41 +1,43 @@
-@extends('layouts.admin')
+<?php $this->layout('layouts/admin', [
+    'title' => 'Admin - Users - Edit',
+]); ?>
 
-@section('content')
-<ol class="breadcrumb">
-    <li><a href="/admin">Admin</a></li>
-    <li><a href="/admin/users">Users</a></li>
-    <li class="active">Edit user</li>
-</ol>
+<?php $this->section('content') ?>
+    <ol class="breadcrumb">
+        <li><a href="/admin"><?= $this->translate('admin') ?></a></li>
+        <li><a href="/admin/users"><?= $this->translate('users') ?></a></li>
+        <li class="active"><?= $this->translate('admin_users_edit_link') ?></li>
+    </ol>
 
-<form method="post" action="/admin/users/{{ $user->id }}">
-    <div class="form-group">
-        <label for="first_name">First name</label>
-        <input type="text" value="{{ $user->first_name }}" class="form-control" name="first_name" id="first_name" placeholder="First name">
-    </div>
-    <div class="form-group">
-        <label for="last_name">Last name</label>
-        <input type="text" value="{{ $user->last_name }}" class="form-control" name="last_name" id="last_name" placeholder="Last name">
-    </div>
-    <div class="form-group">
-        <label for="role">Role</label>
-        <select name="role" id="role" class="form-control">
-            <option value="member" @if($user->isMember()) selected="selected" @endif>Member</option>
-            <option value="editor" @if($user->isEditor())  selected="selected" @endif>Editor</option>
-            <option value="admin" @if($user->isAdmin()) selected="selected" @endif>Admin</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="description">Description</label>
-        <textarea id="description" name="description" class="form-control" rows="5">{{ $user->description }}</textarea>
-    </div>
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" value="{{ $user->email }}" class="form-control" name="email" id="email" placeholder="Email">
-    </div>
+    <form method="post" action="/admin/users/<?= $this->user->id ?>">
+        <div class="form-group">
+            <label for="first_name"><?= $this->translate('first_name') ?></label>
+            <input type="text" value="<?= $this->user->first_name ?>" class="form-control" name="first_name" id="first_name" placeholder="<?= $this->translate('first_name') ?>">
+        </div>
+        <div class="form-group">
+            <label for="last_name"><?= $this->translate('last_name') ?></label>
+            <input type="text" value="<?= $this->user->last_name ?>" class="form-control" name="last_name" id="last_name" placeholder="<?= $this->translate('last_name') ?>">
+        </div>
+        <div class="form-group">
+            <label for="role"><?= $this->translate('role') ?></label>
+            <select name="role" id="role" class="form-control">
+                <option value="member" <?php if ($this->user->isContributor()): ?> selected="selected" <?php endif ?>><?= $this->translate('contributor') ?></option>
+                <option value="editor" <?php if ($this->user->isEditor()): ?>  selected="selected" <?php endif ?>><?= $this->translate('editor') ?></option>
+                <option value="admin" <?php if ($this->user->isAdmin()): ?> selected="selected" <?php endif ?>><?= $this->translate('admin') ?></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="description"><?= $this->translate('description') ?></label>
+            <textarea id="description" name="description" class="form-control" rows="5"><?= $this->user->description ?></textarea>
+        </div>
+        <div class="form-group">
+            <label for="email"><?= $this->translate('email') ?></label>
+            <input type="email" value="<?= $this->user->email ?>" class="form-control" name="email" id="email" placeholder="Email">
+        </div>
 
-    <input type="hidden" name="_METHOD" value="PUT">
+        <input type="hidden" name="_METHOD" value="PUT">
 
-    <button type="submit" class="btn btn-primary">Save</button>
-    <a href="/admin/users" class="btn btn-default">Cancel</a>
-</form>
-@stop
+        <button type="submit" class="btn btn-primary"><?= $this->translate('save') ?></button>
+        <a href="/admin/users" class="btn btn-default"><?= $this->translate('cancel') ?></a>
+    </form>
+<?php $this->replace() ?>

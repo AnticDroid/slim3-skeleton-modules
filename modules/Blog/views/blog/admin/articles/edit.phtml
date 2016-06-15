@@ -2,10 +2,10 @@
 
 <?php $this->section('content') ?>
     <ol class="breadcrumb">
-        <li><a href="/admin">Admin</a></li>
-        <li><a href="/admin/articles">Articles</a></li>
+        <li><a href="/admin"><?= $this->translate('admin_link') ?></a></li>
+        <li><a href="/admin/articles"><?= $this->translate('articles_link') ?></a></li>
         <li><a href="/admin/articles/<?= $this->article->id ?>"><?= $this->article->title ?></a></li>
-        <li class="active">Edit draft</li>
+        <li class="active"><?= $this->translate('edit_draft_link') ?></li>
     </ol>
 
     <form method="post" action="/admin/articles/<?= $this->article->id ?>" enctype="multipart/form-data">
@@ -15,10 +15,10 @@
             &nbsp;
         </div>
         <div class="col-md-6 text-right">
-            <a href="/admin/articles/<?= $this->article->id ?>" class="btn btn-default">Cancel</a>
-            <button type="submit" class="btn btn-default">Save</button>
+            <a href="/admin/articles/<?= $this->article->id ?>" class="btn btn-default"><?= $this->translate('cancel_link') ?></a>
+            <button type="submit" class="btn btn-default"><?= $this->translate('save_link') ?></button>
             <?php if ($this->currentUser->isContributor()): ?>
-                <button type="submit" name="status" value="1" class="btn btn-primary">Submit</button>
+                <button type="submit" name="status" value="1" class="btn btn-primary"><?= $this->translate('submit_link') ?></button>
             <?php endif ?>
         </div>
     </div>
@@ -26,16 +26,16 @@
     <div class="col-md-8">
         <div class="homebox">
             <div class="body">
-                <h3><label for="title">Title</label></h3>
+                <h3><label for="title"><?= $this->translate('common_title') ?></label></h3>
 
                 <div class="form-group">
-                    <input type="text" value="<?= $this->article->title ?>" class="form-control" name="title" id="title" placeholder="Title">
+                    <input type="text" value="<?= $this->article->title ?>" class="form-control" name="title" id="title" placeholder="<?= $this->translate('common_title') ?>">
                 </div>
 
                 <?php if ($this->currentUser->isAdmin() or $this->currentUser->isEditor()): ?>
                     <div class="form-group">
-                        <label for="slug">Slug</label>
-                        <input type="text" value="<?= $this->article->slug ?>" class="form-control" name="slug" id="slug" placeholder="Slug">
+                        <label for="slug"><?= $this->translate('common_slug') ?></label>
+                        <input type="text" value="<?= $this->article->slug ?>" class="form-control" name="slug" id="slug" placeholder="<?= $this->translate('common_slug') ?>">
                     </div>
                 <?php endif ?>
             </div>
@@ -43,7 +43,7 @@
 
         <div class="homebox">
             <div class="body">
-                <h3><label for="content">Content</label></h3>
+                <h3><label for="content"><?= $this->translate('common_content') ?></label></h3>
 
                 <div class="form-group">
                     <textarea id="content" name="content" class="form-control ckeditor" rows="10"><?= $this->article->content ?></textarea>
@@ -54,7 +54,7 @@
     <div class="col-md-4">
         <div class="homebox">
             <div class="body">
-                <h3>Tags</h3>
+                <h3><?= $this->translate('common_tags') ?></h3>
 
                 <?php if ($this->tags): ?>
                     <div class="form-group">
@@ -70,7 +70,7 @@
 
         <div class="homebox">
             <div class="body">
-                <h3>Photos</h3>
+                <h3><?= $this->translate('common_photos') ?></h3>
 
                 <?php if ($this->article->photos): ?>
                     <ul class="photo-list sortable">
@@ -91,16 +91,6 @@
                     <input type="file" name="photos[]"><br>
                     <input type="file" name="photos[]"><br>
                     <input type="file" name="photos[]"><br>
-                </div>
-            </div>
-        </div>
-
-        <div class="homebox">
-            <div class="body">
-                <h3>Options</h3>
-
-                <div class="form-group">
-                    <input type="checkbox" name="featured" value="1" <?= ($this->article->featured) ? 'checked="checked"' : '' ?>> <label for="featured">Featured on homepage</label>
                 </div>
             </div>
         </div>

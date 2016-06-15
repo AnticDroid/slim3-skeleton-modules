@@ -1,15 +1,15 @@
 <nav>
     <ul class="pagination">
         <li>
-            <a href="<?= $this->pathFor('blog_admin_articles'); ?>?page=1" aria-label="Previous">
+            <a href="<?= $this->pathFor('admin_articles'); ?>?page=1" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
         <?php for ($i=1; $i<=$this->pageInfo['total_pages']; $i++): ?>
-            <li<?php if ($i == $this->pageInfo['page']): ?> class="active"<?php endif; ?>><a href="<?= $this->pathFor('blog_admin_articles'); ?>?page=<?= $i ?>"><?= $i ?></a></li>
+            <li<?php if ($i == $this->pageInfo['page']): ?> class="active"<?php endif; ?>><a href="<?= $this->pathFor('admin_articles'); ?>?page=<?= $i ?>"><?= $i ?></a></li>
         <?php endfor; ?>
         <li>
-            <a href="<?= $this->pathFor('blog_admin_articles'); ?>?page=<?= $this->pageInfo['total_pages'] ?>" aria-label="Next">
+            <a href="<?= $this->pathFor('admin_articles'); ?>?page=<?= $this->pageInfo['total_pages'] ?>" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>

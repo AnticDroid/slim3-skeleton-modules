@@ -109,7 +109,7 @@ class ArticlesController extends BaseController
 
         // we will set the current id in session so that uploaded images know which
         // article to attach to
-        $this->get('Application\Session')->set('current_article_id', (int) $id);
+        $this->get('session')->set('current_article_id', (int) $id);
 
         return $this->render('blog/admin/articles/edit', compact('article', 'tags'));
     }

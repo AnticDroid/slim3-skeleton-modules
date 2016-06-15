@@ -11,30 +11,30 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="first_name" class="sr-only">First name</label>
-                                    <input type="text" class="form-control" name="first_name" placeholder="First name" value="<?=$this->e($params['first_name'])?>">
+                                    <label for="first_name" class="sr-only"><?= $this->translate('common_first_name') ?></label>
+                                    <input type="text" class="form-control" name="first_name" placeholder="<?= $this->translate('common_first_name') ?>" value="<?= $this->user->first_name ?>">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="last_name" class="sr-only">Last name</label>
-                                    <input type="text" class="form-control" name="last_name" placeholder="Last name" value="<?=$this->e($params['last_name'])?>">
+                                    <label for="last_name" class="sr-only"><?= $this->translate('common_last_name') ?></label>
+                                    <input type="text" class="form-control" name="last_name" placeholder="<?= $this->translate('common_last_name') ?>" value="<?= $this->user->last_name ?>">
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="email" class="sr-only">Email</label>
-                            <input type="text" class="form-control" name="email" placeholder="Email" value="<?=$this->e($params['email'])?>">
+                            <label for="email" class="sr-only"><?= $this->translate('common_email') ?></label>
+                            <input type="text" class="form-control" name="email" placeholder="<?= $this->translate('common_email') ?>" value="<?= $this->user->email ?>">
                         </div>
 
                         <div class="form-group">
-                            <label for="password" class="sr-only">Password</label>
-                            <input type="password" class="form-control" name="password" placeholder="Password" value="">
+                            <label for="password" class="sr-only"><?= $this->translate('common_password') ?></label>
+                            <input type="password" class="form-control" name="password" placeholder="<?= $this->translate('common_password') ?>" value="">
                         </div>
 
                         <label class="checkbox-inline agreement">
-                            <input name="agreement" type="checkbox"> I have read the terms &amp; conditions.
+                            <input name="agreement" type="checkbox"> <?= $this->translate('have_read_terms_conditions') ?>
                         </label>
 
                         <input type="text" class="more_info" name="more_info" value="" style="position: absolute; left: -9999px">
@@ -45,7 +45,7 @@
 
                         <div class="row">
                             <div class="col-sm-6">
-                                <button type="submit" class="btn btn-lg btn-block btn-primary">Register</button>
+                                <button type="submit" class="btn btn-lg btn-block btn-primary"><?= $this->translate('register') ?></button>
                             </div>
                         </div>
                     </form>

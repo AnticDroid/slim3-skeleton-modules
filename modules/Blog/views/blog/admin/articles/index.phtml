@@ -5,8 +5,8 @@
     <div class="homebox">
         <div class="body">
             <ol class="breadcrumb">
-                <li><a href="/admin">Admin</a></li>
-                <li class="active">Articles</li>
+                <li><a href="/admin"><?= $this->translate('admin_link') ?></a></li>
+                <li class="active"><?= $this->translate('articles_link') ?></li>
             </ol>
 
             <form action="/admin/articles" method="post">
@@ -15,17 +15,17 @@
                         &nbsp;
                     </div>
                     <div class="col-md-6 text-right">
-                        <button type="submit" class="btn btn-default">New article</button>
+                        <button type="submit" class="btn btn-default"><?= $this->translate('new_article') ?></button>
                     </div>
                 </div>
             </form>
 
             <table class="table table-striped">
                 <tr>
-                    <th><a href="#">Title</a>
+                    <th><a href="#"><?= $this->translate('common_title') ?></a>
 </th>
-                    <th><a href="#">Type</a></th>
-                    <th><a href="#">Created</a> <i class="fa fa-caret-down" aria-hidden="true"></i></th>
+                    <th><a href="#"><?= $this->translate('common_type') ?></a></th>
+                    <th><a href="#"><?= $this->translate('common_created') ?></a> <i class="fa fa-caret-down" aria-hidden="true"></i></th>
                 </tr>
                 <?php foreach ($this->articles as $article): ?>
                     <tr>

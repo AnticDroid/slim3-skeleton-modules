@@ -13,23 +13,23 @@
         </div>
 
         <div class="col-md-6 text-right">
-            <a href="/admin/articles/<?= $this->article->id ?>/edit" class="btn btn-default">Edit</a>
+            <a href="/admin/articles/<?= $this->article->id ?>/edit" class="btn btn-default"><?= $this->translate('edit_link') ?></a>
 
             <form id="deleteUser" method="POST" action="/admin/articles/<?= $this->article->id ?>">
                 <input type="hidden" name="_METHOD" value="DELETE">
-                <button type="submit" class="btn btn-default">Delete</button>
+                <button type="submit" class="btn btn-default"><?= $this->translate('delete_link') ?></button>
             </form>
 
             <?php if($this->currentUser and ($this->currentUser->isAdmin() or $this->currentUser->isEditor())): ?>
                 <?php if($this->article->status == 1): ?>
                     <form method="POST" action="/admin/articles/{{ $this->article->id }}">
                         <input type="hidden" name="_METHOD" value="PUT">
-                        <button type="submit" name="status" value="2" class="btn btn-primary">Approve</button>
+                        <button type="submit" name="status" value="2" class="btn btn-primary"><?= $this->translate('approve_link') ?></button>
                     </form>
                 <?php else: ?>
                     <form method="POST" action="/admin/articles/{{ $this->article->id }}">
                         <input type="hidden" name="_METHOD" value="PUT">
-                        <button type="submit" name="status" value="1" class="btn btn-default">Unapprove</button>
+                        <button type="submit" name="status" value="1" class="btn btn-default"><?= $this->translate('unapprove_link') ?></button>
                     </form>
                 <?php endif; ?>
             <?php endif; ?>
@@ -38,7 +38,7 @@
 
     <table class="table table-striped">
         <tr>
-            <th width="20%">Title</th>
+            <th width="20%"><?= $this->translate('common_title') ?></th>
             <td><?= $this->article->title ?></td>
         </tr>
         <!-- <tr>
@@ -46,11 +46,11 @@
             <td><?= $this->article->slug ?></td>
         </tr> -->
         <tr>
-            <th width="20%">Content</th>
+            <th width="20%"><?= $this->translate('common_content') ?></th>
             <td><?= $this->article->content ?></td>
         </tr>
         <tr>
-            <th>Tags</th>
+            <th><?= $this->translate('common_tags') ?></th>
             <td>
                 <?php if ($this->article->tags): ?>
                     <ul class="tags">
@@ -62,7 +62,7 @@
             </td>
         </tr>
         <tr>
-            <th>Photos</th>
+            <th><?= $this->translate('common_photos') ?></th>
             <td>
                 <?php if ($this->article->photos): ?>
                     <div class="photos">
@@ -74,15 +74,15 @@
             </td>
         </tr>
         <tr>
-            <th>Type</th>
+            <th><?= $this->translate('common_type') ?></th>
             <td><?= $this->article->type ?></td>
         </tr>
         <tr>
-            <th>Status</th>
+            <th><?= $this->translate('common_status') ?></th>
             <td><?= $this->article->status ?></td>
         </tr>
         <tr>
-            <th>Data created</th>
+            <th><?= $this->translate('common_created') ?></th>
             <td><?= $this->article->created_at ?></td>
         </tr>
     </table>

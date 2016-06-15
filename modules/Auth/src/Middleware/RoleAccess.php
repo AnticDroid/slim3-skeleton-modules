@@ -39,7 +39,7 @@ class RoleAccess
         $auth = $this->container['auth'];
 
         $currentUser = $auth->getCurrentUser();
-        if (! in_array($currentUser->role, $this->allowed) ) {
+        if (! in_array($currentUser->get('role', false), $this->allowed) ) {
             throw new PermissionDenied('Permission denied to access this resource.');
         }
 

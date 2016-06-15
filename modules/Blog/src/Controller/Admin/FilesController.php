@@ -65,7 +65,7 @@ class FilesController extends BaseController
                 ));
 
                 // attach the photo to the current article
-                $articleId = $this->get('Application\Session')->get('current_article_id');
+                $articleId = $this->get('session')->get('current_article_id');
                 if ($articleId) {
                     $article = $this->get('Blog\Model\Article')->findOneOrFail(array(
                         'id' => (int) $articleId,

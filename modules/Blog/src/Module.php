@@ -13,6 +13,8 @@ use Slim\Container;
 use MartynBiz\Slim3Module\AbstractModule;
 use MartynBiz\Mongo\Connection;
 
+use Auth\Model\User;
+
 class Module extends AbstractModule
 {
     /**
@@ -117,44 +119,50 @@ class Module extends AbstractModule
         });
 
         // admin routes -- invokes auth middleware
-        $app->group('/admin', function () use ($app) {
+        $app->group('/admin', function () use ($app, $container) {
+
             // admin/articles routes
             $app->group('/articles', function () use ($app) {
 
                 $controller = new \Blog\Controller\Admin\ArticlesController($app);
-                $app->get('', $controller('index'))->setName('blog_admin_articles');
-                $app->get('/{id:[0-9]+}', $controller('show'))->setName('blog_admin_articles_show');
-                // $app->get('/create', $controller('create'))->setName('blog_admin_articles_create');
-                $app->get('/{id:[0-9]+}/edit', $controller('edit'))->setName('blog_admin_articles_edit');
-                $app->post('', $controller('post'))->setName('blog_admin_articles_post');
-                // $app->delete('/{id:[0-9]+}', $controller('delete'))->setName('blog_admin_articles_delete');
+                $app->get('', $controller('index'))->setName('admin_articles');
+                $app->get('/{id:[0-9]+}', $controller('show'))->setName('admin_articles_show');
+                // $app->get('/create', $controller('create'))->setName('admin_articles_create');
+                $app->get('/{id:[0-9]+}/edit', $controller('edit'))->setName('admin_articles_edit');
+                $app->post('', $controller('post'))->setName('admin_articles_post');
+                // $app->delete('/{id:[0-9]+}', $controller('delete'))->setName('admin_articles_delete');
                 // // these routes must be POST as they contain files and slim doesn't reconize the
                 // // _METHOD in multipart/form-data :(
-                $app->put('/{id:[0-9]+}', $controller('update'))->setName('blog_admin_articles_update');
-                // $app->put('/{id:[0-9]+}/submit', $controller('submit'))->setName('blog_admin_articles_submit');
-                // $app->put('/{id:[0-9]+}/approve', $controller('approve'))->setName('blog_admin_articles_approve');
+                $app->put('/{id:[0-9]+}', $controller('update'))->setName('admin_articles_update');
+                // $app->put('/{id:[0-9]+}/submit', $controller('submit'))->setName('admin_articles_submit');
+                // $app->put('/{id:[0-9]+}/approve', $controller('approve'))->setName('admin_articles_approve');
 
                 $controller = new \Blog\Controller\Admin\FilesController($app);
-                $app->post('/upload', $controller('upload'))->setName('blog_admin_articles_upload');
+                $app->post('/upload', $controller('upload'))->setName('admin_articles_upload');
             });
+
             // admin/tags/* routes
             $app->group('/tags', function () use ($app) {
                 $controller = new \Blog\Controller\Admin\TagsController($app);
-                $app->get('', $controller('index'))->setName('blog_admin_tags');
-                // $app->get('/{id:[0-9]+}', $controller('show'))->setName('blog_admin_tags_show');
-                $app->get('/create', $controller('create'))->setName('blog_admin_tags_create');
-                $app->get('/{id:[0-9]+}/edit', $controller('edit'))->setName('blog_admin_tags_edit');
-                $app->post('', $controller('post'))->setName('blog_admin_tags_post');
-                $app->put('/{id:[0-9]+}', $controller('update'))->setName('blog_admin_tags_update');
-                $app->delete('/{id:[0-9]+}', $controller('delete'))->setName('blog_admin_tags_delete');
-            });
-            // // admin/articles routes
-            // $app->group('/data', function () use ($app) {
-            //     $controller = new \Blog\Controller\Admin\DataController($app);
-            //     $app->map(['GET', 'POST'], '/import', $controller('import'))->setName('admin_data_import');
-            // });
-        })
-        // ->add( new \Auth\Middleware\AdminOnly( $container['auth'] ) ) // user must be admin
-        ->add( new \Auth\Middleware\Auth( $container['auth'] ) ); // user must be authenticated
+                $app->get('', $controller('index'))->setName('admin_tags');
+                // $app->get('/{id:[0-9]+}', $controller('show'))->setName('admin_tags_show');
+                $app->get('/create', $controller('create'))->setName('admin_tags_create');
+                $app->get('/{id:[0-9]+}/edit', $controller('edit'))->setName('admin_tags_edit');
+                $app->post('', $controller('post'))->setName('admin_tags_post');
+                $app->put('/{id:[0-9]+}', $controller('update'))->setName('admin_tags_update');
+                $app->delete('/{id:[0-9]+}', $controller('delete'))->setName('admin_tags_delete');
+
+            })->add( new \Auth\Middleware\RoleAccess($container, [ User::ROLE_ADMIN ]) );
+
+            // admin/articles routes
+            $app->group('/data', function () use ($app) {
+
+                $controller = new \Blog\Controller\Admin\DataController($app);
+
+                $app->map(['GET', 'POST'], '/import', $controller('import'))->setName('admin_data_import');
+
+            })->add( new \Auth\Middleware\RoleAccess($container, [ User::ROLE_ADMIN ]) );
+
+        })->add( new \Auth\Middleware\Auth( $container['auth'] ) ); // user must be authenticated
     }
 }

@@ -9,25 +9,25 @@
                 <div class="well">
                     <form method="post" action="<?= $this->pathFor('auth_session_post') ?>">
                         <div class="form-group">
-                            <span class="sr-only">Username</span>
-                            <input type="text" class="form-control" name="email" placeholder="Username" value="<?= $this->username ?>">
+                            <span class="sr-only"><?= $this->translate('username') ?></span>
+                            <input type="text" class="form-control" name="email" placeholder="<?= $this->translate('username') ?>" value="<?= $this->username ?>">
                         </div>
 
                         <div class="form-group">
-                            <span class="sr-only">Password</span>
+                            <span class="sr-only"><?= $this->translate('password') ?></span>
                             <input type="password" class="form-control" name="password" placeholder="Password" value="">
-                            <a href="/accounts/resetpassword" class="forgot_password">Forgot password?</a>
+                            <a href="/accounts/resetpassword" class="forgot_password"><?= $this->translate('forgot_password') ?></a>
                         </div>
 
                         <div class="row">
                             <div class="col-sm-6">
                                 <button class="btn btn-lg btn-primary btn-block btn-login" type="submit">
-                                    Login
+                                    <?= $this->translate('login') ?>
                                 </button>
                             </div>
                             <div class="col-sm-6">
                                 <a href="/accounts" class="btn btn-lg btn-default btn-block btn-signup">
-                                    Register
+                                    <?= $this->translate('register') ?>
                                 </a>
                             </div>
                         </div>
@@ -35,12 +35,12 @@
                         <div class="row sso-loginOr">
                             <div class="col-xs-12">
                                 <hr class="sso-hrOr">
-                                <span class="sso-spanOr">or</span>
+                                <span class="sso-spanOr"><?= $this->translate('or') ?></span>
                             </div>
                         </div>
 
                         <button type="submit" formaction="/session/facebook" class="btn btn-lg btn-block btn-facebook">
-                            <i class="fa fa-facebook"></i> Sign in with Facebook
+                            <i class="fa fa-facebook"></i> <?= $this->translate('sign_in_with_facebook') ?>
                         </button>
 
                         <div class="row">
@@ -51,7 +51,7 @@
 
                         <div class="row">
                         	<div class="col-xs-12">
-                        		<label><input type="checkbox" name="remember_me" value="1" checked="checked"> Remember me</label>
+                        		<label><input type="checkbox" name="remember_me" value="1" checked="checked"> <?= $this->translate('remember_me') ?></label>
                         	</div>
                         </div>
 

@@ -94,11 +94,8 @@ class Module extends AbstractModule
         // view renderer. the simple task of compiling a template with data
         $container['renderer'] = function($c) use ($settings) {
             $engine = \Foil\engine($settings['renderer']);
-
             $engine->registerFunction('translate', new \Application\View\Helper\Translate($c) );
             $engine->registerFunction('pathFor', new \Application\View\Helper\PathFor($c) );
-            // $engine->registerFunction('generateToken', new \Application\View\Helper\CsrfToken($c) );
-
             return $engine;
         };
 
@@ -156,7 +153,7 @@ class Module extends AbstractModule
             return new \Slim\Csrf\Guard;
         };
 
-        $container['Application\Session'] = function ($c) use ($settings) {
+        $container['session'] = function ($c) use ($settings) {
             $session_factory = new \Aura\Session\SessionFactory;
             $session = $session_factory->newInstance($_COOKIE);
 

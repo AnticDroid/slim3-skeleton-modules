@@ -3,26 +3,16 @@ namespace Auth\Controller\Admin;
 
 use Auth\Controller\BaseController;
 use Auth\Model\User;
-use Auth\Exception\PermissionDenied;
 
 class UsersController extends BaseController
 {
-    // public function init()
-    // {
-    //     // only admin can do anything here
-    //     $currentUser = $this->get('auth')->getCurrentUser();
-    //     if (! $currentUser->isAdmin() ) {
-    //         throw new PermissionDenied('Permission denied to manage users.');
-    //     }
-    // }
-
     public function index()
     {
-        $users = $this->get('model.user')->find();
+        $users = $this->get('Auth\Model\User')->find();
 
-        return $this->render('auth::admin/users/index', array(
+        return $this->render('auth/admin/users/index', [
             'users' => $users,
-        ));
+        ]);
     }
 
     /**
@@ -30,15 +20,15 @@ class UsersController extends BaseController
      */
     public function edit($id)
     {
-        $user = $this->get('model.user')->findOneOrFail(array(
+        $user = $this->get('Auth\Model\User')->findOneOrFail([
             'id' => (int) $id,
-        ));
+        ]);
 
         $user->set( $this->getPost() );
 
-        return $this->render('admin.users.edit', array(
+        return $this->render('auth/admin/users/edit', [
             'user' => $user,
-        ));
+        ]);
     }
 
     /**
@@ -48,9 +38,9 @@ class UsersController extends BaseController
      */
     public function update($id)
     {
-        $user = $this->get('model.user')->findOneOrFail(array(
+        $user = $this->get('Auth\Model\User')->findOneOrFail([
             'id' => (int) $id,
-        ));
+        ]);
 
         $params = $this->getPost();
 
@@ -71,7 +61,7 @@ class UsersController extends BaseController
 
     public function delete($id)
     {
-        $user = $this->get('model.user')->findOneOrFail(array(
+        $user = $this->get('Auth\Model\User')->findOneOrFail(array(
             'id' => (int) $id,
         ));
 

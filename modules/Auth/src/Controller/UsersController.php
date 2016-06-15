@@ -13,9 +13,9 @@ class UsersController extends BaseController
 {
     public function create()
     {
-        $params = array_merge($this->getQueryParams(), $this->getPost());
+        $user = new User( $this->getPost() );
 
-        return $this->render('auth/users/create', compact('params'));
+        return $this->render('auth/users/create', compact('user'));
     }
 
     public function post()
