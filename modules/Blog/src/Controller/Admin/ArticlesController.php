@@ -315,64 +315,64 @@ class ArticlesController extends BaseController
         ));
     }
 
-    /**
-     * Create photos in photos collection and attach to Mongo object (e.g. Article)
-     * @param Mongo $article Article to attach the photos to
-     * @param array $photos POST param
-     * @return void
-     */
-    protected function attachPhotosTo(Mongo $target, $photos)
-    {
-        $container = $this->app->getContainer();
-        $settings = $container->get('settings');
-
-        if (@$photos['name']) {
-
-            // generate the photo dir from the target id
-            // we'll use Photo::getCurrentDir to generate the dir from date
-            // useful when managing thousands of photos/articles
-            // e.g. /var/www/.../data/photos/201601/31/
-            $dir = $settings['photos_dir']['original'] . '/' . Photo::getNewDir();
-            $fileExists = $this->get('fs')->fileExists($dir);
-            if (!$fileExists and !$this->get('fs')->makeDir($dir, 0775, true)) {
-                throw new \Exception('Could not create directory');
-            }
-
-            // loop through photos and create in photos collection
-            // also, attach the newly created photo to article
-            foreach($photos['name'] as $i => $file) {
-
-                // get the parameters from the form submission
-                $name = $photos['name'][$i];
-                $tmpName = $photos['tmp_name'][$i];
-                $type = $photos['type'][$i];
-                $ext = pathinfo($name, PATHINFO_EXTENSION);
-
-                // if the file field is blank, move onto the next field
-                if (empty($file)) continue;
-
-                // build the file name and path, we'll store the filename in the db
-                $file = sprintf('%s.%s', substr(md5_file($tmpName), 0, 10), strtolower($ext));
-                $destpath = $dir . '/' . $file;
-
-                // handle the uploaded file
-                $this->get('photo_manager')->moveUploadedFile($tmpName, $destpath, $maxWidth=2000, $maxHeight=2000);
-
-                // create the photo in collection first so that we have an id to
-                // name the photo by
-                $photo = $this->get('Blog\Model\Photo')->create(array(
-                    'original_file' => $file,
-                    'type' => $type,
-                    'width' => $width,
-                    'height' => $height,
-                ));
-
-                // attach the photo to $article
-                $target->push( array(
-                    'photos' => $photo,
-                ) );
-
-            }
-        }
-    }
+    // /**
+    //  * Create photos in photos collection and attach to Mongo object (e.g. Article)
+    //  * @param Mongo $article Article to attach the photos to
+    //  * @param array $photos POST param
+    //  * @return void
+    //  */
+    // protected function attachPhotosTo(Mongo $target, $photos)
+    // {
+    //     $container = $this->app->getContainer();
+    //     $settings = $container->get('settings');
+    //
+    //     if (@$photos['name']) {
+    //
+    //         // generate the photo dir from the target id
+    //         // we'll use Photo::getCurrentDir to generate the dir from date
+    //         // useful when managing thousands of photos/articles
+    //         // e.g. /var/www/.../data/photos/201601/31/
+    //         $dir = $settings['photos_dir']['original'] . '/' . Photo::getNewDir();
+    //         $fileExists = $this->get('fs')->fileExists($dir);
+    //         if (!$fileExists and !$this->get('fs')->makeDir($dir, 0775, true)) {
+    //             throw new \Exception('Could not create directory');
+    //         }
+    //
+    //         // loop through photos and create in photos collection
+    //         // also, attach the newly created photo to article
+    //         foreach($photos['name'] as $i => $file) {
+    //
+    //             // get the parameters from the form submission
+    //             $name = $photos['name'][$i];
+    //             $tmpName = $photos['tmp_name'][$i];
+    //             $type = $photos['type'][$i];
+    //             $ext = pathinfo($name, PATHINFO_EXTENSION);
+    //
+    //             // if the file field is blank, move onto the next field
+    //             if (empty($file)) continue;
+    //
+    //             // build the file name and path, we'll store the filename in the db
+    //             $file = sprintf('%s.%s', substr(md5_file($tmpName), 0, 10), strtolower($ext));
+    //             $destpath = $dir . '/' . $file;
+    //
+    //             // handle the uploaded file
+    //             $this->get('photo_manager')->moveUploadedFile($tmpName, $destpath, $maxWidth=2000, $maxHeight=2000);
+    //
+    //             // create the photo in collection first so that we have an id to
+    //             // name the photo by
+    //             $photo = $this->get('Blog\Model\Photo')->create(array(
+    //                 'original_file' => $file,
+    //                 'type' => $type,
+    //                 'width' => $width,
+    //                 'height' => $height,
+    //             ));
+    //
+    //             // attach the photo to $article
+    //             $target->push( array(
+    //                 'photos' => $photo,
+    //             ) );
+    //
+    //         }
+    //     }
+    // }
 }

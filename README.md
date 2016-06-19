@@ -1,14 +1,10 @@
 APPLICATION_ENV="development" php -S localhost:8000 -t public/
 
 TODO
-* photos: remove sidebar uploader (just use simple upload for now), add photos to some articles
-* homepage, /articles, simple search
-* admin: homepage
-* /tags, tag page
-* tags: admin: delete, paginate, create,
+* homepage/add photos to some articles, /articles,
+* tags: admin: delete, paginate, create, portal: /tags, tag page
 * change all dependancies back to 'i18n', 'auth.auth', 'auth.model.user'
-* cache busting (foil?)
-* auth : remember me
+* cache busting (foil?), remove coffeescript,
 * home - contact form, portfolio
 * docs: installation of modules (module/Name/README): add to config, add to composer.json, add to phpunit.xml
 
@@ -25,6 +21,9 @@ experiment
 * ckeditor plugin: select from uploaded media, dropzone
 
 v2
+* auth : remember me
+* simple search
+* admin: homepage - side menu?
 * testing: library tests, module tests, test 40x when not logged in
 * cache: homepage, tags
 * photo manage page (delete photos)
