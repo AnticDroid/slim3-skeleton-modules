@@ -1,9 +1,8 @@
 APPLICATION_ENV="development" php -S localhost:8000 -t public/
 
 TODO
-* homepage/add photos to some articles, /articles,
+* allow PNG, homepage/add photos to some articles, /articles,
 * tags: admin: delete, paginate, create, portal: /tags, tag page
-* change all dependancies back to 'i18n', 'auth.auth', 'auth.model.user'
 * cache busting (foil?), remove coffeescript,
 * home - contact form, portfolio
 * docs: installation of modules (module/Name/README): add to config, add to composer.json, add to phpunit.xml

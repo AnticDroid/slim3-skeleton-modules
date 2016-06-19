@@ -22,7 +22,7 @@ class PhotosController extends BaseController
         list($width, $height) = explode('x', $dim);
 
         // get photo by id
-        $photo = $this->get('Blog\Model\Photo')->findOne(array(
+        $photo = $this->get('blog.model.photo')->findOne(array(
             'id' => (int) $id,
         ));
 
@@ -36,11 +36,11 @@ class PhotosController extends BaseController
             $origDir = $moduleSettings['photos_dir']['original'] . $photo->getOriginalDir();
             $origPath = $origDir . '/' . $photo->getOriginalFileName($dim);
 
-            $this->get('Blog\PhotoManager')->createCacheImage($origPath, $cachedPath, $width, $height);
+            $this->get('blog.photo_manager')->createCacheImage($origPath, $cachedPath, $width, $height);
         // }
 
         // display image to browser
-        $this->get('Blog\FileSystem')->readFile($cachedPath);
+        $this->get('blog.file_system')->readFile($cachedPath);
 
         // set content type
         return $container['response']->withHeader('Content-type', 'image/jpeg');

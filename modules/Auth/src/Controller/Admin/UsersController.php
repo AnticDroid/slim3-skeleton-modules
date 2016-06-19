@@ -8,7 +8,7 @@ class UsersController extends BaseController
 {
     public function index()
     {
-        $users = $this->get('Auth\Model\User')->find();
+        $users = $this->get('auth.model.user')->find();
 
         return $this->render('auth/admin/users/index', [
             'users' => $users,
@@ -20,7 +20,7 @@ class UsersController extends BaseController
      */
     public function edit($id)
     {
-        $user = $this->get('Auth\Model\User')->findOneOrFail([
+        $user = $this->get('auth.model.user')->findOneOrFail([
             'id' => (int) $id,
         ]);
 
@@ -38,7 +38,7 @@ class UsersController extends BaseController
      */
     public function update($id)
     {
-        $user = $this->get('Auth\Model\User')->findOneOrFail([
+        $user = $this->get('auth.model.user')->findOneOrFail([
             'id' => (int) $id,
         ]);
 
@@ -61,7 +61,7 @@ class UsersController extends BaseController
 
     public function delete($id)
     {
-        $user = $this->get('Auth\Model\User')->findOneOrFail(array(
+        $user = $this->get('auth.model.user')->findOneOrFail(array(
             'id' => (int) $id,
         ));
 

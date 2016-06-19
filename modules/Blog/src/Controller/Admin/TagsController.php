@@ -11,7 +11,7 @@ class TagsController extends BaseController
     public function index()
     {
         // fetch articles this user manages
-        $tags = $this->get('Blog\Model\Tag')->find();
+        $tags = $this->get('blog.model.tag')->find();
 
         return $this->render('blog/admin/tags/index', compact('tags'));
     }
@@ -26,7 +26,7 @@ class TagsController extends BaseController
     public function post()
     {
         $currentUser = $this->get('auth')->getCurrentUser();
-        $tag = $this->get('Blog\Model\Tag')->factory();
+        $tag = $this->get('blog.model.tag')->factory();
 
         if ( $tag->save( $this->getPost() ) ) {
             $this->get('flash')->addMessage('success', 'Tag created.');
@@ -42,7 +42,7 @@ class TagsController extends BaseController
      */
     public function edit($id)
     {
-        $tag = $this->get('Blog\Model\Tag')->findOneOrFail(array(
+        $tag = $this->get('blog.model.tag')->findOneOrFail(array(
             'id' => (int) $id,
         ));
 
@@ -61,7 +61,7 @@ class TagsController extends BaseController
      */
     public function update($id)
     {
-        $tag = $this->get('Blog\Model\Tag')->findOneOrFail(array(
+        $tag = $this->get('blog.model.tag')->findOneOrFail(array(
             'id' => (int) $id,
         ));
 
@@ -80,7 +80,7 @@ class TagsController extends BaseController
 
     public function delete($id)
     {
-        $tag = $this->get('Blog\Model\Tag')->findOneOrFail(array(
+        $tag = $this->get('blog.model.tag')->findOneOrFail(array(
             'id' => (int) $id,
         ));
 

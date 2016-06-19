@@ -21,7 +21,7 @@ class UsersController extends BaseController
     public function post()
     {
         $params = $this->getPost();
-        $userModel = $this->get('Auth\Model\User');
+        $userModel = $this->get('auth.model.user');
 
         $validator = new RegisterValidator($userModel, $params);
         $validator->setData($params);

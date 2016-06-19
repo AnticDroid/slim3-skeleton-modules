@@ -85,13 +85,13 @@ class Module extends AbstractModule
         $settings = self::getModuleConfig();
 
         // Models
-        $container['Auth\Model\User'] = function ($c) {
+        $container['auth.model.user'] = function ($c) {
             return new \Auth\Model\User();
         };
 
         $container['auth'] = function ($c) {
             $settings = $c->get('settings')['modules']['Auth']['auth'];
-            $authAdapter = new \Auth\Adapter\Mongo( $c['Auth\Model\User'] );
+            $authAdapter = new \Auth\Adapter\Mongo( $c['auth.model.user'] );
             return new \Auth\Auth($authAdapter, $settings);
         };
 

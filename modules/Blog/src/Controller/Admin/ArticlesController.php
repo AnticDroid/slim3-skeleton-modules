@@ -24,10 +24,10 @@ class ArticlesController extends BaseController
         ], $this->getQueryParams()), array_flip(['limit', 'skip']));
 
         // fetch articles this user manages
-        $articles = $this->get('Blog\Model\Article')->findArticlesManagedBy($currentUser, [], $options);
+        $articles = $this->get('blog.model.article')->findArticlesManagedBy($currentUser, [], $options);
 
         // set page info for pagination
-        $totalArticles = $this->get('Blog\Model\Article')->findArticlesManagedBy($currentUser);
+        $totalArticles = $this->get('blog.model.article')->findArticlesManagedBy($currentUser, []);
         $pageInfo = [
             'page' => $page,
             'total_pages' => count($totalArticles) ? ceil(count($totalArticles) / $limit) : 0,
@@ -43,7 +43,7 @@ class ArticlesController extends BaseController
     public function show($id)
     {
         $currentUser = $this->get('auth')->getCurrentUser();
-        $article = $this->get('Blog\Model\Article')->findOneOrFail(array(
+        $article = $this->get('blog.model.article')->findOneOrFail(array(
             'id' => (int) $id,
         ));
 
@@ -64,7 +64,7 @@ class ArticlesController extends BaseController
     public function post()
     {
         $currentUser = $this->get('auth')->getCurrentUser();
-        $article = $this->get('Blog\Model\Article')->factory();
+        $article = $this->get('blog.model.article')->factory();
 
         // for security reasons, some properties are not on the whitelist but
         // we can directly assign
@@ -89,7 +89,7 @@ class ArticlesController extends BaseController
     {
         $currentUser = $this->get('auth')->getCurrentUser();
 
-        $article = $this->get('Blog\Model\Article')->findOneOrFail(array(
+        $article = $this->get('blog.model.article')->findOneOrFail(array(
             'id' => (int) $id,
         ));
 
@@ -101,7 +101,7 @@ class ArticlesController extends BaseController
         // get tags from cache
         // $cacheId = 'tags';
         // if (! $tags = $this->get('cache')->get($cacheId)) {
-            $tags = $this->get('Blog\Model\Tag')->find();
+            $tags = $this->get('blog.model.tag')->find();
             // $this->get('cache')->set($cacheId, $tags, 1);
         // }
         // $tags = [];
@@ -123,7 +123,7 @@ class ArticlesController extends BaseController
     {
         $currentUser = $this->get('auth')->getCurrentUser();
         $params = $this->getPost();
-        $article = $this->get('Blog\Model\Article')->findOneOrFail(array(
+        $article = $this->get('blog.model.article')->findOneOrFail(array(
             'id' => (int) $id,
         ));
 
@@ -199,7 +199,7 @@ class ArticlesController extends BaseController
     // {
     //     $currentUser = $this->get('auth')->getCurrentUser();
     //     $params = $this->getPost();
-    //     $article = $this->get('Blog\Model\Article')->findOneOrFail(array(
+    //     $article = $this->get('blog.model.article')->findOneOrFail(array(
     //         'id' => (int) $id,
     //     ));
     //
@@ -236,7 +236,7 @@ class ArticlesController extends BaseController
     // {
     //     $currentUser = $this->get('auth')->getCurrentUser();
     //     $params = $this->getPost();
-    //     $article = $this->get('Blog\Model\Article')->findOneOrFail(array(
+    //     $article = $this->get('blog.model.article')->findOneOrFail(array(
     //         'id' => (int) $id,
     //     ));
     //
@@ -273,7 +273,7 @@ class ArticlesController extends BaseController
     {
         $currentUser = $this->get('auth')->getCurrentUser();
 
-        $article = $this->get('Blog\Model\Article')->findOneOrFail(array(
+        $article = $this->get('blog.model.article')->findOneOrFail(array(
             'id' => (int) $id,
         ));
 
@@ -308,7 +308,7 @@ class ArticlesController extends BaseController
         }
 
         // get tags from tags[] and write back to params['tags']
-        return $this->get('Blog\Model\Tag')->find(array(
+        return $this->get('blog.model.tag')->find(array(
             'id' => array(
                 '$in' => $ids,
             ),

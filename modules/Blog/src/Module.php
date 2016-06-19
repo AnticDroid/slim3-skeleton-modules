@@ -63,26 +63,26 @@ class Module extends AbstractModule
     {
         $settings = self::getModuleConfig();
 
-        $container['Blog\FileSystem'] = function ($c) {
+        $container['blog.file_system'] = function ($c) {
             return new \Blog\FileSystem();
         };
 
-        $container['Blog\Image'] = function ($c) {
+        $container['blog.image'] = function ($c) {
             return new \Blog\Image();
         };
 
-        $container['Blog\PhotoManager'] = function ($c) {
-            return new \Blog\PhotoManager($c['Blog\Image'], $c['Blog\FileSystem']);
+        $container['blog.photo_manager'] = function ($c) {
+            return new \Blog\PhotoManager($c['blog.image'], $c['blog.file_system']);
         };
 
         // models
-        $container['Blog\Model\Article'] = function ($c) {
+        $container['blog.model.article'] = function ($c) {
             return new \Blog\Model\Article();
         };
-        $container['Blog\Model\Tag'] = function ($c) {
+        $container['blog.model.tag'] = function ($c) {
             return new \Blog\Model\Tag();
         };
-        $container['Blog\Model\Photo'] = function ($c) {
+        $container['blog.model.photo'] = function ($c) {
             return new \Blog\Model\Photo();
         };
 

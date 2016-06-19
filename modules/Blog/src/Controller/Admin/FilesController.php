@@ -27,8 +27,8 @@ class FilesController extends BaseController
             // // e.g. /var/www/.../data/photos/201601/31/
             // $dir = $settings['photos_dir']['original'];
             //
-            // $fileExists = $this->get('Blog\FileSystem')->fileExists($dir);
-            // if (!$fileExists and !$this->get('Blog\FileSystem')->makeDir($dir, 0775, true)) {
+            // $fileExists = $this->get('blog.FileSystem')->fileExists($dir);
+            // if (!$fileExists and !$this->get('blog.FileSystem')->makeDir($dir, 0775, true)) {
             //     throw new \Exception('Could not create directory');
             // }
 
@@ -47,17 +47,17 @@ class FilesController extends BaseController
             // e.g. /var/www/app/photos/path/to/12345.jpg
             $backendPath = $settings['photos_dir']['original'] . '/' . $filepath;
 
-            $fileExists = $this->get('Blog\FileSystem')->fileExists( dirname($backendPath) );
-            if (!$fileExists and !$this->get('Blog\FileSystem')->makeDir(dirname($backendPath), 0775, true)) {
+            $fileExists = $this->get('blog.file_system')->fileExists( dirname($backendPath) );
+            if (!$fileExists and !$this->get('blog.file_system')->makeDir(dirname($backendPath), 0775, true)) {
                 throw new \Exception('Could not create directory');
             }
 
             // handle the uploaded file
-            if ($this->get('Blog\PhotoManager')->moveUploadedFile($tmpName, $backendPath, $maxWidth=2000, $maxHeight=2000)) {
+            if ($this->get('blog.photo_manager')->moveUploadedFile($tmpName, $backendPath, $maxWidth=2000, $maxHeight=2000)) {
 
                 // create the photo in collection first so that we have an id to
                 // name the photo by
-                $photo = $this->get('Blog\Model\Photo')->create(array(
+                $photo = $this->get('blog.model.photo')->create(array(
                     'filepath' => $filepath,
                     'type' => $type,
                     // 'width' => $width,
@@ -67,7 +67,7 @@ class FilesController extends BaseController
                 // attach the photo to the current article
                 $articleId = $this->get('session')->get('current_article_id');
                 if ($articleId) {
-                    $article = $this->get('Blog\Model\Article')->findOneOrFail(array(
+                    $article = $this->get('blog.model.article')->findOneOrFail(array(
                         'id' => (int) $articleId,
                     ));
 
@@ -78,8 +78,8 @@ class FilesController extends BaseController
                 }
 
                 // the path to the file name from a front end (e.g. /images/...)
-                $imageSize = $this->get('Blog\Image')->getImageSize($backendPath);
-                list($width, $height) = $this->get('Blog\PhotoManager')->getMaxWidthHeight($imageSize[0], $imageSize[1], 300);
+                $imageSize = $this->get('blog.image')->getImageSize($backendPath);
+                list($width, $height) = $this->get('blog.photo_manager')->getMaxWidthHeight($imageSize[0], $imageSize[1], 300);
                 $frontendPath = $settings['photos_dir']['public'] . $photo->getCachedDir() . '/' . $photo->getCachedFileName( sprintf('%sx%s', $width, $height) );
 
                 $message = 'File uploaded successfully';
