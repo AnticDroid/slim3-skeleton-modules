@@ -30,7 +30,7 @@ class ArticlesController extends BaseController
         $totalArticles = $this->get('Blog\Model\Article')->findArticlesManagedBy($currentUser);
         $pageInfo = [
             'page' => $page,
-            'total_pages' => ceil(count($totalArticles) / $limit),
+            'total_pages' => count($totalArticles) ? ceil(count($totalArticles) / $limit) : 0,
         ];
 
         return $this->render('blog/admin/articles/index', compact('articles', 'pageInfo'));
