@@ -22,10 +22,10 @@
 
             <table class="table table-striped">
                 <tr>
-                    <th><a href="#"><?= $this->translate('common_title') ?></a>
+                    <th><a href="?<?= $this->generateSortQuery('title', $_GET); ?>"><?= $this->translate('common_title') ?></a>
 </th>
-                    <th><a href="#"><?= $this->translate('common_type') ?></a></th>
-                    <th><a href="#"><?= $this->translate('common_created') ?></a> <i class="fa fa-caret-down" aria-hidden="true"></i></th>
+                    <th><a href="?<?= $this->generateSortQuery('type', $_GET); ?>"><?= $this->translate('common_type') ?></a></th>
+                    <th><a href="?<?= $this->generateSortQuery('created_at', $_GET); ?>"><?= $this->translate('common_created') ?></a> <i class="fa fa-caret-down" aria-hidden="true"></i></th>
                 </tr>
                 <?php foreach ($this->articles as $article): ?>
                     <tr>

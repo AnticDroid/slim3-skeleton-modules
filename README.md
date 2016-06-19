@@ -1,35 +1,64 @@
 APPLICATION_ENV="development" php -S localhost:8000 -t public/
 
 TODO
-
-* convert panels like homebox
-* articles: admin: homepage, photo manage page (delete photos), preview, styles,
-* homepage: tags list, tags page
+* photos: remove sidebar uploader (just use simple upload for now), add photos to some articles
+* homepage, /articles, simple search
+* admin: homepage
+* /tags, tag page
 * tags: admin: delete, paginate, create,
-* quick n easy: pathFor
-* comments:
-* auth : remember me, facebook login, use aura/session?
-* photos: dropzone, drag from div to ckeditor,
-* cache: homepage, tags
+* change all dependancies back to 'i18n', 'auth.auth', 'auth.model.user'
+* cache busting (foil?)
+* auth : remember me
 * home - contact form, portfolio
-* testing: library tests, module tests, test 40x when not logged in
 * docs: installation of modules (module/Name/README): add to config, add to composer.json, add to phpunit.xml
 
-* ajax load with template inheritance (partials/articles_table)
-* cache busting (plates)
-* vendor modules, cp config/views
+self hosted
+* hosting my website from powburn (lamp, ssl, dns, mail?)
 * sync with live db
+
+experiment
+* only pass in dependancies rather than container
+* inline translation editing (<span data-translation="hello_world">Hello world</span>)
+* ajax load with template inheritance (partials/articles_table)
+* vendor modules, cp config/views
+* elastic search - configurable (mongo, elastic search, )
+* ckeditor plugin: select from uploaded media, dropzone
+
+v2
+* testing: library tests, module tests, test 40x when not logged in
+* cache: homepage, tags
+* photo manage page (delete photos)
+* convert panels like homebox
+* comments:
 * translations: japanese site
+* article preview
+* Auth_Facebook module facebook login
+
 
 
 further modules:
 
 Articles (admin, tags, photos, etc)
 Auth
-AuthFacebook
+Auth_Facebook
 
 OauthClient
 OauthServer
 QA
-Store -
-Translate - UI for translators
+Store
+
+Translate
+- UI for translators
+- inline editing
+- PUT /translations/hello_world
+-
+
+
+
+
+Sites to make:
+
+Martyn.biz
+Bisetto.net
+Japanese guide to Scotland :)
+Shop local

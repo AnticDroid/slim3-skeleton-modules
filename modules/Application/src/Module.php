@@ -96,6 +96,7 @@ class Module extends AbstractModule
             $engine = \Foil\engine($settings['renderer']);
             $engine->registerFunction('translate', new \Application\View\Helper\Translate($c) );
             $engine->registerFunction('pathFor', new \Application\View\Helper\PathFor($c) );
+            $engine->registerFunction('generateSortQuery', new \Application\View\Helper\GenerateSortQuery($c) );
             return $engine;
         };
 
