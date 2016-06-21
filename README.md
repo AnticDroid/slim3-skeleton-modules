@@ -1,12 +1,14 @@
 APPLICATION_ENV="development" php -S localhost:8000 -t public/
 
 TODO
-* homepage/add photos to some articles, /articles,
-* tags: admin: delete, paginate, create, portal: /tags, tag page
+* cache: homepage, tags, photos
+* photo manage page (delete photos), tag photos for carousel
+* tags: admin: delete, paginate, create, portal: /tags, tag page, public/private (private for e.g. featured)
 * cache busting (foil?), remove coffeescript,
 * home - contact form, portfolio
 * docs: installation of modules (module/Name/README): add to config, add to composer.json, add to phpunit.xml
 * delete confirmation on articles: "are you sure...?"
+* finishing touches: tidy up registration form, login form;
 
 self hosted
 * hosting my website from powburn (lamp, ssl, dns, mail?)
@@ -25,8 +27,7 @@ v2
 * simple search
 * admin: homepage - side menu?
 * testing: library tests, module tests, test 40x when not logged in
-* cache: homepage, tags
-* photo manage page (delete photos)
+
 * convert panels like homebox
 * comments:
 * translations: japanese site

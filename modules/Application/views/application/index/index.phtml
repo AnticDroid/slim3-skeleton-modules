@@ -14,21 +14,11 @@
 
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
-              <div class="item active">
-                <a href="#"><img src="/photos/201602/03/195/460x345.jpg" alt="Chania" width="460" height="345"></a>
-              </div>
-
-              <div class="item">
-                <img src="/photos/201602/03/195/460x345.jpg" alt="Chania" width="460" height="345">
-              </div>
-
-              <div class="item">
-                <img src="/photos/201602/03/195/460x345.jpg" alt="Flower" width="460" height="345">
-              </div>
-
-              <div class="item">
-                <img src="/photos/201602/03/195/460x345.jpg" alt="Flower" width="460" height="345">
-              </div>
+                <?php foreach ($this->carouselPhotos as $i => $photo): ?>
+                    <div class="item<?php if ($i == 0): ?> active<?php endif; ?>">
+                        <a href="#"><img src="/photos<?= $photo->getCachedPath('460x345') ?>" alt="Chania" width="460" height="345"></a>
+                    </div>
+                <?php endforeach ?>
             </div>
 
             <!-- Left and right controls -->
@@ -56,16 +46,22 @@
 
     <div class="row">
         <div class="col-md-8">
-            <div class="homebox">
-                <div class="col-md-3 image">
-                    <img src="/photos/201602/03/195/300x.jpg" class="img-responsive">
+            <?php foreach ($this->articles as $article): ?>
+                <div class="homebox">
+                    <?php if ($photo = $article->getCoverPhoto()): ?>
+                        <div class="col-md-3 image">
+                            <img src="/photos<?= $photo->getCachedPath('300x') ?>" class="img-responsive">
+                        </div>
+                    <?php endif; ?>
+                    <div class="col-md-9 body">
+                        <h2><a href="<?= $this->pathFor('articles_show', ['id' => $article->id]) ?>"><?= $article->title ?></a></h2>
+                        <p><?= substr(strip_tags($article->content), 0, 250) ?>...</p>
+                        <p class="small"><?= $this->translate('articles_written_by') ?></p>
+                    </div>
                 </div>
-                <div class="col-md-9 body">
-                    <h2>Shungs</h2>
-                    <p>Slim framework blah blah blah</p>
-                    <p class="small"><?= $this->translate('articles_written_by') ?></p>
-                </div>
-            </div>
+            <?php endforeach; ?>
+
+            <a href="<?= $this->pathFor('articles_index') ?>" class="btn btn-default">More articles</a>
         </div>
         <div class="col-md-4">
             <div class="homebox">

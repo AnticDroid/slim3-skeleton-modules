@@ -85,6 +85,13 @@ class Article extends Base
         }
     }
 
+    public function getCoverPhoto()
+    {
+        $photos = $this->__get('photos');
+
+        return (count($photos)) ? $photos[0] : null;
+    }
+
     /**
      * Additional Save procedures
      */
