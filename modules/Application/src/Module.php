@@ -161,6 +161,14 @@ class Module extends AbstractModule
             return $session->getSegment($settings['session']['namespace']);
         };
 
+        $container['cache'] = function ($c) {
+            $backend = new \Predis\Client(null, array(
+                'prefix' => 'martynbiz__', // TODO move this into settings
+            ));
+            $adapter = new \Desarrolla2\Cache\Adapter\Predis($backend);
+            return new \Desarrolla2\Cache\Cache($adapter);
+        };
+
 
 
 

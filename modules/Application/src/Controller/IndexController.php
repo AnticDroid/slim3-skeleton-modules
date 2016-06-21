@@ -7,13 +7,24 @@ class IndexController extends BaseController
     {
         $container = $this->app->getContainer();
 
-        $articles = $container->get('blog.model.article')->find([
-            //..
-        ], [ 'limit' => 5 ]);
+        $cacheId = 'homepage_articles';
+        if (! $articles = $this->get('cache')->get($cacheId) or 1) {
+            $articles = $container->get('blog.model.article')->find([
+                //..
+            ], [ 'limit' => 5 ]);
 
-        $carouselPhotos = $container->get('blog.model.photo')->find([
-            //..
-        ], [ 'limit' => 5 ]);
+            $this->get('cache')->set($cacheId, $articles, 1); // TODO change time
+        }
+
+        $cacheId = 'homepage_carousel_photos';
+        if (! $carouselPhotos = $this->get('cache')->get($cacheId) or 1) {
+            $carouselPhotos = $container->get('blog.model.photo')->find([
+                //..
+            ], [ 'limit' => 5 ]);
+
+            $this->get('cache')->set($cacheId, $carouselPhotos, 1); // TODO change time
+        }
+
 
         $this->render('application/index/index', compact('articles', 'carouselPhotos'));
     }
