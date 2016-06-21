@@ -1,11 +1,12 @@
 APPLICATION_ENV="development" php -S localhost:8000 -t public/
 
 TODO
-* allow PNG, homepage/add photos to some articles, /articles,
+* homepage/add photos to some articles, /articles,
 * tags: admin: delete, paginate, create, portal: /tags, tag page
 * cache busting (foil?), remove coffeescript,
 * home - contact form, portfolio
 * docs: installation of modules (module/Name/README): add to config, add to composer.json, add to phpunit.xml
+* delete confirmation on articles: "are you sure...?"
 
 self hosted
 * hosting my website from powburn (lamp, ssl, dns, mail?)

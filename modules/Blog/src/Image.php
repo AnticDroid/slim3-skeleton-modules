@@ -1,6 +1,6 @@
 <?php
 /**
- * A mockable replacement for gd image functions
+ * A mockable replacement for gd image functions of this slim3-module
  */
 
 namespace Blog;
@@ -17,6 +17,15 @@ class Image
     }
 
     /**
+     * Get the type of an image
+     * @see http://php.net/manual/en/function.exif-imagetype.php
+     */
+    public function getImageType($filename)
+    {
+        return exif_imagetype($filename);
+    }
+
+    /**
      * Create a new true color image
      * @see http://php.net/manual/en/function.imagecreatetruecolor.php
      */
@@ -27,11 +36,29 @@ class Image
 
     /**
      * Create a new image from file or URL
-     * @see http://php.net/manual/en/function.imagecreatetruecolor.php
+     * @see http://php.net/manual/en/function.imagecreatefromjpeg.php
      */
     public function createImageFromJpeg($filename)
     {
         return imagecreatefromjpeg($filename);
+    }
+
+    /**
+     * Create a new image from file or URL
+     * @see http://php.net/manual/en/function.imagecreatefrompng.php
+     */
+    public function createImageFromPng($filename)
+    {
+        return imagecreatefrompng($filename);
+    }
+
+    /**
+     * Create a new image from file or URL
+     * @see http://php.net/manual/en/function.imagecreatefromgif.php
+     */
+    public function createImageFromGif($filename)
+    {
+        return imagecreatefromgif($filename);
     }
 
     /**
@@ -49,6 +76,22 @@ class Image
     public function outputJpeg($image, $filename=null, $quality=90)
     {
         return imagejpeg($image, $filename, $quality);
+    }
+
+    /**
+     * @see http://php.net/manual/en/function.imagepng.php
+     */
+    public function outputPng($image, $filename=null, $quality=90)
+    {
+        return imagepng($image, $filename, $quality);
+    }
+
+    /**
+     * @see http://php.net/manual/en/function.imagegif.php
+     */
+    public function outputGif($image, $filename=null, $quality=90)
+    {
+        return imagegif($image, $filename, $quality);
     }
 
     /**

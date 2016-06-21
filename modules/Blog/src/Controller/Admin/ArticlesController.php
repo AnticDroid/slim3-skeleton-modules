@@ -278,7 +278,7 @@ class ArticlesController extends BaseController
         ));
 
         // only top brass can delete
-        if (! $currentUser->canDelete($article) ) {
+        if (! $article->isDeletableBy($currentUser) ) {
             throw new PermissionDeniedException('Permission denied to delete this article.');
         }
 

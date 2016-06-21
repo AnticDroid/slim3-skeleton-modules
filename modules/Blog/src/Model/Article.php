@@ -111,6 +111,16 @@ class Article extends Base
      * @param User $user
      * @return boolean
      */
+    public function isDeletableBy(User $user)
+    {
+        // TODO this
+        return (@$this->data['author']['$id'] == $user->_id);
+    }
+
+    /**
+     * @param User $user
+     * @return boolean
+     */
     public function isSubmittableBy(User $user)
     {
         // TODO this

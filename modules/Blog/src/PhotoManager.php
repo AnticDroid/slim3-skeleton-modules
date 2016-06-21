@@ -81,15 +81,25 @@ class PhotoManager
         // Set a maximum height and width
         list($maxWidth, $maxHeight) = $this->getMaxWidthHeight($widthOrig, $heightOrig, $maxWidth, $maxHeight);
 
-        // Create a new image from the uploaded file
-        $src = $imageService->createImageFromJpeg($srcPath);
-        if (!$src)
-            throw new \Exception('Only JPEG images are allowed for photos.');
+        // determine the mime type and generate an image from that
+        switch($imageService->getImageType($srcPath)) {
+            case IMAGETYPE_JPEG:
+                $image = $imageService->createImageFromJpeg($srcPath);
+                break;
+            case IMAGETYPE_PNG:
+                $image = $imageService->createImageFromPng($srcPath);
+                break;
+            case IMAGETYPE_GIF:
+                $image = $imageService->createImageFromGif($srcPath);
+                break;
+            default:
+                throw new \Exception('Image type not supported, must be either JPEG, PNG or GIF');
+        }
 
         // Create a new true color image and copy and resize part of an image
         // with resampling
         $tmp = $imageService->createTrueColorImage($maxWidth, $maxHeight);
-        $success = $imageService->copyImageWithResampling($tmp, $src, 0, 0, 0, 0, $maxWidth, $maxHeight, $widthOrig, $heightOrig);
+        $success = $imageService->copyImageWithResampling($tmp, $image, 0, 0, 0, 0, $maxWidth, $maxHeight, $widthOrig, $heightOrig);
 
         $imageService->outputJpeg($tmp, $destPath);
         $imageService->destroyImage($tmp);

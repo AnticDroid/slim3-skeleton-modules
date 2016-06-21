@@ -130,7 +130,7 @@ class Module extends AbstractModule
                 // $app->get('/create', $controller('create'))->setName('admin_articles_create');
                 $app->get('/{id:[0-9]+}/edit', $controller('edit'))->setName('admin_articles_edit');
                 $app->post('', $controller('post'))->setName('admin_articles_post');
-                // $app->delete('/{id:[0-9]+}', $controller('delete'))->setName('admin_articles_delete');
+                $app->delete('/{id:[0-9]+}', $controller('delete'))->setName('admin_articles_delete');
                 // // these routes must be POST as they contain files and slim doesn't reconize the
                 // // _METHOD in multipart/form-data :(
                 $app->put('/{id:[0-9]+}', $controller('update'))->setName('admin_articles_update');
