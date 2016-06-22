@@ -7,23 +7,23 @@ class IndexController extends BaseController
     {
         $container = $this->app->getContainer();
 
-        $cacheId = 'homepage_articles';
-        if (! $articles = $this->get('cache')->get($cacheId) or 1) {
+        // $cacheId = 'homepage_articles';
+        // if (! $articles = $this->get('cache')->get($cacheId)) {
             $articles = $container->get('blog.model.article')->find([
                 //..
             ], [ 'limit' => 5 ]);
 
-            $this->get('cache')->set($cacheId, $articles, 1); // TODO change time
-        }
+        //     $this->get('cache')->set($cacheId, $articles, 3600);
+        // }
 
-        $cacheId = 'homepage_carousel_photos';
-        if (! $carouselPhotos = $this->get('cache')->get($cacheId) or 1) {
+        // $cacheId = 'homepage_carousel_photos';
+        // if (! $carouselPhotos = $this->get('cache')->get($cacheId)) {
             $carouselPhotos = $container->get('blog.model.photo')->find([
                 //..
             ], [ 'limit' => 5 ]);
 
-            $this->get('cache')->set($cacheId, $carouselPhotos, 1); // TODO change time
-        }
+        //     $this->get('cache')->set($cacheId, $carouselPhotos, 3600);
+        // }
 
 
         $this->render('application/index/index', compact('articles', 'carouselPhotos'));

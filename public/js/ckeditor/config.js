@@ -48,6 +48,7 @@ CKEDITOR.editorConfig = function( config ) {
 		[ 'Source' ],
         [ 'Format', 'Styles' ],
 		[ 'Bold', 'Italic', 'Underline' ],
+		[ 'BulletedList', 'NumberedList' ],
 		[ 'addImage' ],
         [ 'Table' ],
         [ 'HorizontalRule', 'Unlink', 'Blockquote', 'Indent', 'Outdent', 'RemoveFormat' ]

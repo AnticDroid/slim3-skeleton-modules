@@ -204,11 +204,11 @@ class Module extends AbstractModule
 
             $controller = new \Application\Controller\IndexController($app);
 
-            $app->get('/', $controller('index'))->setName('application_index');
-            $app->get('/portfolio', $controller('portfolio'))->setName('application_portfolio');
+            $app->get('/', $controller('index'))->setName('home');
+            $app->get('/portfolio', $controller('portfolio'))->setName('portfolio');
 
-            $app->get('/contact', $controller('contact'))->setName('application_contact');
-            $app->post('/contact', $controller('contact'))->setName('application_contact');
+            $app->get('/contact', $controller('contact'))->setName('contact');
+            $app->post('/contact', $controller('contact'))->setName('contact');
         });
 
         // admin routes -- invokes auth middleware
@@ -219,7 +219,7 @@ class Module extends AbstractModule
 
                 $controller = new \Application\Controller\Admin\IndexController($app);
 
-                $app->get('', $controller('index'))->setName('application_admin');
+                $app->get('', $controller('index'))->setName('admin');
             });
         })
         // ->add( new \Auth\Middleware\AdminOnly( $container['auth'] ) ) // user must be admin

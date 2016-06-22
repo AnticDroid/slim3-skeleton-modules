@@ -2,7 +2,7 @@ APPLICATION_ENV="development" php -S localhost:8000 -t public/
 
 TODO
 * cache: homepage, tags, photos
-* photo manage page (delete photos), tag photos for carousel
+* photo manage page (delete photos), tag photos for carousel (featured)
 * tags: admin: delete, paginate, create, portal: /tags, tag page, public/private (private for e.g. featured)
 * cache busting (foil?), remove coffeescript,
 * home - contact form, portfolio

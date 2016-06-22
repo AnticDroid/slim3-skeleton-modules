@@ -1,0 +1,33 @@
+<?php $this->layout('layouts/main'); ?>
+
+<?php $this->section('content') ?>
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb" style="margin-bottom: 1em;">
+                <li><a href="<?= $this->pathFor('home') ?>">Home</a></li>
+                <li><a href="<?= $this->pathFor('articles') ?>">Articles</a></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <h1><?= $this->article->title ?></h1>
+
+            <?= $this->article->content ?>
+        </div>
+        <div class="col-md-4" style="border-left: 1px dotted #999;">
+            <h2><?= $this->translate('other_articles') ?></h2>
+
+            <?php foreach ($this->otherArticles as $article): ?>
+                <div style="clear: both; margin-bottom: 1em; float: left; width: 100%">
+                    <?php if ($photo = $article->getCoverPhoto()): ?>
+                        <img src="/photos<?= $photo->getCachedPath('70x') ?>" style="float: left; margin-right: 10px;">
+                    <?php endif; ?>
+                    <h3 style="font-size: 120%;"><a href="<?= $this->pathFor('articles_show', ['id' => $article->id]) ?>"><?= $article->title ?></a></h3>
+                    <p class="small"><?= $this->translate('articles_written_by') ?></p>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+<?php $this->replace() ?>

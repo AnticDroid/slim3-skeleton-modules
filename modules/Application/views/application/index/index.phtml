@@ -61,14 +61,14 @@
                 </div>
             <?php endforeach; ?>
 
-            <a href="<?= $this->pathFor('articles_index') ?>" class="btn btn-default">More articles</a>
+            <a href="<?= $this->pathFor('articles') ?>" class="btn btn-default">More articles</a>
         </div>
         <div class="col-md-4">
             <div class="homebox">
                 <div class="col-md-12 body">
-            		<form method="get" action="/">
+            		<form method="get" action="<?= $this->pathFor('articles') ?>">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for...">
+                            <input type="text" name="search" class="form-control" placeholder="Search for...">
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button"><i class="glyphicon glyphicon-search"></i>&nbsp;</button>
                             </span>

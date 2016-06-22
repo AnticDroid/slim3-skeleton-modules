@@ -107,7 +107,7 @@ class Module extends AbstractModule
         // create resource method for Slim::resource($route, $name)
         $app->group('/articles', function () use ($app) {
             $controller = new \Blog\Controller\ArticlesController($app);
-            $app->get('', $controller('index'))->setName('articles_index');
+            $app->get('', $controller('index'))->setName('articles');
             $app->get('/{id:[0-9]+}', $controller('show'))->setName('articles_show');
             $app->get('/{id:[0-9]+}/{slug}', $controller('show'))->setName('articles_show_wslug');
         });
