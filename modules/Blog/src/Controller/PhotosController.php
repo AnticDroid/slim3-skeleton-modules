@@ -1,8 +1,6 @@
 <?php
 namespace Blog\Controller;
 
-use Application\Controller\BaseController;
-
 class PhotosController extends BaseController
 {
     /**

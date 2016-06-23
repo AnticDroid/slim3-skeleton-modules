@@ -9,6 +9,8 @@ TODO
 * docs: installation of modules (module/Name/README): add to config, add to composer.json, add to phpunit.xml
 * delete confirmation on articles: "are you sure...?"
 * finishing touches: tidy up registration form, login form;
+* sort
+* only admin can edit tags 
 
 self hosted
 * hosting my website from powburn (lamp, ssl, dns, mail?)

@@ -7,7 +7,7 @@ namespace Blog\Controller\Admin;
 
 use Blog\Model\Photo;
 
-use Application\Controller\BaseController;
+use Blog\Controller\BaseController;
 
 class FilesController extends BaseController
 {

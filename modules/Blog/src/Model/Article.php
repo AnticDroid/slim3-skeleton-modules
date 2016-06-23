@@ -97,10 +97,9 @@ class Article extends Base
      */
     public function save($data=array())
     {
-        if (empty($this->data['slug'])) {
-            $this->data['slug'] = Utils::slugify($this->data['title']);
-        }
-
+        // TODO check if a slug of the same name exists 
+        $this->set($data);
+        $this->data['slug'] = Utils::slugify($this->data['name']);
         return parent::save($data);
     }
 

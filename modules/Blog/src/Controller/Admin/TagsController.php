@@ -4,21 +4,27 @@ namespace Blog\Controller\Admin;
 use Blog\Model\Tag;
 use Blog\Exception\PermissionDenied as PermissionDeniedException;
 
-use Application\Controller\BaseController;
+use Blog\Controller\BaseController;
 
 class TagsController extends BaseController
 {
     public function index()
     {
-        // fetch articles this user manages
-        $tags = $this->get('blog.model.tag')->find();
+        // get tags
+        $options = $this->getQueryOptions();
+        $tags = $this->get('blog.model.tag')->find([], $options);
 
-        return $this->render('blog/admin/tags/index', compact('tags'));
+        // set page info for pagination links
+        $total = $this->get('blog.model.tag')->count([]);
+        $path = $this->get('router')->pathFor('admin_tags');
+        $pageInfo = $this->getPageInfo($total, $path, $options);
+
+        return $this->render('blog/admin/tags/index', compact('tags', 'pageInfo'));
     }
 
     public function create()
     {
-        return $this->render('admin.tags.create', array(
+        return $this->render('blog/admin/tags/create', array(
             'params' => $this->getPost(),
         ));
     }
@@ -26,11 +32,10 @@ class TagsController extends BaseController
     public function post()
     {
         $currentUser = $this->get('auth')->getCurrentUser();
-        $tag = $this->get('blog.model.tag')->factory();
 
-        if ( $tag->save( $this->getPost() ) ) {
+        if ($tag = $this->get('blog.model.tag')->create( $this->getPost())) {
             $this->get('flash')->addMessage('success', 'Tag created.');
-            return $this->redirect('/admin/tags');
+            return $this->redirect( $this->get('router')->pathFor('admin_tags') );
         } else {
             $this->get('flash')->addMessage('errors', $tag->getErrors());
             return $this->forward('create');

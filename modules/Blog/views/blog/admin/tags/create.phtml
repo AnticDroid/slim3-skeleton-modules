@@ -4,13 +4,13 @@
     <ol class="breadcrumb">
         <li><a href="/admin"><?= $this->translate('admin_link') ?></a></li>
         <li><a href="/admin"><?= $this->translate('tags_link') ?></a></li>
-        <li class="active"><?= $this->translate('edit_tag') ?></li>
+        <li class="active"><?= $this->translate('create_tag') ?></li>
     </ol>
 
-    <form method="post" action="/admin/tags/<?= $this->tag->id ?>">
+    <form method="post" action="/admin/tags">
         <div class="form-group">
             <label for="name"><?= $this->translate('common_name') ?></label>
-            <input type="text" value="<?= $this->tag->name ?>" class="form-control" name="name" id="name" placeholder="Name">
+            <input type="text" value="<?= @$this->params['name'] ?>" class="form-control" name="name" id="name" placeholder="Name">
         </div>
 
         <div class="form-group">
@@ -20,8 +20,6 @@
                 <option value="0"><?= $this->translate('option_private') ?></option>
             </select>
         </div>
-
-        <input type="hidden" name="_METHOD" value="PUT">
 
         <button type="submit" class="btn btn-primary">Save</button>
         <a href="/admin/tags" class="btn btn-default">Cancel</a>

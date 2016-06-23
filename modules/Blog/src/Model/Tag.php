@@ -3,6 +3,7 @@
 namespace Blog\Model;
 
 use Application\Model\Base;
+use Blog\Utils;
 
 /**
  *
@@ -16,20 +17,25 @@ class Tag extends Base
     protected static $whitelist = array(
         'name',
         'slug',
+        'public',
     );
 
-    // public function validate()
-    // {
-    //     $this->resetErrors();
-    //
-    //     if (empty($this->data['name'])) {
-    //         $this->setError('Name must be given');
-    //     }
-    //
-    //     if (empty($this->data['slug'])) {
-    //         $this->setError('Slug must be given');
-    //     }
-    //
-    //     return empty($this->getErrors());
-    // }
+    /**
+     * Ensure that public is numeric
+     */
+    public function setPublic($value)
+    {
+        return (int) $value;
+    }
+
+    /**
+     * Additional Save procedures
+     */
+    public function save($data=array())
+    {
+        // TODO check if a slug of the same name exists
+        $this->set($data);
+        $this->data['slug'] = Utils::slugify($this->data['name']);
+        return parent::save();
+    }
 }

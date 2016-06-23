@@ -4,7 +4,7 @@ namespace Blog\Controller\Admin;
 use Blog\Utils;
 use Blog\Exception\PermissionDenied;
 
-use Application\Controller\BaseController;
+use Blog\Controller\BaseController;
 
 class DataController extends BaseController
 {

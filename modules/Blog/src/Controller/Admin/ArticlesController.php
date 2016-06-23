@@ -6,7 +6,7 @@ use Blog\Model\Article;
 use Blog\Model\Photo;
 use Blog\Exception\PermissionDenied as PermissionDeniedException;
 
-use Application\Controller\BaseController;
+use Blog\Controller\BaseController;
 
 class ArticlesController extends BaseController
 {
@@ -14,24 +14,14 @@ class ArticlesController extends BaseController
     {
         $currentUser = $this->get('auth')->getCurrentUser();
 
-        // set params
-        $limit = (int) $this->getQueryParam('limit', 10);
-        $page = (int) $this->getQueryParam('page', 1);
-        $skip = $limit * ($page - 1);
-        $options = array_intersect_key(array_merge([
-            'limit' => $limit,
-            'skip' => $skip,
-        ], $this->getQueryParams()), array_flip(['limit', 'skip']));
-
-        // fetch articles this user manages
+        // get tags
+        $options = $this->getQueryOptions();
         $articles = $this->get('blog.model.article')->findArticlesManagedBy($currentUser, [], $options);
 
-        // set page info for pagination
-        $totalArticles = $this->get('blog.model.article')->findArticlesManagedBy($currentUser, []);
-        $pageInfo = [
-            'page' => $page,
-            'total_pages' => count($totalArticles) ? ceil(count($totalArticles) / $limit) : 0,
-        ];
+        // set page info for pagination links
+        $total = count($this->get('blog.model.article')->findArticlesManagedBy($currentUser, []));
+        $path = $this->get('router')->pathFor('admin_articles');
+        $pageInfo = $this->getPageInfo($total, $path, $options);
 
         return $this->render('blog/admin/articles/index', compact('articles', 'pageInfo'));
     }

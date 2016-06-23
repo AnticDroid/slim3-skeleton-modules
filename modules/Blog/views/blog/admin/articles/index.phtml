@@ -1,42 +1,36 @@
 <?php $this->layout('layouts/admin'); ?>
 
 <?php $this->section('content') ?>
+    <ol class="breadcrumb">
+        <li><a href="/admin"><?= $this->translate('admin_link') ?></a></li>
+        <li class="active"><?= $this->translate('articles_link') ?></li>
+    </ol>
 
-    <div class="homebox">
-        <div class="body">
-            <ol class="breadcrumb">
-                <li><a href="/admin"><?= $this->translate('admin_link') ?></a></li>
-                <li class="active"><?= $this->translate('articles_link') ?></li>
-            </ol>
-
-            <form action="/admin/articles" method="post">
-                <div class="buttons">
-                    <div class="col-md-6 hidden-s hidden-xs">
-                        &nbsp;
-                    </div>
-                    <div class="col-md-6 text-right">
-                        <button type="submit" class="btn btn-default"><?= $this->translate('new_article') ?></button>
-                    </div>
-                </div>
-            </form>
-
-            <table class="table table-striped">
-                <tr>
-                    <th><a href="?<?= $this->generateSortQuery('title', $_GET); ?>"><?= $this->translate('common_title') ?></a>
-</th>
-                    <th><a href="?<?= $this->generateSortQuery('type', $_GET); ?>"><?= $this->translate('common_type') ?></a></th>
-                    <th><a href="?<?= $this->generateSortQuery('created_at', $_GET); ?>"><?= $this->translate('common_created') ?></a> <i class="fa fa-caret-down" aria-hidden="true"></i></th>
-                </tr>
-                <?php foreach ($this->articles as $article): ?>
-                    <tr>
-                        <td><a href="/admin/articles/<?= $article->id ?>"><?= $article->title ?></a></td>
-                        <td><?= $article->type ?></td>
-                        <td><?= $article->created_at ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
-
-            <?= $this->insert('blog/partials/pagination_links') ?>
+    <form action="/admin/articles" method="post">
+        <div class="buttons">
+            <div class="col-md-6 hidden-s hidden-xs">
+                &nbsp;
+            </div>
+            <div class="col-md-6 text-right">
+                <button type="submit" class="btn btn-default"><?= $this->translate('new_article') ?></button>
+            </div>
         </div>
-    </div>
+    </form>
+
+    <table class="table table-striped">
+        <tr>
+            <th><a href="?<?= $this->generateSortQuery('title', $_GET); ?>"><?= $this->translate('common_title') ?></a></th>
+            <th><a href="?<?= $this->generateSortQuery('type', $_GET); ?>"><?= $this->translate('common_type') ?></a></th>
+            <th><a href="?<?= $this->generateSortQuery('created_at', $_GET); ?>"><?= $this->translate('common_created') ?></a> <i class="fa fa-caret-down" aria-hidden="true"></i></th>
+        </tr>
+        <?php foreach ($this->articles as $article): ?>
+            <tr>
+                <td><a href="/admin/articles/<?= $article->id ?>"><?= $article->title ?></a></td>
+                <td><?= $article->type ?></td>
+                <td><?= $article->created_at ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+
+    <?= $this->insert('blog/partials/pagination_links') ?>
 <?php $this->replace() ?>
