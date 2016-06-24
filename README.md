@@ -10,14 +10,14 @@ TODO
 * delete confirmation on articles: "are you sure...?"
 * finishing touches: tidy up registration form, login form;
 * sort
-* only admin can edit tags 
+* only admin can edit tags
 
 self hosted
 * hosting my website from powburn (lamp, ssl, dns, mail?)
 * sync with live db
 
 experiment
-* only pass in dependancies rather than container
+* only container rather than app - branch: feature-pass-in-container-to-controller
 * inline translation editing (<span data-translation="hello_world">Hello world</span>)
 * ajax load with template inheritance (partials/articles_table)
 * vendor modules, cp config/views
