@@ -28,7 +28,7 @@
         "php": ">=5.5.0",
         "slim/slim": "~3.0",
         "martynbiz/slim3-module": "dev-master",
-        "martynbiz/slim3-controller": "dev-master",
+        "martynbiz/slim3-controller": "dev-feature-pass-in-container-to-controller",
         "martynbiz/php-mongo": "dev-master",
         "martynbiz/php-validator": "dev-master",
         "martynbiz/php-flash-message": "dev-master",
