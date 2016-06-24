@@ -5,11 +5,9 @@ class IndexController extends BaseController
 {
     public function index()
     {
-        $container = $this->app->getContainer();
-
         // $cacheId = 'homepage_articles';
         // if (! $articles = $this->get('cache')->get($cacheId)) {
-            $articles = $container->get('blog.model.article')->find([
+            $articles = $this->get('blog.model.article')->find([
                 //..
             ], [ 'limit' => 5 ]);
 
@@ -18,7 +16,7 @@ class IndexController extends BaseController
 
         // $cacheId = 'homepage_carousel_photos';
         // if (! $carouselPhotos = $this->get('cache')->get($cacheId)) {
-            $carouselPhotos = $container->get('blog.model.photo')->find([
+            $carouselPhotos = $this->get('blog.model.photo')->find([
                 //..
             ], [ 'limit' => 5 ]);
 

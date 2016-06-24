@@ -7,7 +7,7 @@ $settings = [
             'Application',
             'Auth',
             'Blog',
-            'Hello',
+            // 'Hello',
         ],
     ],
 ];

@@ -200,26 +200,26 @@ class Module extends AbstractModule
     {
         $container = $app->getContainer();
 
-        $app->group('', function () use ($app) {
+        $app->group('', function () use ($container) {
 
-            $controller = new \Application\Controller\IndexController($app);
+            $controller = new \Application\Controller\IndexController($container);
 
-            $app->get('/', $controller('index'))->setName('home');
-            $app->get('/portfolio', $controller('portfolio'))->setName('portfolio');
+            $this->get('/', $controller('index'))->setName('home');
+            $this->get('/portfolio', $controller('portfolio'))->setName('portfolio');
 
-            $app->get('/contact', $controller('contact'))->setName('contact');
-            $app->post('/contact', $controller('contact'))->setName('contact');
+            $this->get('/contact', $controller('contact'))->setName('contact');
+            $this->post('/contact', $controller('contact'))->setName('contact');
         });
 
         // admin routes -- invokes auth middleware
-        $app->group('/admin', function () use ($app) {
+        $app->group('/admin', function () use ($container) {
 
             // admin/users routes
-            $app->group('', function () use ($app) {
+            $this->group('', function () use ($container) {
 
-                $controller = new \Application\Controller\Admin\IndexController($app);
+                $controller = new \Application\Controller\Admin\IndexController($container);
 
-                $app->get('', $controller('index'))->setName('admin');
+                $this->get('', $controller('index'))->setName('admin');
             });
         })
         // ->add( new \Auth\Middleware\AdminOnly( $container['auth'] ) ) // user must be admin

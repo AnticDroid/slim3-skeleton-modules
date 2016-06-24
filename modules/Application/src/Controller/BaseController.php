@@ -13,26 +13,27 @@ class BaseController extends Controller
      */
     public function render($file, $data=array())
     {
-        $container = $this->app->getContainer();
+        $request = $this->get('request');
+        $response = $this->get('response');
 
         $data = array_merge([
             'messages' => $this->get('flash')->flushMessages(),
             'currentUser' => $this->get('auth')->getCurrentUser(),
-            'router' => $this->app->getContainer()->get('router'),
+            'router' => $this->get('router'),
         ], $data);
 
-        if ($container->has('csrf')) {
-            $data['csrfName'] = $this->request->getAttribute('csrf_name');
-            $data['csrfValue'] = $this->request->getAttribute('csrf_value');
+        if ($this->container->has('csrf')) {
+            $data['csrfName'] = $request->getAttribute('csrf_name');
+            $data['csrfValue'] = $request->getAttribute('csrf_value');
         }
 
         // generate the html
-        $html = $container['renderer']->render($file, $data);
+        $html = $this->get('renderer')->render($file, $data);
 
         // put the html in the response object
-        $this->response->getBody()->write($html);
+        $response->getBody()->write($html);
 
-        return $this->response;
+        return $response;
     }
 
     /**
@@ -43,9 +44,9 @@ class BaseController extends Controller
      */
     public function renderJson($data=array())
     {
-        // put the html in the response object
-        $this->response->getBody()->write(json_encode($data));
+        $response = $this->get('response');
+        $response->getBody()->write( json_encode($data) );
 
-        return $this->response;
+        return $response;
     }
 }
