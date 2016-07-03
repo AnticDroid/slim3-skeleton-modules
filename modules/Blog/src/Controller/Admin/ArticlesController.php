@@ -10,17 +10,18 @@ use Blog\Controller\BaseController;
 
 class ArticlesController extends BaseController
 {
-    public function index()
+    public function index($request, $response, $args)
     {
-        $currentUser = $this->get('auth')->getCurrentUser();
+        $container = $this->getContainer();
+        $currentUser = $container->get('auth')->getCurrentUser();
 
         // get tags
         $options = $this->getQueryOptions();
-        $articles = $this->get('blog.model.article')->findArticlesManagedBy($currentUser, [], $options);
+        $articles = $container->get('blog.model.article')->findArticlesManagedBy($currentUser, [], $options);
 
         // set page info for pagination links
-        $total = count($this->get('blog.model.article')->findArticlesManagedBy($currentUser, []));
-        $path = $this->get('router')->pathFor('admin_articles');
+        $total = count($container->get('blog.model.article')->findArticlesManagedBy($currentUser, []));
+        $path = $container->get('router')->pathFor('admin_articles');
         $pageInfo = $this->getPageInfo($total, $path, $options);
 
         return $this->render('blog/admin/articles/index', compact('articles', 'pageInfo'));
@@ -30,11 +31,12 @@ class ArticlesController extends BaseController
      * This view will serve as a review page where the author can re-open for
      * further editing, or an admin/editor can approve to go live.
      */
-    public function show($id)
+    public function show($request, $response, $args)
     {
-        $currentUser = $this->get('auth')->getCurrentUser();
-        $article = $this->get('blog.model.article')->findOneOrFail(array(
-            'id' => (int) $id,
+        $container = $this->getContainer();
+        $currentUser = $container->get('auth')->getCurrentUser();
+        $article = $container->get('blog.model.article')->findOneOrFail(array(
+            'id' => (int) $args['id'],
         ));
 
         // ensure that this user can edit this article
@@ -51,10 +53,11 @@ class ArticlesController extends BaseController
      * they submit it. or they can keep it as a draft. Upon immediate creation, it
      * should redirect to the edit article form (although it will intially be empty)
      */
-    public function post()
+    public function post($request, $response, $args)
     {
-        $currentUser = $this->get('auth')->getCurrentUser();
-        $article = $this->get('blog.model.article')->factory();
+        $container = $this->getContainer();
+        $currentUser = $container->get('auth')->getCurrentUser();
+        $article = $container->get('blog.model.article')->factory();
 
         // for security reasons, some properties are not on the whitelist but
         // we can directly assign
@@ -65,9 +68,9 @@ class ArticlesController extends BaseController
         // if the article saves ok, redirect them to the edit page where they can
         // begin to edit their draft. any errors, forward them back to the index
         if ( $article->save() ) {
-            return $this->redirect('/admin/articles/' . $article->id . '/edit');
+            return $response->withRedirect('/admin/articles/' . $article->id . '/edit');
         } else {
-            $this->get('flash')->addMessage('errors', $article->getErrors());
+            $container->get('flash')->addMessage('errors', $article->getErrors());
             return $this->forward('index');
         }
     }
@@ -75,12 +78,14 @@ class ArticlesController extends BaseController
     /**
      * Upon creation too, the user will be redirect here to edit the article
      */
-    public function edit($id)
+    public function edit($request, $response, $args)
     {
-        $currentUser = $this->get('auth')->getCurrentUser();
+        $container = $this->getContainer();
+        $currentUser = $container->get('auth')->getCurrentUser();
+        $id = (int) $args['id'];
 
-        $article = $this->get('blog.model.article')->findOneOrFail(array(
-            'id' => (int) $id,
+        $article = $container->get('blog.model.article')->findOneOrFail(array(
+            'id' => $id,
         ));
 
         // ensure that this user can edit this article
@@ -90,16 +95,14 @@ class ArticlesController extends BaseController
 
         // get tags from cache
         // $cacheId = 'tags';
-        // if (! $tags = $this->get('cache')->get($cacheId)) {
-            $tags = $this->get('blog.model.tag')->find();
-            // $this->get('cache')->set($cacheId, $tags, 1);
+        // if (! $tags = $container->get('cache')->get($cacheId)) {
+            $tags = $container->get('blog.model.tag')->find();
+            // $container->get('cache')->set($cacheId, $tags, 1);
         // }
-        // $tags = [];
-// var_dump($tags); exit;
 
         // we will set the current id in session so that uploaded images know which
         // article to attach to
-        $this->get('session')->set('current_article_id', (int) $id);
+        $container->get('session')->set('current_article_id', $id);
 
         return $this->render('blog/admin/articles/edit', compact('article', 'tags'));
     }
@@ -109,12 +112,15 @@ class ArticlesController extends BaseController
      * or 2) redirect back to the edit page (upon which they can then submit when they
      * choose to)
      */
-    public function update($id)
+    public function update($request, $response, $args)
     {
-        $currentUser = $this->get('auth')->getCurrentUser();
-        $params = $this->getPost();
-        $article = $this->get('blog.model.article')->findOneOrFail(array(
-            'id' => (int) $id,
+        $container = $this->getContainer();
+        $currentUser = $container->get('auth')->getCurrentUser();
+        $params = $request->getParams();
+        $id = (int) $args['id'];
+
+        $article = $container->get('blog.model.article')->findOneOrFail(array(
+            'id' => $id,
         ));
 
         // ensure that this user can edit this article
@@ -171,10 +177,10 @@ class ArticlesController extends BaseController
 
 
         if ( $article->save($params) ) {
-            $this->get('flash')->addMessage('success', $flashSuccessMessage);
-            return $this->redirect('/admin/articles/' . $id);
+            $container->get('flash')->addMessage('success', $flashSuccessMessage);
+            return $response->withRedirect('/admin/articles/' . $id);
         } else {
-            $this->get('flash')->addMessage('errors', $article->getErrors());
+            $container->get('flash')->addMessage('errors', $article->getErrors());
             return $this->forward('edit', compact('id'));
         }
     }
@@ -187,10 +193,10 @@ class ArticlesController extends BaseController
     //  */
     // public function submit($id)
     // {
-    //     $currentUser = $this->get('auth')->getCurrentUser();
-    //     $params = $this->getPost();
-    //     $article = $this->get('blog.model.article')->findOneOrFail(array(
-    //         'id' => (int) $id,
+    //     $currentUser = $container->get('auth')->getCurrentUser();
+    //     $params = $container->getPost();
+    //     $article = $container->get('blog.model.article')->findOneOrFail(array(
+    //         'id' => (int) $args['id'],
     //     ));
     //
     //
@@ -205,16 +211,16 @@ class ArticlesController extends BaseController
     //
     //     // set tags from the params tags value submitted
     //     // this will also ensure than only valid tags are used
-    //     $params['tags'] = $this->getTagsFromTagIds(@$params['tags']);
+    //     $params['tags'] = $container->getTagsFromTagIds(@$params['tags']);
     //
     //     // check options
     //     $article->featured = (@$params['featured']) ? 1 : 0;
     //
-    //     if ( $article->save( $this->getPost() ) ) {
-    //         $this->get('flash')->addMessage('success', );
-    //         return $this->redirect('/admin/articles/' . $id);
+    //     if ( $article->save( $container->getPost() ) ) {
+    //         $container->get('flash')->addMessage('success', );
+    //         return $response->withRedirect('/admin/articles/' . $id);
     //     } else {
-    //         $this->get('flash')->addMessage('errors', $article->getErrors());
+    //         $container->get('flash')->addMessage('errors', $article->getErrors());
     //         return $this->forward('edit', compact('id'));
     //     }
     // }
@@ -224,10 +230,10 @@ class ArticlesController extends BaseController
     //  */
     // public function approve($id)
     // {
-    //     $currentUser = $this->get('auth')->getCurrentUser();
-    //     $params = $this->getPost();
-    //     $article = $this->get('blog.model.article')->findOneOrFail(array(
-    //         'id' => (int) $id,
+    //     $currentUser = $container->get('auth')->getCurrentUser();
+    //     $params = $container->getPost();
+    //     $article = $container->get('blog.model.article')->findOneOrFail(array(
+    //         'id' => (int) $args['id'],
     //     ));
     //
     //     // only top brass can approve
@@ -242,7 +248,7 @@ class ArticlesController extends BaseController
     //
     //     // set tags from the params tags value submitted
     //     // this will also ensure than only valid tags are used
-    //     $params['tags'] = $this->getTagsFromTagIds(@$params['tags']);
+    //     $params['tags'] = $container->getTagsFromTagIds(@$params['tags']);
     //
     //     // handle photos
     //     $this->attachPhotosTo($article, @$_FILES['photos']);
@@ -250,21 +256,22 @@ class ArticlesController extends BaseController
     //     // check options
     //     $article->featured = (@$params['featured']) ? 1 : 0;
     //
-    //     if ( $article->save( $this->getPost() ) ) {
-    //         $this->get('flash')->addMessage('success', );
-    //         return $this->redirect('/admin/articles/' . $id);
+    //     if ( $article->save( $container->getPost() ) ) {
+    //         $container->get('flash')->addMessage('success', );
+    //         return $response->withRedirect('/admin/articles/' . $id);
     //     } else {
-    //         $this->get('flash')->addMessage('errors', $article->getErrors());
+    //         $container->get('flash')->addMessage('errors', $article->getErrors());
     //         return $this->forward('edit', compact('id'));
     //     }
     // }
 
-    public function delete($id)
+    public function delete($request, $response, $args)
     {
-        $currentUser = $this->get('auth')->getCurrentUser();
+        $container = $this->getContainer();
+        $currentUser = $container->get('auth')->getCurrentUser();
 
-        $article = $this->get('blog.model.article')->findOneOrFail(array(
-            'id' => (int) $id,
+        $article = $container->get('blog.model.article')->findOneOrFail(array(
+            'id' => (int) $args['id'],
         ));
 
         // only top brass can delete
@@ -273,10 +280,10 @@ class ArticlesController extends BaseController
         }
 
         if ( $article->delete() ) {
-            $this->get('flash')->addMessage('success', 'Article deleted successfully');
-            return $this->redirect('/admin/articles');
+            $container->get('flash')->addMessage('success', 'Article deleted successfully');
+            return $response->withRedirect('/admin/articles');
         } else {
-            $this->get('flash')->addMessage('errors', $article->getErrors());
+            $container->get('flash')->addMessage('errors', $article->getErrors());
             return $this->forward('edit', array( 'id' => $id ));
         }
     }
@@ -288,6 +295,8 @@ class ArticlesController extends BaseController
      */
     protected function getTagsFromTagIds($ids)
     {
+        $container = $this->getContainer();
+
         // if not an array (e.g. single id), set as one
         // makes life easier for the query when use of "$in" can be assumed
         if (! is_array($ids)) $ids = array($ids);
@@ -298,7 +307,7 @@ class ArticlesController extends BaseController
         }
 
         // get tags from tags[] and write back to params['tags']
-        return $this->get('blog.model.tag')->find(array(
+        return $container->get('blog.model.tag')->find(array(
             'id' => array(
                 '$in' => $ids,
             ),
@@ -323,8 +332,8 @@ class ArticlesController extends BaseController
     //         // useful when managing thousands of photos/articles
     //         // e.g. /var/www/.../data/photos/201601/31/
     //         $dir = $settings['photos_dir']['original'] . '/' . Photo::getNewDir();
-    //         $fileExists = $this->get('fs')->fileExists($dir);
-    //         if (!$fileExists and !$this->get('fs')->makeDir($dir, 0775, true)) {
+    //         $fileExists = $container->get('fs')->fileExists($dir);
+    //         if (!$fileExists and !$container->get('fs')->makeDir($dir, 0775, true)) {
     //             throw new \Exception('Could not create directory');
     //         }
     //
@@ -346,11 +355,11 @@ class ArticlesController extends BaseController
     //             $destpath = $dir . '/' . $file;
     //
     //             // handle the uploaded file
-    //             $this->get('photo_manager')->moveUploadedFile($tmpName, $destpath, $maxWidth=2000, $maxHeight=2000);
+    //             $container->get('photo_manager')->moveUploadedFile($tmpName, $destpath, $maxWidth=2000, $maxHeight=2000);
     //
     //             // create the photo in collection first so that we have an id to
     //             // name the photo by
-    //             $photo = $this->get('Blog\Model\Photo')->create(array(
+    //             $photo = $container->get('Blog\Model\Photo')->create(array(
     //                 'original_file' => $file,
     //                 'type' => $type,
     //                 'width' => $width,

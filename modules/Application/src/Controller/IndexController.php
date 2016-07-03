@@ -3,9 +3,9 @@ namespace Application\Controller;
 
 class IndexController extends BaseController
 {
-    public function index()
+    public function index($request, $response, $args)
     {
-        $container = $this->app->getContainer();
+        $container = $this->getContainer();
 
         // $cacheId = 'homepage_articles';
         // if (! $articles = $this->get('cache')->get($cacheId)) {
@@ -29,12 +29,12 @@ class IndexController extends BaseController
         $this->render('application/index/index', compact('articles', 'carouselPhotos'));
     }
 
-    public function portfolio()
+    public function portfolio($request, $response, $args)
     {
         return $this->render('application/index/portfolio');
     }
 
-    public function contact()
+    public function contact($request, $response, $args)
     {
         return $this->render('application/index/contact');
     }

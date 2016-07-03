@@ -31,13 +31,6 @@
                 <div class="form-group">
                     <input type="text" value="<?= $this->article->title ?>" class="form-control" name="title" id="title" placeholder="<?= $this->translate('common_title') ?>">
                 </div>
-
-                <?php if ($this->currentUser->isAdmin() or $this->currentUser->isEditor()): ?>
-                    <div class="form-group">
-                        <label for="slug"><?= $this->translate('common_slug') ?></label>
-                        <input type="text" value="<?= $this->article->slug ?>" class="form-control" name="slug" id="slug" placeholder="<?= $this->translate('common_slug') ?>">
-                    </div>
-                <?php endif ?>
             </div>
         </div>
 

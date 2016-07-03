@@ -72,6 +72,14 @@ class Article extends Base
         return $value;
     }
 
+    public function setTitle($value)
+    {
+        // set slug too
+        $this->data['slug'] = Utils::slugify($value);
+
+        return $value;
+    }
+
     public function getType($value)
     {
         switch ($this->data['type'])
@@ -92,16 +100,20 @@ class Article extends Base
         return (count($photos)) ? $photos[0] : null;
     }
 
-    /**
-     * Additional Save procedures
-     */
-    public function save($data=array())
-    {
-        // TODO check if a slug of the same name exists 
-        $this->set($data);
-        $this->data['slug'] = Utils::slugify($this->data['name']);
-        return parent::save($data);
-    }
+    // /**
+    //  * Additional Save procedures
+    //  */
+    // public function save($data=array())
+    // {
+    //     if (isset($this->data['title'])) {
+    //         return;
+    //     }
+    //
+    //     // TODO check if a slug of the same name exists
+    //     $this->set($data);
+    //     $this->data['slug'] = Utils::slugify($this->data['title']);
+    //     return parent::save($data);
+    // }
 
     /**
      * @param User $user

@@ -10,8 +10,11 @@ class BaseController extends \Application\Controller\BaseController
      */
     protected function getQueryOptions($options=[])
     {
-        $limit = (int) $this->getQueryParam('limit', 10);
-        $page = (int) $this->getQueryParam('page', 1);
+        $container = $this->getContainer();
+        $request = $container->get('request');
+
+        $limit = (int) $request->getQueryParam('limit', 10);
+        $page = (int) $request->getQueryParam('page', 1);
         $skip = $limit * ($page - 1);
 
         return array_intersect_key(array_merge([
@@ -28,8 +31,11 @@ class BaseController extends \Application\Controller\BaseController
      */
     protected function getPageInfo($count, $path='', $options=[])
     {
+        $container = $this->getContainer();
+        $request = $container->get('request');
+
         return [
-            'page' => (int) $this->getQueryParam('page', 1),
+            'page' => (int) $request->getQueryParam('page', 1),
             'total_pages' => $count ? ceil($count / $options['limit']) : 1,
             'path' => $path,
         ];

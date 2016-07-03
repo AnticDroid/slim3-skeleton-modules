@@ -8,7 +8,7 @@ use Blog\Controller\BaseController;
 
 class TagsController extends BaseController
 {
-    public function index()
+    public function index($request, $response, $args)
     {
         // get tags
         $options = $this->getQueryOptions();
@@ -22,14 +22,14 @@ class TagsController extends BaseController
         return $this->render('blog/admin/tags/index', compact('tags', 'pageInfo'));
     }
 
-    public function create()
+    public function create($request, $response, $args)
     {
         return $this->render('blog/admin/tags/create', array(
             'params' => $this->getPost(),
         ));
     }
 
-    public function post()
+    public function post($request, $response, $args)
     {
         $currentUser = $this->get('auth')->getCurrentUser();
 
@@ -45,8 +45,10 @@ class TagsController extends BaseController
     /**
      * Upon creation too, the tag will be redirect here to edit the tag
      */
-    public function edit($id)
+    public function edit($request, $response, $args)
     {
+        list($id) = $args;
+
         $tag = $this->get('blog.model.tag')->findOneOrFail(array(
             'id' => (int) $id,
         ));
@@ -64,8 +66,10 @@ class TagsController extends BaseController
      * or 2) redirect back to the edit page (upon which they can then submit when they
      * choose to)
      */
-    public function update($id)
+    public function update($request, $response, $args)
     {
+        list($id) = $args;
+
         $tag = $this->get('blog.model.tag')->findOneOrFail(array(
             'id' => (int) $id,
         ));
@@ -83,8 +87,10 @@ class TagsController extends BaseController
         }
     }
 
-    public function delete($id)
+    public function delete($request, $response, $args)
     {
+        list($id) = $args;
+
         $tag = $this->get('blog.model.tag')->findOneOrFail(array(
             'id' => (int) $id,
         ));

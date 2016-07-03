@@ -14,15 +14,15 @@ abstract class BaseController extends \Application\Controller\BaseController
      */
     protected function returnTo($returnTo)
     {
-        $container = $this->app->getContainer();
+        $container = $this->getContainer();
         $settings = $container->get('settings');
 
         // check returnTo
         $host = parse_url($returnTo, PHP_URL_HOST);
         if ($host and !preg_match($settings['valid_return_to'], $host)) {
-            throw new InvalidReturnToUrl( $this->get('i18n')->translate('invalid_return_to') );
+            throw new InvalidReturnToUrl( $container->get('i18n')->translate('invalid_return_to') );
         }
 
-        return parent::redirect($returnTo);
+        return $container->get('response')->withRedirect($returnTo);
     }
 }

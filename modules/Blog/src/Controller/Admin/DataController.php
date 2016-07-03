@@ -8,16 +8,16 @@ use Blog\Controller\BaseController;
 
 class DataController extends BaseController
 {
-    public function init()
-    {
-        // only admin can do anything here
-        $currentUser = $this->get('auth')->getCurrentUser();
-        if (! $currentUser->isAdmin() ) {
-            throw new PermissionDenied('Permission denied to manage tags.');
-        }
-    }
+    // public function init()
+    // {
+    //     // only admin can do anything here
+    //     $currentUser = $this->get('auth')->getCurrentUser();
+    //     if (! $currentUser->isAdmin() ) {
+    //         throw new PermissionDenied('Permission denied to manage tags.');
+    //     }
+    // }
 
-    public function import()
+    public function import($request, $response, $args)
     {
         if ($this->request->isPost()) {
 

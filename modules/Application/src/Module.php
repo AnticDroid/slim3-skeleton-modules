@@ -81,13 +81,13 @@ class Module extends AbstractModule
 
         // replace request with our own
         $container['request'] = function($c) use ($settings) {
-            return \MartynBiz\Slim3Controller\Http\Request::createFromEnvironment($c->get('environment'));
+            return \Application\Http\Request::createFromEnvironment($c->get('environment'));
         };
 
         // replace reponse with our own
         $container['response'] = function($c) use ($settings) {
             $headers = new \Slim\Http\Headers(['Content-Type' => 'text/html; charset=UTF-8']);
-            $response = new \MartynBiz\Slim3Controller\Http\Response(200, $headers);
+            $response = new \Application\Http\Response(200, $headers);
             return $response->withProtocolVersion($c->get('settings')['httpVersion']);
         };
 
@@ -201,25 +201,20 @@ class Module extends AbstractModule
         $container = $app->getContainer();
 
         $app->group('', function () use ($app) {
-
-            $controller = new \Application\Controller\IndexController($app);
-
-            $app->get('/', $controller('index'))->setName('home');
-            $app->get('/portfolio', $controller('portfolio'))->setName('portfolio');
-
-            $app->get('/contact', $controller('contact'))->setName('contact');
-            $app->post('/contact', $controller('contact'))->setName('contact');
+            $app->get('/',
+                '\Application\Controller\IndexController:index')->setName('home');
+            $app->get('/portfolio',
+                '\Application\Controller\IndexController:portfolio')->setName('portfolio');
+            $app->get('/contact',
+                '\Application\Controller\IndexController:contact')->setName('contact');
+            $app->post('/contact',
+                '\Application\Controller\IndexController:contact')->setName('contact');
         });
 
-        // admin routes -- invokes auth middleware
         $app->group('/admin', function () use ($app) {
-
-            // admin/users routes
             $app->group('', function () use ($app) {
-
-                $controller = new \Application\Controller\Admin\IndexController($app);
-
-                $app->get('', $controller('index'))->setName('admin');
+                $app->get('',
+                    '\Application\Controller\Admin\IndexController:index')->setName('admin');
             });
         })
         // ->add( new \Auth\Middleware\AdminOnly( $container['auth'] ) ) // user must be admin

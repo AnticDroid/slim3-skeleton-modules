@@ -16,10 +16,11 @@ class SessionController extends BaseController
      * Index will serve as a landing page for both GET login and logout
      * GET /session
      */
-    public function index()
+    public function index($request, $response, $args)
     {
         // GET and POST
-        $params = array_merge($this->getQueryParams(), $this->getPost());
+        $params = array_merge($request->getQueryParams(), $request->getParams());
+        $container = $this->getContainer();
 
         // // check for remember me cookie.
         // // if found, get the account and set attributes
@@ -135,7 +136,7 @@ class SessionController extends BaseController
             // will serve as a landing page, although most typically apps will send
             // a DELETE request which will be handled by the delete() method
             // if the user is not authenticated, the show the login page
-            if ($this->get('auth')->isAuthenticated()) {
+            if ($container->get('auth')->isAuthenticated()) {
                 return $this->render('auth/session/logout', compact('params'));
             } else {
                 return $this->render('auth/session/login', compact('params'));
@@ -147,17 +148,18 @@ class SessionController extends BaseController
     /**
      * POST /session -- login
      */
-    public function post()
+    public function post($request, $response, $args)
     {
         // GET and POST
-        $params = array_merge($this->getQueryParams(), $this->getPost());
-        $settings = $this->get('settings');
+        $params = array_merge($request->getQueryParams(), $request->getParams());
+        $container = $this->getContainer();
+        $settings = $container->get('settings');
 
         // authentice with the email (might even be username, which is fine) and pw
-        if ($this->get('auth')->authenticate($params['email'], $params['password'])) {
+        if ($container->get('auth')->authenticate($params['email'], $params['password'])) {
 
             // as authentication has passed, get the user by email OR username
-            $user = $this->get('auth.model.user')->findOne(array('$or' => array(
+            $user = $container->get('auth.model.user')->findOne(array('$or' => array(
                 array('email' => $params['email']),
                 array('username' => $params['email'])
             )));
@@ -172,7 +174,7 @@ class SessionController extends BaseController
 
             // set attributes. valid_attributes will only set the fields we
             // want to be avialable (e.g. not password)
-            $this->get('auth')->setAttributes( $user->toArray() );
+            $container->get('auth')->setAttributes( $user->toArray() );
 
             // redirect back to returnTo, or /session (logout page - default) if not provided
             isset($params['returnTo']) or $params['returnTo'] = '/';
@@ -192,10 +194,11 @@ class SessionController extends BaseController
     /**
      * DELETE /session -- logout
      */
-    public function delete()
+    public function delete($request, $response, $args)
     {
         // combine GET and POST params
-        $params = array_merge($this->getQueryParams(), $this->getPost());
+        $params = array_merge($request->getQueryParams(), $request->getParams());
+        $container = $this->getContainer();
         $settings = $this->get('settings');
 
         // // also, delete any auth_token we have for the account and cookie
@@ -207,7 +210,7 @@ class SessionController extends BaseController
         // }
 
         // this will effective end the "session" by clearning out the session vars
-        $this->get('auth')->clearAttributes();
+        $container->get('auth')->clearAttributes();
 
         // redirect back to returnTo, or /session (logout page) if not provided
         isset($params['returnTo']) or $params['returnTo'] = '/';

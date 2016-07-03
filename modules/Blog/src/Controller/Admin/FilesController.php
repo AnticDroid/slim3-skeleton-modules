@@ -11,7 +11,7 @@ use Blog\Controller\BaseController;
 
 class FilesController extends BaseController
 {
-    public function upload()
+    public function upload($request, $response, $args)
     {
         $params = array_merge($this->getQueryParams(), $this->getPost());
         $container = $this->app->getContainer();
